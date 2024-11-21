@@ -1,7 +1,7 @@
 ---
 name: "✅ FEATURE: 로그인 페이지 구현 (예시)"
 about: 이슈 생성 템플릿
-title: ''
+title: 'Issue: ✅ FEATURE: 로그인 페이지 구현 (예시) '
 labels: ''
 assignees: ''
 
