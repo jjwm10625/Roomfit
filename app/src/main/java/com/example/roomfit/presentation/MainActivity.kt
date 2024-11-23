@@ -1,3 +1,4 @@
+// app/src/main/java/com/example/roomfit/presentation/MainActivity.kt
 package com.example.roomfit.presentation
 
 import android.os.Bundle
@@ -15,9 +16,11 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
@@ -26,6 +29,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.roomfit.presentation.login.FindPwScreen
+import com.example.roomfit.presentation.login.LoginScreen
+import com.example.roomfit.presentation.login.PwResultScreen
+import com.example.roomfit.presentation.login.SignUpScreen
 import com.gdg.kakaobank.presentation.navigator.RoomNav
 import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
@@ -42,18 +49,26 @@ class MainActivity : ComponentActivity() {
             RoomfitTheme {
                 val navController = rememberNavController()
                 val screens = listOf(RoomNav.Home, RoomNav.Write, RoomNav.Message, RoomNav.User)
+                val currentBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentDestination = currentBackStackEntry?.destination
 
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        BottomNavigationBar(navController = navController, screens = screens)
+                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up")) {
+                            BottomNavigationBar(navController = navController, screens = screens)
+                        }
                     }
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = RoomNav.Home.route,
+                        startDestination = "login", // 로그인 페이지를 시작 경로로 설정
                         modifier = Modifier.padding(innerPadding)
                     ) {
+                        composable("login") { LoginScreen(navController = navController) }
+                        composable("find_pw") { FindPwScreen(navController = navController) }
+                        composable("result_pw") { PwResultScreen(navController = navController) }
+                        composable("sign_up") { SignUpScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { MessageScreen() }
@@ -87,7 +102,7 @@ fun BottomNavigationBar(
                     Icon(
                         painterResource(id = screen.icon),
                         contentDescription = null,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier.size(30.dp)
                     )
                 },
                 selected = currentRoute == screen.route,
@@ -106,6 +121,33 @@ fun BottomNavigationBar(
                     }
                 }
             )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainActivityPreview() {
+    RoomfitTheme {
+        val navController = rememberNavController()
+        val screens = listOf(RoomNav.Home, RoomNav.Write, RoomNav.Message, RoomNav.User)
+
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            bottomBar = {
+                BottomNavigationBar(navController = navController, screens = screens)
+            }
+        ) { innerPadding ->
+            NavHost(
+                navController = navController,
+                startDestination = RoomNav.Home.route,
+                modifier = Modifier.padding(innerPadding)
+            ) {
+                composable(RoomNav.Home.route) { HomeScreen() }
+                composable(RoomNav.Write.route) { WriteScreen() }
+                composable(RoomNav.Message.route) { MessageScreen() }
+                composable(RoomNav.User.route) { UserScreen() }
+            }
         }
     }
 }

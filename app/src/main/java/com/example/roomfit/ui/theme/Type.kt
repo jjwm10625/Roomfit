@@ -22,6 +22,8 @@ val Typography = Typography(
 )
 
 
+val mulishBold = FontFamily(Font(R.font.mulish_bold, FontWeight.Bold))
+
 val pretendardBold = FontFamily(Font(R.font.pretendard_bold, FontWeight.Bold))
 val pretendardSemiBold = FontFamily(Font(R.font.pretendard_semibold, FontWeight.SemiBold))
 val pretendardRegular = FontFamily(Font(R.font.pretendard_regular, FontWeight.Normal))
@@ -58,12 +60,29 @@ var bodyBold = TextStyle(
 var bodyDetail = TextStyle(
     fontFamily = pretendardSemiBold,
     fontWeight = FontWeight.SemiBold,
-    fontSize = 35.sp
+    fontSize = 18.sp
 )
 
 var bodyWriting = TextStyle(
     fontFamily = pretendardRegular,
     fontWeight = FontWeight.Normal,
-    fontSize = 35.sp
+    fontSize = 18.sp
 )
 
+var loginTitle = TextStyle(
+    fontFamily = mulishBold,
+    fontWeight = FontWeight.Bold,
+    fontSize = 38.sp
+)
+
+var LoginButton = TextStyle(
+    fontFamily = mulishBold,
+    fontWeight = FontWeight.Bold,
+    fontSize = 18.sp
+)
+
+var LoginInput = TextStyle(
+    fontFamily = pretendardRegular,
+    fontWeight = FontWeight.Normal,
+    fontSize = 18.sp
+)
