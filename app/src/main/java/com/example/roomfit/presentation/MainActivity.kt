@@ -33,6 +33,7 @@ import com.example.roomfit.presentation.login.FindPwScreen
 import com.example.roomfit.presentation.login.LoginScreen
 import com.example.roomfit.presentation.login.PwResultScreen
 import com.example.roomfit.presentation.login.SignUpScreen
+import com.example.roomfit.presentation.login.UserInfoScreen
 import com.gdg.kakaobank.presentation.navigator.RoomNav
 import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
@@ -55,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up")) {
+                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -69,6 +70,7 @@ class MainActivity : ComponentActivity() {
                         composable("find_pw") { FindPwScreen(navController = navController) }
                         composable("result_pw") { PwResultScreen(navController = navController) }
                         composable("sign_up") { SignUpScreen(navController = navController) }
+                        composable("user_info") { UserInfoScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { MessageScreen() }

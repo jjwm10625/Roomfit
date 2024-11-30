@@ -98,8 +98,7 @@ fun SignUpScreen(navController: NavController) {
             LoginButton(
                 text = "NEXT",
                 onClick = {
-                    // 경로변경
-                    //navController.navigate("home")
+                    navController.navigate("user_info")
                 },
                 buttonColor = BtnBlack,
                 textColor = Color.White

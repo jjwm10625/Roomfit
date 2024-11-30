@@ -57,6 +57,18 @@ var bodyBold = TextStyle(
     fontSize = 40.sp
 )
 
+var textfield = TextStyle(
+    fontFamily = pretendardBold,
+    fontWeight = FontWeight.Bold,
+    fontSize = 14.sp
+)
+
+var textfield2 = TextStyle(
+    fontFamily = pretendardRegular,
+    fontWeight = FontWeight.Bold,
+    fontSize = 14.sp
+)
+
 var bodyDetail = TextStyle(
     fontFamily = pretendardSemiBold,
     fontWeight = FontWeight.SemiBold,
@@ -73,6 +85,11 @@ var loginTitle = TextStyle(
     fontFamily = mulishBold,
     fontWeight = FontWeight.Bold,
     fontSize = 38.sp
+)
+var loginTitle2 = TextStyle(
+    fontFamily = mulishBold,
+    fontWeight = FontWeight.Bold,
+    fontSize = 30.sp
 )
 
 var LoginButton = TextStyle(
