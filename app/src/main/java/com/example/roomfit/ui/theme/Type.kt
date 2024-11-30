@@ -86,3 +86,9 @@ var LoginInput = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 18.sp
 )
+
+var UserInfo = TextStyle(
+    fontFamily = pretendardRegular,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp
+)
