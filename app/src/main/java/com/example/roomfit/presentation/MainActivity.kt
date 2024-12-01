@@ -71,10 +71,11 @@ class MainActivity : ComponentActivity() {
                         composable("result_pw") { PwResultScreen(navController = navController) }
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
+                        composable("user_edit") { UserEditScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { MessageScreen() }
-                        composable(RoomNav.User.route) { UserScreen() }
+                        composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }
                 }
             }
@@ -148,7 +149,7 @@ fun MainActivityPreview() {
                 composable(RoomNav.Home.route) { HomeScreen() }
                 composable(RoomNav.Write.route) { WriteScreen() }
                 composable(RoomNav.Message.route) { MessageScreen() }
-                composable(RoomNav.User.route) { UserScreen() }
+                composable(RoomNav.User.route) { UserScreen(navController = navController) }
             }
         }
     }
