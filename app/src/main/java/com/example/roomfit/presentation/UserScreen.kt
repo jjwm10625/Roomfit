@@ -27,7 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.mate.UserCard
+import com.example.roomfit.presentation.components.UserCard
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite

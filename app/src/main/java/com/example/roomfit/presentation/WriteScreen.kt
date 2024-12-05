@@ -4,9 +4,7 @@ import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -26,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.roomfit.presentation.mate.MateButton
 import com.example.roomfit.presentation.mate.MateOrRoomButton
-import com.example.roomfit.presentation.mate.NewPostScreen
 import com.example.roomfit.presentation.mate.PostText
 import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -36,7 +33,6 @@ import com.example.roomfit.ui.theme.Gray
 import com.example.roomfit.ui.theme.ImageWhite
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
-import com.example.roomfit.ui.theme.bodyWriting
 
 @Composable
 fun WriteScreen() {
