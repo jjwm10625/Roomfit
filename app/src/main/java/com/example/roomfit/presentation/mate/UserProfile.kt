@@ -31,14 +31,11 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.bodyWriting
 
-@Preview
 @Composable
 fun UserProfile(
-    name: String = "김채현",
-    department: String = "컴퓨터공학과 3학년"
+    name: String,
 ) {
     var userName by remember { mutableStateOf(name) }
-    var userDepartment by remember { mutableStateOf(department) }
 
     Column(
         modifier = Modifier
@@ -75,15 +72,18 @@ fun UserProfile(
 
                 Text(text = "♀") // 성별 아이콘
             }
-
                 Spacer(modifier = Modifier.height(5.dp)) // 이름과 학과 간 여백
 
-                Text(
-                    text = userDepartment,
-                    style = bodyWriting,
-                    color = ComponentBeige
-                )
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun PreviewUserProfile() {
+    UserProfile(
+        name = "김채현"
+    )
 }

@@ -27,7 +27,6 @@ fun UserCard(navController: NavController, modifier: Modifier = Modifier) {
             .fillMaxWidth(0.8f)
             .clip(RoundedCornerShape(16.dp))
             .background(color = OffWhite)
-            .border(1.dp, color = BtnBeige, shape = RoundedCornerShape(16.dp))
             .padding(16.dp)
     ) {
         Spacer(modifier = Modifier.height(6.dp))
