@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation.mate
+package com.example.roomfit.presentation.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -14,11 +14,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
-import com.example.roomfit.ui.theme.buttonSmall
 
 @Composable
 fun UserCard(navController: NavController, modifier: Modifier = Modifier) {
