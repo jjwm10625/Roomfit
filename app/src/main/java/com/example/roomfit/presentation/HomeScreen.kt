@@ -24,7 +24,7 @@ import com.example.roomfit.ui.theme.homeTitle
 
 @Composable
 fun HomeScreen(
-
+    navController: NavController,
 ) {
     NavController(LocalContext.current)
     Column(
@@ -57,7 +57,8 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             HomeMateCard(
-                navController = NavController(LocalContext.current),
+                navController = navController,
+                onClick = { navController.navigate("home_mate") },
                 userName = "김채현",
                 postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
             )
@@ -69,5 +70,7 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    HomeScreen()
+    HomeScreen(
+        navController = rememberNavController()
+    )
 }

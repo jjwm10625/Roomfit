@@ -179,9 +179,7 @@ fun DetailMateCard(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = {
-                    /* 채팅 화면으로 이동 */
-                },
+                onClick = {/* 채팅 화면으로 이동 */ },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BtnBlack
                 ),

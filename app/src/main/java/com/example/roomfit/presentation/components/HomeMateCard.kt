@@ -23,9 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.BtnBeige
@@ -41,6 +39,7 @@ fun HomeMateCard(
     navController: NavController,
     userName: String,
     postTitle: String,
+    onClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -107,7 +106,7 @@ fun HomeMateCard(
 
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally // Center items horizontally
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
                 onClick = { navController.navigate("home_mate") },
@@ -125,14 +124,4 @@ fun HomeMateCard(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewHomeMateCard() {
-    HomeMateCard(
-        navController = rememberNavController(),
-        userName = "김채현",
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
-    )
 }
