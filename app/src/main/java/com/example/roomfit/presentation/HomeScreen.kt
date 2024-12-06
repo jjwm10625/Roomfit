@@ -58,14 +58,12 @@ fun HomeScreen(
 
             HomeMateCard(
                 navController = navController,
-                onClick = { navController.navigate("home_mate") },
                 userName = "김채현",
                 postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
             )
         }
     }
 }
-
 
 @Preview
 @Composable

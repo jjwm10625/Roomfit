@@ -39,7 +39,6 @@ fun HomeMateCard(
     navController: NavController,
     userName: String,
     postTitle: String,
-    onClick: () -> Unit,
 ) {
     Column(
         modifier = Modifier

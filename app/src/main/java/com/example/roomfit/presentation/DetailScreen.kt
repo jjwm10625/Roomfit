@@ -80,7 +80,6 @@ fun DetailScreen(navController: NavController) {
             postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
             postContent = "저는 고양이를 키우고 있어서\n털 알러지 없는 분들로 받겠습니다!"
         )
-
     }
 }
 
