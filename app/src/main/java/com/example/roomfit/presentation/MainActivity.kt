@@ -72,6 +72,10 @@ class MainActivity : ComponentActivity() {
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
                         composable("user_edit") { UserEditScreen(navController = navController) }
+                        composable("my_post") { MyPostScreen(navController = navController) }
+                        composable("scrap") { ScrapListScreen(navController = navController) }
+
+
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { MessageScreen() }
