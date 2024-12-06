@@ -137,6 +137,6 @@ UserCard(
 @Preview(showBackground = true)
 @Composable
 fun UserScreenPreview() {
-    // NavController를 전달할 수 없으므로 빈 함수로 대체
+    // NavController 전달할 수 없으므로 빈 함수로 대체
     UserScreen(navController = NavController(LocalContext.current))
 }
