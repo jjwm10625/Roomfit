@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme.colors
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
@@ -91,7 +92,7 @@ UserCard(
 
 
         Button(
-            onClick = { /* 내 게시글 관리 화면으로 이동 */ },
+            onClick = { navController.navigate("my_post") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -113,7 +114,7 @@ UserCard(
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
-            onClick = { /* 내찜목록 화면으로 이동 */ },
+            onClick = { navController.navigate("scrap") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
