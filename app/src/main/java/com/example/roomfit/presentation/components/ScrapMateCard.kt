@@ -156,6 +156,7 @@ fun ScrapMateCard(
     }
 }
 
+
 @Preview
 @Composable
 fun ScrapMateCardPreview() {

@@ -196,6 +196,7 @@ fun DetailMateCard(
 }
 
 
+
 @Preview
 @Composable
 fun DetailMateCardPreview() {
