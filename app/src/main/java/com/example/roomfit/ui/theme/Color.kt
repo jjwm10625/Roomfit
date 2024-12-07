@@ -8,6 +8,8 @@ val BtnBeige = Color(0xFFD0CDC2)
 val Gray = Color(0xFFB5B5BE)
 val Black = Color(0xFF000000)
 val BtnBlack = Color(0xFF241C1C)
+val BtnGray = Color(0xFF595555)
+
 val OffWhite = Color(0xFFF5F4F2)
 val ComponentBeige = Color(0xFF959182)
 val ImageWhite = Color(0xFFEEEEEE)

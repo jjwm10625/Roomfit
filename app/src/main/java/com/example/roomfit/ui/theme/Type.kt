@@ -109,6 +109,24 @@ var LoginInput = TextStyle(
     fontSize = 18.sp
 )
 
+var Chat1 = TextStyle(
+    fontFamily = pretendardRegular,
+    fontWeight = FontWeight.Normal,
+    fontSize = 15.sp
+)
+
+var Chat2 = TextStyle(
+    fontFamily = pretendardBold,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp
+)
+
+var Chat3 = TextStyle(
+    fontFamily = pretendardRegular,
+    fontWeight = FontWeight.Normal,
+    fontSize = 16.sp
+)
+
 var UserInfo = TextStyle(
     fontFamily = pretendardRegular,
     fontWeight = FontWeight.Normal,
