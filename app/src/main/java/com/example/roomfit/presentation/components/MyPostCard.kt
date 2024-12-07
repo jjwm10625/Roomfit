@@ -53,9 +53,9 @@ fun MyPostCard(
         Spacer(modifier = Modifier.height(16.dp))
 
         MateButton(
-            text = "수정하기",
+            text = "삭제하기",
             onClick = {
-                Toast.makeText(context, "수정하기", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "삭제되었습니다!", Toast.LENGTH_SHORT).show()
             }
         )
     }
