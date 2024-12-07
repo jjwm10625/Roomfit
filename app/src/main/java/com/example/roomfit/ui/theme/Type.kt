@@ -114,9 +114,3 @@ var UserInfo = TextStyle(
     fontWeight = FontWeight.Normal,
     fontSize = 16.sp
 )
-
-var homeTitle = TextStyle(
-    fontFamily = mulishBold,
-    fontWeight = FontWeight.Bold,
-    fontSize = 30.sp
-)

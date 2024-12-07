@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info", "user_edit", "home_mate", "my_post", "scrap")) {
+                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -72,11 +72,7 @@ class MainActivity : ComponentActivity() {
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
                         composable("user_edit") { UserEditScreen(navController = navController) }
-                        composable("home_mate") { DetailScreen(navController = navController) }
-                        composable("my_post") { MyPostScreen(navController = navController) }
-                        composable("scrap") { ScrapListScreen(navController = navController) }
-
-                        composable(RoomNav.Home.route) { HomeScreen(navController) }
+                        composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { MessageScreen() }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
@@ -150,7 +146,7 @@ fun MainActivityPreview() {
                 startDestination = RoomNav.Home.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(RoomNav.Home.route) { HomeScreen(navController) }
+                composable(RoomNav.Home.route) { HomeScreen() }
                 composable(RoomNav.Write.route) { WriteScreen() }
                 composable(RoomNav.Message.route) { MessageScreen() }
                 composable(RoomNav.User.route) { UserScreen(navController = navController) }

@@ -91,7 +91,7 @@ UserCard(
 
 
         Button(
-            onClick = { navController.navigate("my_post") },
+            onClick = { /* 내 게시글 관리 화면으로 이동 */ },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -113,7 +113,7 @@ UserCard(
         Spacer(modifier = Modifier.height(10.dp))
 
         Button(
-            onClick = { navController.navigate("scrap") },
+            onClick = { /* 내찜목록 화면으로 이동 */ },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -137,6 +137,6 @@ UserCard(
 @Preview(showBackground = true)
 @Composable
 fun UserScreenPreview() {
-    // NavController 전달할 수 없으므로 빈 함수로 대체
+    // NavController를 전달할 수 없으므로 빈 함수로 대체
     UserScreen(navController = NavController(LocalContext.current))
 }
