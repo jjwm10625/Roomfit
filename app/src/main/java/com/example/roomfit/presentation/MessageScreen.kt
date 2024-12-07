@@ -9,6 +9,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,12 +18,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavType
-import androidx.navigation.navArgument
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.NavHost
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.ChatRow
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -30,7 +28,10 @@ import com.example.roomfit.ui.theme.UserTitle
 import com.example.roomfit.ui.theme.bodyWriting
 
 @Composable
-fun MessageScreen(navController: NavController, lastMessage: String) {
+fun MessageScreen(navController: NavController, lastMessage: String, chatViewModel: ChatViewModel = viewModel()) {
+    val messagesState = chatViewModel.messages.collectAsState()
+    val messages = messagesState.value
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -70,5 +71,5 @@ fun MessageScreen(navController: NavController, lastMessage: String) {
 @Preview(showBackground = true)
 @Composable
 fun MessageScreenPreview() {
-    MessageScreen(navController = rememberNavController(), lastMessage = "마지막 메시지")
+    MessageScreen(navController = rememberNavController(), lastMessage = "No messages")
 }

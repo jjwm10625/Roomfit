@@ -17,6 +17,8 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -73,12 +75,15 @@ class MainActivity : ComponentActivity() {
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
                         composable("user_edit") { UserEditScreen(navController = navController) }
-                        composable("chat") { ChatScreen(navController = navController) }
+                        composable("chat") {
+                            ChatScreen(navController = navController)
+                        }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
-                            MessageScreen(navController = navController, lastMessage = lastMessage)
+                            MessageScreen(navController = navController,
+                                lastMessage = lastMessage)
                         }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }

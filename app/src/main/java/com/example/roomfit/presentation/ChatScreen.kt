@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -18,23 +19,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.ui.theme.BackgroundBeige
-import com.example.roomfit.ui.theme.BtnBeige
-import com.example.roomfit.ui.theme.BtnBlack
-import com.example.roomfit.ui.theme.LoginInput
-import com.example.roomfit.ui.theme.UserTitle
+import com.example.roomfit.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(navController: NavController) {
+fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = viewModel()) {
     val currentDate = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) }
     var message by remember { mutableStateOf("") }
-    val messages = remember { mutableStateListOf<Pair<String, Boolean>>() }
     val timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
+    val messages by chatViewModel.messages.collectAsState()
 
     Box(
         modifier = Modifier
@@ -53,7 +52,9 @@ fun ChatScreen(navController: NavController) {
                     .padding(vertical = 16.dp)
             ) {
                 IconButton(
-                    onClick = { navController.navigate("message/${messages.lastOrNull()?.first ?: ""}") },
+                    onClick = {
+                        navController.popBackStack()
+                    }, // 이전 화면으로 돌아가기
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
                     Image(
@@ -73,7 +74,7 @@ fun ChatScreen(navController: NavController) {
             // 오늘의 날짜 표시
             Text(
                 text = currentDate,
-                style = LoginInput,
+                style = Chat1,
                 modifier = Modifier.padding(16.dp)
             )
 
@@ -84,9 +85,10 @@ fun ChatScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(8.dp),
-                reverseLayout = true
+                reverseLayout = false
             ) {
-                items(messages) { (msg, isMine) ->
+                items(messages) { messagePair ->
+                    val (msg, isMine) = messagePair
                     val currentTime = timeFormat.format(Date())
                     Box(
                         modifier = Modifier
@@ -99,18 +101,19 @@ fun ChatScreen(navController: NavController) {
                         ) {
                             Text(
                                 text = msg,
-                                color = Color.White,
+                                style = Chat2,
+                                color = BtnBeige,
                                 modifier = Modifier
                                     .background(
-                                        color = BtnBeige,
-                                        shape = RoundedCornerShape(16.dp)
+                                        color = BtnBlack,
+                                        shape = RoundedCornerShape(22.dp)
                                     )
-                                    .padding(16.dp)
+                                    .padding(horizontal = 25.dp, vertical = 15.dp) // 좌우 패딩 추가
                             )
                             Text(
                                 text = currentTime,
-                                color = BtnBlack,
-                                modifier = Modifier.padding(top = 4.dp)
+                                color = BtnGray,
+                                modifier = Modifier.padding(2.dp, 4.dp, 2.dp, 0.dp)
                             )
                         }
                     }
@@ -119,37 +122,46 @@ fun ChatScreen(navController: NavController) {
         }
 
         // 채팅 메시지 입력 및 전송 버튼
-        Row(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
+                .background(BtnBeige)
                 .padding(16.dp)
                 .align(Alignment.BottomCenter)
-                .background(BtnBeige),
-            verticalAlignment = Alignment.CenterVertically
         ) {
-            TextField(
-                value = message,
-                onValueChange = { message = it },
-                modifier = Modifier
-                    .weight(1f)
-                    .background(Color.Transparent),
-                colors = TextFieldDefaults.textFieldColors(
-                    containerColor = Color.White,
-                    focusedTextColor = Color.Black,
-                    unfocusedTextColor = Color.Black
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                TextField(
+                    value = message,
+                    onValueChange = { message = it },
+                    modifier = Modifier
+                        .weight(1f)
+                        .background(Color.Transparent),
+                    shape = RoundedCornerShape(30.dp),
+                    textStyle = Chat3, // 텍스트 스타일 설정
+                    placeholder = { Text("메시지를 입력하세요.", style = Chat2, color = Gray) }, // 플레이스홀더 설정
+                    colors = TextFieldDefaults.textFieldColors(
+                        containerColor = Color.White,
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Color.Black,
+                        focusedIndicatorColor = Color.Transparent, // 밑줄 제거
+                        unfocusedIndicatorColor = Color.Transparent // 밑줄 제거
+                    )
                 )
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            IconButton(onClick = {
-                if (message.isNotBlank()) {
-                    messages.add(Pair(message, true)) // 내가 보낸 메시지
-                    message = ""
+                Spacer(modifier = Modifier.width(8.dp))
+                IconButton(onClick = {
+                    if (message.isNotBlank()) {
+                        chatViewModel.addMessage(message, true) // 내가 보낸 메시지 추가
+                        message = ""
+                    }
+                }) {
+                    Image(
+                        painter = painterResource(id = R.drawable.send),
+                        contentDescription = "Send Button"
+                    )
                 }
-            }) {
-                Image(
-                    painter = painterResource(id = R.drawable.send),
-                    contentDescription = "Send Button"
-                )
             }
         }
     }
@@ -158,5 +170,6 @@ fun ChatScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun ChatScreenPreview() {
-    ChatScreen(navController = rememberNavController())
+    val navController = rememberNavController()
+    ChatScreen(navController = navController)
 }
