@@ -2,7 +2,6 @@ package com.example.roomfit.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,37 +23,45 @@ import androidx.navigation.NavController
 import com.example.roomfit.R
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.UserTitle
-import com.example.roomfit.ui.theme.bodyWriting
 
-    @Composable
-    fun MessageScreen(navController: NavController) {
-        Box(
+@Composable
+fun ChatScreen(navController: NavController) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(BackgroundBeige)
+    ) {
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(BackgroundBeige)
+                .verticalScroll(rememberScrollState()),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Column(
+            // 상단 제목 및 뒤로가기 버튼
+            Box(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState()),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .fillMaxWidth()
+                    .background(Color.White)
+                    .padding(vertical = 16.dp)
             ) {
-                // 상단 제목 및 뒤로가기 버튼
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(Color.White)
-                        .padding(vertical = 16.dp)
+                IconButton(
+                    onClick = { navController.navigate("message") },
+                    modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
-                    Text(
-                        text = "내 프로필",
-                        style = UserTitle,
-                        modifier = Modifier.align(Alignment.Center)
+                    Image(
+                        painter = painterResource(id = R.drawable.backbutton),
+                        contentDescription = "Back Button"
                     )
                 }
-
-                Spacer(modifier = Modifier.height(50.dp))
-
+                Text(
+                    text = "내 프로필",
+                    style = UserTitle,
+                    modifier = Modifier.align(Alignment.Center)
+                )
             }
+
+            Spacer(modifier = Modifier.height(50.dp))
+
         }
     }
+}

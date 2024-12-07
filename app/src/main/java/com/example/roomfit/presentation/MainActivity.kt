@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info")) {
+                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info", "chat")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -72,9 +72,10 @@ class MainActivity : ComponentActivity() {
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
                         composable("user_edit") { UserEditScreen(navController = navController) }
+                        composable("chat") { ChatScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
-                        composable(RoomNav.Message.route) { MessageScreen() }
+                        composable(RoomNav.Message.route) { MessageScreen(navController = navController) }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }
                 }
@@ -148,7 +149,7 @@ fun MainActivityPreview() {
             ) {
                 composable(RoomNav.Home.route) { HomeScreen() }
                 composable(RoomNav.Write.route) { WriteScreen() }
-                composable(RoomNav.Message.route) { MessageScreen() }
+                composable(RoomNav.Message.route) { MessageScreen(navController = navController) }
                 composable(RoomNav.User.route) { UserScreen(navController = navController) }
             }
         }
