@@ -1,4 +1,4 @@
-// app/src/main/java/com/example/roomfit/presentation/MainActivity.kt
+// MainActivity.kt
 package com.example.roomfit.presentation
 
 import android.os.Bundle
@@ -25,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -75,7 +76,10 @@ class MainActivity : ComponentActivity() {
                         composable("chat") { ChatScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen() }
                         composable(RoomNav.Write.route) { WriteScreen() }
-                        composable(RoomNav.Message.route) { MessageScreen(navController = navController) }
+                        composable(RoomNav.Message.route) { backStackEntry ->
+                            val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
+                            MessageScreen(navController = navController, lastMessage = lastMessage)
+                        }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }
                 }
@@ -149,7 +153,10 @@ fun MainActivityPreview() {
             ) {
                 composable(RoomNav.Home.route) { HomeScreen() }
                 composable(RoomNav.Write.route) { WriteScreen() }
-                composable(RoomNav.Message.route) { MessageScreen(navController = navController) }
+                composable(RoomNav.Message.route) { backStackEntry ->
+                    val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
+                    MessageScreen(navController = navController, lastMessage = lastMessage)
+                }
                 composable(RoomNav.User.route) { UserScreen(navController = navController) }
             }
         }
