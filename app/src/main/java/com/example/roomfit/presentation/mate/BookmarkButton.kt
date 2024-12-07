@@ -1,5 +1,6 @@
 package com.example.roomfit.presentation.mate
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,11 +11,9 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,10 +24,9 @@ import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.White
 
 @Composable
-fun MateOrRoomButton() {
+fun BookmarkButton() {
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
-
-    var selectedButton by remember { mutableStateOf("사람을 구해요!") }
+    val context = LocalContext.current
 
     Row(
         modifier = Modifier
@@ -36,37 +34,42 @@ fun MateOrRoomButton() {
             .padding(16.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        // Left Button: 사람을 구해요
+        // Left Button: 찜하기
         Button(
             modifier = Modifier
                 .height(55.dp)
                 .weight(1f),
-            onClick = { selectedButton = "사람을 구해요!" },
+            onClick = {
+                Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
+            },
             colors = ButtonDefaults.buttonColors(
-                containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
+                containerColor = BtnBeige
             ),
             shape = RoundedCornerShape(50)
         ) {
             Text(
-                text = "사람을 구해요!",
-                color = if (selectedButton == "사람을 구해요!") White else Black,
-                style = customLoginButtonStyle)
+                text = "찜하기",
+                color = Black,
+                style = customLoginButtonStyle
+            )
         }
 
-        // Right Button: 방을 구해요
+        // Right Button: 채팅하기
         Button(
             modifier = Modifier
                 .height(55.dp)
                 .weight(1f),
-            onClick = { selectedButton = "방을 구해요!" },
+            onClick = {
+                /* 채팅 화면으로 이동 */
+            },
             colors = ButtonDefaults.buttonColors(
-                containerColor = if (selectedButton == "방을 구해요!") BtnBlack else BtnBeige
+                containerColor = BtnBlack
             ),
             shape = RoundedCornerShape(50)
         ) {
             Text(
-                text = "방을 구해요!",
-                color = if (selectedButton == "방을 구해요!") White else Black,
+                text = "채팅하기",
+                color = White,
                 style = customLoginButtonStyle
             )
         }
@@ -75,6 +78,6 @@ fun MateOrRoomButton() {
 
 @Preview
 @Composable
-fun MateOrRoomButtonPreview() {
-    MateOrRoomButton()
+fun BookmarkButtonPreview() {
+    BookmarkButton()
 }
