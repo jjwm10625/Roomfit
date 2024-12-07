@@ -89,9 +89,9 @@ UserCard(
 
         Spacer(modifier = Modifier.height(35.dp))
 
-
+        // 내 게시글 관리 버튼
         Button(
-            onClick = { /* 내 게시글 관리 화면으로 이동 */ },
+            onClick = { navController.navigate("my_post") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -112,8 +112,9 @@ UserCard(
 
         Spacer(modifier = Modifier.height(10.dp))
 
+        // 내 찜 목록 버튼
         Button(
-            onClick = { /* 내찜목록 화면으로 이동 */ },
+            onClick = { navController.navigate("scrap") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
             modifier = Modifier
                 .fillMaxWidth(0.8f)
