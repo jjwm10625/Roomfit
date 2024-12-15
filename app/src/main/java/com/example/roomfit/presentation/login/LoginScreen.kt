@@ -1,4 +1,3 @@
-// app/src/main/java/com/example/roomfit/presentation/login/LoginScreen.kt
 package com.example.roomfit.presentation.login
 
 import androidx.compose.foundation.Image
@@ -70,12 +69,13 @@ fun LoginScreen(navController: NavController) {
             LoginButton(
                 text = "LOG IN",
                 onClick = {
-                    // 로그인 로직 추가
                     navController.navigate("home")
                 },
                 buttonColor = BtnBlack,
-                textColor = Color.White
+                textColor = Color.White,
+                enabled = username.trim().isNotEmpty() && password.trim().isNotEmpty()
             )
+
 
             Spacer(modifier = Modifier.height(15.dp))
 
