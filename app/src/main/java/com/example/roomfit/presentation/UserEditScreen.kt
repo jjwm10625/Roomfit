@@ -28,19 +28,29 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.LoginButton
 import com.example.roomfit.ui.theme.*
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun UserEditScreen(navController: NavController) {
-    var school by remember { mutableStateOf("") }
-    var name by remember { mutableStateOf("") }
-    var budget by remember { mutableStateOf("") }
-    var houseType by remember { mutableStateOf("") }
-    var numberOfResidents by remember { mutableStateOf("") }
-    var durationOfStay by remember { mutableStateOf("") }
-    var gender by remember { mutableStateOf("") }
-    var lifestyle by remember { mutableStateOf("") }
-    var smoking by remember { mutableStateOf("") }
+fun UserEditScreen(
+    navController: NavController,
+    school: String,
+    name: String,
+    budget: String,
+    houseType: String,
+    numberOfResidents: String,
+    durationOfStay: String,
+    gender: String,
+    lifestyle: String,
+    smoking: String
+) {
+    var schoolState by remember { mutableStateOf(school) }
+    var nameState by remember { mutableStateOf(name) }
+    var budgetState by remember { mutableStateOf(budget) }
+    var houseTypeState by remember { mutableStateOf(houseType) }
+    var numberOfResidentsState by remember { mutableStateOf(numberOfResidents) }
+    var durationOfStayState by remember { mutableStateOf(durationOfStay) }
+    var genderState by remember { mutableStateOf(gender) }
+    var lifestyleState by remember { mutableStateOf(lifestyle) }
+    var smokingState by remember { mutableStateOf(smoking) }
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
 
     val houseTypes = listOf("아파트", "빌라", "원룸")
@@ -133,8 +143,8 @@ fun UserEditScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(15.dp))
 
             LoginTextField(
-                value = school,
-                onValueChange = { school = it },
+                value = schoolState,
+                onValueChange = { schoolState = it },
                 label = "나의 대학 찾기",
                 trailingIcon = {
                     IconButton(onClick = { /* 아이콘 클릭 시 동작 */ }) {
@@ -157,8 +167,8 @@ fun UserEditScreen(navController: NavController) {
             )
             Spacer(modifier = Modifier.height(8.dp))
             TextField(
-                value = name,
-                onValueChange = { name = it },
+                value = nameState,
+                onValueChange = { nameState = it },
                 placeholder = { Text(text = "이름", style = TextStyle(fontSize = 16.sp, color = Color.Gray)) },
                 modifier = Modifier
                     .fillMaxWidth(0.8f)
@@ -179,8 +189,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "성향",
                 options = lifestyles,
-                selectedOption = lifestyle,
-                onOptionSelected = { lifestyle = it }
+                selectedOption = lifestyleState,
+                onOptionSelected = { lifestyleState = it }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -189,8 +199,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "흡연 여부",
                 options = smokingOptions,
-                selectedOption = smoking,
-                onOptionSelected = { smoking = it }
+                selectedOption = smokingState,
+                onOptionSelected = { smokingState = it }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -198,8 +208,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "예산",
                 options = listOf("1000만원~3000만원", "3000만원~5000만원", "5000만원~1억원", "1억원 이상"),
-                selectedOption = budget,
-                onOptionSelected = { budget = it }
+                selectedOption = budgetState,
+                onOptionSelected = { budgetState = it }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -207,8 +217,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "집 유형",
                 options = houseTypes,
-                selectedOption = houseType,
-                onOptionSelected = { houseType = it }
+                selectedOption = houseTypeState,
+                onOptionSelected = { houseTypeState = it }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -216,8 +226,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "거주 인원",
                 options = residentNumbers,
-                selectedOption = numberOfResidents,
-                onOptionSelected = { numberOfResidents = it }
+                selectedOption = numberOfResidentsState,
+                onOptionSelected = { numberOfResidentsState = it }
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -225,8 +235,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "거주 기간",
                 options = stayDurations,
-                selectedOption = durationOfStay,
-                onOptionSelected = { durationOfStay = it }
+                selectedOption = durationOfStayState,
+                onOptionSelected = { durationOfStayState = it }
             )
 
             Spacer(modifier = Modifier.height(24.dp))
@@ -234,8 +244,8 @@ fun UserEditScreen(navController: NavController) {
             CustomDropdownMenu(
                 label = "성별",
                 options = genders,
-                selectedOption = gender,
-                onOptionSelected = { gender = it }
+                selectedOption = genderState,
+                onOptionSelected = { genderState = it }
             )
 
             Spacer(modifier = Modifier.height(30.dp))
@@ -347,9 +357,3 @@ fun LoginTextField(
     )
 }
 
-@Preview(showBackground = true)
-@Composable
-fun UserEditScreenPreview() {
-    val navController = rememberNavController()
-    UserEditScreen(navController = navController)
-}

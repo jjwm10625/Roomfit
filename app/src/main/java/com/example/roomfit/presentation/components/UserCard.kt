@@ -58,7 +58,7 @@ fun UserCard(
 
         Button(
             onClick = {
-                navController.navigate("user_edit")
+                navController.navigate("user_edit?school=$school&name=$username&budget=$budget&houseType=$houseType&numberOfResidents=$numberOfResidents&durationOfStay=$durationOfStay&gender=$gender&lifestyle=$lifestyle&smoking=$smoking")
             },
             colors = ButtonDefaults.buttonColors(containerColor = BtnBeige),
             modifier = Modifier.fillMaxWidth()

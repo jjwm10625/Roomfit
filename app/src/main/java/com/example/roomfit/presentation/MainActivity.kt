@@ -21,7 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext // 이 줄을 추가하세요
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -33,6 +33,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.roomfit.presentation.login.FindPwScreen
 import com.example.roomfit.presentation.login.LoginScreen
 import com.example.roomfit.presentation.login.PwResultScreen
@@ -47,7 +48,7 @@ import com.example.roomfit.util.PreferencesManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        val splashScreen = installSplashScreen() // 스플래시 화면 설치
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
@@ -71,7 +72,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = startDestination, // 로그인 상태에 따라 시작 경로 설정
+                        startDestination = startDestination,
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("login") { LoginScreen(navController = navController) }
@@ -79,19 +80,42 @@ class MainActivity : ComponentActivity() {
                         composable("result_pw") { PwResultScreen(navController = navController) }
                         composable("sign_up") { SignUpScreen(navController = navController) }
                         composable("user_info") { UserInfoScreen(navController = navController) }
-                        composable("user_edit") { UserEditScreen(navController = navController) }
+                        composable(
+                            "user_edit?school={school}&name={name}&budget={budget}&houseType={houseType}&numberOfResidents={numberOfResidents}&durationOfStay={durationOfStay}&gender={gender}&lifestyle={lifestyle}&smoking={smoking}",
+                            arguments = listOf(
+                                navArgument("school") { type = NavType.StringType },
+                                navArgument("name") { type = NavType.StringType },
+                                navArgument("budget") { type = NavType.StringType },
+                                navArgument("houseType") { type = NavType.StringType },
+                                navArgument("numberOfResidents") { type = NavType.StringType },
+                                navArgument("durationOfStay") { type = NavType.StringType },
+                                navArgument("gender") { type = NavType.StringType },
+                                navArgument("lifestyle") { type = NavType.StringType },
+                                navArgument("smoking") { type = NavType.StringType }
+                            )
+                        ) { backStackEntry ->
+                            UserEditScreen(
+                                navController = navController,
+                                school = backStackEntry.arguments?.getString("school") ?: "",
+                                name = backStackEntry.arguments?.getString("name") ?: "",
+                                budget = backStackEntry.arguments?.getString("budget") ?: "",
+                                houseType = backStackEntry.arguments?.getString("houseType") ?: "",
+                                numberOfResidents = backStackEntry.arguments?.getString("numberOfResidents") ?: "",
+                                durationOfStay = backStackEntry.arguments?.getString("durationOfStay") ?: "",
+                                gender = backStackEntry.arguments?.getString("gender") ?: "",
+                                lifestyle = backStackEntry.arguments?.getString("lifestyle") ?: "",
+                                smoking = backStackEntry.arguments?.getString("smoking") ?: ""
+                            )
+                        }
                         composable("chat") { ChatScreen(navController = navController) }
-
                         composable("home_mate") { DetailScreen(navController = navController) }
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }
-
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
                         composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
-                            MessageScreen(navController = navController,
-                                lastMessage = lastMessage)
+                            MessageScreen(navController = navController, lastMessage = lastMessage)
                         }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }
@@ -99,7 +123,6 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // 스플래시 화면 유지 시간 설정 (2.5초)
         splashScreen.setKeepOnScreenCondition {
             Handler(Looper.getMainLooper()).postDelayed({
                 splashScreen.setKeepOnScreenCondition { false }
@@ -130,7 +153,7 @@ fun BottomNavigationBar(
                 colors = NavigationBarItemDefaults.colors(
                     selectedIconColor = BtnBlack,
                     unselectedIconColor = BtnBeige,
-                    indicatorColor = Color.Transparent // Ripple 색상 제거
+                    indicatorColor = Color.Transparent
                 ),
                 onClick = {
                     navController.navigate(screen.route) {
