@@ -1,4 +1,4 @@
-// MainActivity.kt
+// app/src/main/java/com/example/roomfit/presentation/MainActivity.kt
 package com.example.roomfit.presentation
 
 import android.os.Bundle
@@ -21,6 +21,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext // 이 줄을 추가하세요
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -42,6 +43,7 @@ import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.RoomfitTheme
+import com.example.roomfit.util.PreferencesManager
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,6 +54,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             RoomfitTheme {
                 val navController = rememberNavController()
+                val context = LocalContext.current
+                val prefs = remember { PreferencesManager(context) }
+                val startDestination = if (prefs.isLoggedIn) "home" else "login"
                 val screens = listOf(RoomNav.Home, RoomNav.Write, RoomNav.Message, RoomNav.User)
                 val currentBackStackEntry by navController.currentBackStackEntryAsState()
                 val currentDestination = currentBackStackEntry?.destination
@@ -66,7 +71,7 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "login", // 로그인 페이지를 시작 경로로 설정
+                        startDestination = startDestination, // 로그인 상태에 따라 시작 경로 설정
                         modifier = Modifier.padding(innerPadding)
                     ) {
                         composable("login") { LoginScreen(navController = navController) }

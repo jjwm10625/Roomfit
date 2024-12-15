@@ -29,6 +29,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.platform.LocalContext
+import com.example.roomfit.util.PreferencesManager
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,6 +45,8 @@ fun UserInfoScreen(navController: NavController) {
     var lifestyle by remember { mutableStateOf("") }
     var smoking by remember { mutableStateOf("") } // 흡연 상태 추가
     var showUniversityDialog by remember { mutableStateOf(false) } // 모달 상태 추가
+
+    val context = LocalContext.current
 
     val houseTypes = listOf("아파트", "빌라", "원룸")
     val residentNumbers = listOf("2명", "3명", "4명 이상")
@@ -249,7 +254,18 @@ fun UserInfoScreen(navController: NavController) {
 
             LoginButton(
                 text = "SIGN UP",
-                onClick = { navController.navigate("home") },
+                onClick = {
+                    val prefs = PreferencesManager(context)
+                    prefs.school = school
+                    prefs.budget = budget
+                    prefs.houseType = houseType
+                    prefs.numberOfResidents = numberOfResidents
+                    prefs.durationOfStay = durationOfStay
+                    prefs.gender = gender
+                    prefs.lifestyle = lifestyle
+                    prefs.smoking = smoking
+                    navController.navigate("home")
+                },
                 buttonColor = BtnBlack,
                 textColor = Color.White
             )

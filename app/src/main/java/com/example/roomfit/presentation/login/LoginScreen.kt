@@ -1,5 +1,7 @@
+// app/src/main/java/com/example/roomfit/presentation/login/LoginScreen.kt
 package com.example.roomfit.presentation.login
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,11 +23,14 @@ import com.example.roomfit.R
 import com.example.roomfit.presentation.components.LoginButton
 import com.example.roomfit.presentation.components.LoginTextField
 import com.example.roomfit.ui.theme.*
+import com.example.roomfit.util.PreferencesManager
 
 @Composable
 fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val prefs = remember { PreferencesManager(context) }
 
     Box(
         modifier = Modifier
@@ -69,13 +75,17 @@ fun LoginScreen(navController: NavController) {
             LoginButton(
                 text = "LOG IN",
                 onClick = {
-                    navController.navigate("home")
+                    // 로그인 로직 추가
+                    if (username.isNotEmpty() && password.isNotEmpty()) {
+                        prefs.username = username
+                        prefs.isLoggedIn = true
+                        navController.navigate("home")
+                    }
                 },
                 buttonColor = BtnBlack,
                 textColor = Color.White,
                 enabled = username.trim().isNotEmpty() && password.trim().isNotEmpty()
             )
-
 
             Spacer(modifier = Modifier.height(15.dp))
 

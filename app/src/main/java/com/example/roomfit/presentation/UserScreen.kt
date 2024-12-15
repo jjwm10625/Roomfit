@@ -18,6 +18,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -34,9 +35,22 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.textfield
+import com.example.roomfit.util.PreferencesManager
 
 @Composable
 fun UserScreen(navController: NavController) {
+    val context = LocalContext.current
+    val prefs = remember { PreferencesManager(context) }
+    val username = prefs.username ?: "Unknown"
+    val gender = prefs.gender ?: "Unknown"
+    val school = prefs.school ?: "Unknown"
+    val budget = prefs.budget ?: "Unknown"
+    val houseType = prefs.houseType ?: "Unknown"
+    val numberOfResidents = prefs.numberOfResidents ?: "Unknown"
+    val durationOfStay = prefs.durationOfStay ?: "Unknown"
+    val lifestyle = prefs.lifestyle ?: "Unknown"
+    val smoking = prefs.smoking ?: "Unknown"
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -51,7 +65,7 @@ fun UserScreen(navController: NavController) {
                 .padding(vertical = 16.dp)
         ) {
             Text(
-                text = "숙명여자대학교",
+                text = school,
                 style = UserTitle,
                 modifier = Modifier.align(Alignment.Center)
             )
@@ -70,12 +84,12 @@ fun UserScreen(navController: NavController) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(start = 16.dp) // 오른쪽으로 16dp 이동
+            modifier = Modifier.padding(start = 16.dp)
         ) {
-            Text("사용자 이름", style = bodyDetail)
+            Text(username, style = bodyDetail)
             Spacer(modifier = Modifier.width(8.dp))
             Image(
-                painter = painterResource(id = R.drawable.female),
+                painter = painterResource(id = if (gender == "남성") R.drawable.male else R.drawable.female),
                 contentDescription = "Gender Icon",
                 modifier = Modifier.size(24.dp)
             )
@@ -83,13 +97,21 @@ fun UserScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(30.dp))
 
-UserCard(
-    navController = navController,
-    )
+        UserCard(
+            navController = navController,
+            username = username,
+            gender = gender,
+            school = school,
+            budget = budget,
+            houseType = houseType,
+            numberOfResidents = numberOfResidents,
+            durationOfStay = durationOfStay,
+            lifestyle = lifestyle,
+            smoking = smoking
+        )
 
         Spacer(modifier = Modifier.height(35.dp))
 
-        // 내 게시글 관리 버튼
         Button(
             onClick = { navController.navigate("my_post") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
@@ -112,7 +134,6 @@ UserCard(
 
         Spacer(modifier = Modifier.height(10.dp))
 
-        // 내 찜 목록 버튼
         Button(
             onClick = { navController.navigate("scrap") },
             colors = ButtonDefaults.buttonColors(containerColor = OffWhite),
