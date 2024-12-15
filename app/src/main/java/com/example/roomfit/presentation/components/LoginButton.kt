@@ -18,10 +18,13 @@ fun LoginButton(
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     buttonColor: Color,
-    textColor: Color
+    textColor: Color,
+    enabled: Boolean = true // enabled 매개변수 추가
+
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled, // Button의 enabled 상태 설정
         modifier = modifier.width(300.dp).height(55.dp),
         shape = RoundedCornerShape(70.dp),
         colors = ButtonDefaults.buttonColors(containerColor = buttonColor)

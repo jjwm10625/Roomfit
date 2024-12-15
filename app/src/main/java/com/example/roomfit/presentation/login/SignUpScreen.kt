@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +21,7 @@ import com.example.roomfit.R
 import com.example.roomfit.presentation.components.LoginButton
 import com.example.roomfit.presentation.components.LoginTextField
 import com.example.roomfit.ui.theme.*
+import com.example.roomfit.util.PreferencesManager
 
 @Composable
 fun SignUpScreen(navController: NavController) {
@@ -27,6 +29,8 @@ fun SignUpScreen(navController: NavController) {
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var pwcheck by remember { mutableStateOf("") }
+    val context = LocalContext.current
+    val prefs = remember { PreferencesManager(context) }
 
     Box(
         modifier = Modifier
@@ -39,16 +43,6 @@ fun SignUpScreen(navController: NavController) {
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
         )
-
-        IconButton(
-            onClick = { navController.navigate("login") },
-            modifier = Modifier.padding(16.dp)
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.backbutton),
-                contentDescription = "Back Button"
-            )
-        }
 
         Column(
             modifier = Modifier
@@ -71,8 +65,7 @@ fun SignUpScreen(navController: NavController) {
             LoginTextField(
                 value = email,
                 onValueChange = { email = it },
-                label = "이메일",
-                visualTransformation = PasswordVisualTransformation()
+                label = "이메일"
             )
 
             Spacer(modifier = Modifier.height(18.dp))
@@ -98,6 +91,9 @@ fun SignUpScreen(navController: NavController) {
             LoginButton(
                 text = "NEXT",
                 onClick = {
+                    prefs.username = name
+                    prefs.email = email
+                    prefs.password = password
                     navController.navigate("user_info")
                 },
                 buttonColor = BtnBlack,
