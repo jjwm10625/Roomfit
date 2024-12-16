@@ -138,3 +138,9 @@ var homeTitle = TextStyle(
     fontWeight = FontWeight.Bold,
     fontSize = 30.sp
 )
+
+var error = TextStyle(
+    fontFamily = pretendardSemiBold,
+    fontWeight = FontWeight.Normal,
+    fontSize = 14.sp
+)

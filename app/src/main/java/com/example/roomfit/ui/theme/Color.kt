@@ -13,3 +13,5 @@ val BtnGray = Color(0xFF595555)
 val OffWhite = Color(0xFFF5F4F2)
 val ComponentBeige = Color(0xFF959182)
 val ImageWhite = Color(0xFFEEEEEE)
+
+val ErrorText = Color(0xFFC21010)
