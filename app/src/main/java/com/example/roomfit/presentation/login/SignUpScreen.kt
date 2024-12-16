@@ -23,6 +23,7 @@ import com.example.roomfit.presentation.components.LoginTextField
 import com.example.roomfit.ui.theme.*
 import com.example.roomfit.util.PreferencesManager
 
+
 @Composable
 fun SignUpScreen(navController: NavController) {
     var name by remember { mutableStateOf("") }
@@ -31,6 +32,7 @@ fun SignUpScreen(navController: NavController) {
     var pwcheck by remember { mutableStateOf("") }
     val context = LocalContext.current
     val prefs = remember { PreferencesManager(context) }
+    var errorMessage by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -86,18 +88,41 @@ fun SignUpScreen(navController: NavController) {
                 visualTransformation = PasswordVisualTransformation()
             )
 
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(24.dp) // 고정된 높이 설정
+                    .padding(start = 55.dp)
+            ) {
+                if (errorMessage.isNotEmpty()) {
+                    Text(
+                        text = errorMessage,
+                        color = ErrorText,
+                        style = error,
+                        modifier = Modifier.padding(start = 8.dp) // 왼쪽 간격 추가
+                    )
+                }
+            }
+
             Spacer(modifier = Modifier.height(25.dp))
 
             LoginButton(
                 text = "NEXT",
                 onClick = {
-                    prefs.username = name
-                    prefs.email = email
-                    prefs.password = password
-                    navController.navigate("user_info")
+                    if (password != pwcheck) {
+                        errorMessage = "비밀번호가 일치하지 않습니다."
+                    } else {
+                        prefs.username = name
+                        prefs.email = email
+                        prefs.password = password
+                        navController.navigate("user_info")
+                    }
                 },
                 buttonColor = BtnBlack,
-                textColor = Color.White
+                textColor = Color.White,
+                enabled = name.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && pwcheck.isNotEmpty()
             )
         }
     }
