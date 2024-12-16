@@ -18,16 +18,13 @@ import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun GoogleMapScreen() {
-    // 초기 카메라 위치 (서울)
+    // 초기 카메라 위치 (학교)
     val initialLocation = LatLng(37.5469, 126.9646)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(initialLocation, 15f)
     }
 
-    // 현재 마커 위치 상태
     var markerPosition by remember { mutableStateOf<LatLng?>(null) }
-
-    // 클릭한 위치의 정보를 저장하는 상태
     var clickedLocationInfo by remember { mutableStateOf("") }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -35,13 +32,11 @@ fun GoogleMapScreen() {
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             onMapClick = { clickedLatLng ->
-                // 지도 클릭 시 마커 위치 변경 및 정보 저장
                 markerPosition = clickedLatLng
                 clickedLocationInfo =
                     "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
             }
         ) {
-            // 마커 표시 (사용자가 클릭한 위치에만 추가)
             markerPosition?.let {
                 Marker(
                     state = com.google.maps.android.compose.MarkerState(position = it),
