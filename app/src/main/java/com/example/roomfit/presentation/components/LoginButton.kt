@@ -19,16 +19,19 @@ fun LoginButton(
     modifier: Modifier = Modifier,
     buttonColor: Color,
     textColor: Color,
-    enabled: Boolean = true // enabled 매개변수 추가
-
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
-        enabled = enabled, // Button의 enabled 상태 설정
+        enabled = enabled,
         modifier = modifier.width(300.dp).height(55.dp),
         shape = RoundedCornerShape(70.dp),
         colors = ButtonDefaults.buttonColors(containerColor = buttonColor)
     ) {
-        Text(text = text, style = com.example.roomfit.ui.theme.LoginButton)
+        Text(
+            text = text,
+            color = textColor, // 텍스트 색상 설정
+            style = com.example.roomfit.ui.theme.LoginButton
+        )
     }
 }
