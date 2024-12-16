@@ -8,12 +8,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -116,13 +118,16 @@ fun UserEditScreen(
                         painter = rememberAsyncImagePainter(it),
                         contentDescription = "Profile Image",
                         modifier = Modifier.size(100.dp)
+                            .clip(CircleShape) // 이미지를 원형으로 자름
                     )
                 } ?: run {
                     Image(
                         painter = painterResource(id = R.drawable.user_profile),
                         contentDescription = "Default Profile Image",
-                        modifier = Modifier.size(100.dp)
-                    )
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape) // 이미지를 원형으로 자름
+                )
                 }
             }
 
