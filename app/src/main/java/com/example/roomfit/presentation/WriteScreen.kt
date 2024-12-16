@@ -16,12 +16,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.roomfit.presentation.components.WriteCard
 import com.example.roomfit.presentation.mate.MateButton
 import com.example.roomfit.presentation.mate.MateOrRoomButton
 import com.example.roomfit.presentation.mate.PostText
@@ -33,10 +36,21 @@ import com.example.roomfit.ui.theme.Gray
 import com.example.roomfit.ui.theme.ImageWhite
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
+import com.example.roomfit.util.PreferencesManager
 
 @Composable
-fun WriteScreen() {
+fun WriteScreen(navController: NavController) {
     val context = LocalContext.current
+    val prefs = remember { PreferencesManager(context) }
+    val username = prefs.username ?: "Unknown"
+    val gender = prefs.gender ?: "Unknown"
+    val school = prefs.school ?: "Unknown"
+    val budget = prefs.budget ?: "Unknown"
+    val houseType = prefs.houseType ?: "Unknown"
+    val numberOfResidents = prefs.numberOfResidents ?: "Unknown"
+    val durationOfStay = prefs.durationOfStay ?: "Unknown"
+    val lifestyle = prefs.lifestyle ?: "Unknown"
+    val smoking = prefs.smoking ?: "Unknown"
 
     // Launcher to open gallery and get the selected image URI
     val galleryLauncher = rememberLauncherForActivityResult(
@@ -86,50 +100,17 @@ fun WriteScreen() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(16.dp))
-                .background(OffWhite)
-                .padding(8.dp)
-        ) {
-            Column(
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                MateOrRoomButton()
-
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    thickness = 1.dp,
-                    color = BtnBeige
-                )
-
-                UserInfo()
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                HorizontalDivider(
-                    modifier = Modifier.padding(vertical = 8.dp),
-                    thickness = 1.dp,
-                    color = BtnBeige
-                )
-
-                PostText()
-
-                MateButton(
-                    text = "작성 완료",
-                    onClick = {
-                        Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
-                    }
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
+        WriteCard(
+            navController = navController,
+            username = username,
+            gender = gender,
+            school = school,
+            budget = budget,
+            houseType = houseType,
+            numberOfResidents = numberOfResidents,
+            durationOfStay = durationOfStay,
+            lifestyle = lifestyle,
+            smoking = smoking
+        )
     }
-}
-
-@Preview
-@Composable
-fun PreviewWriteScreen() {
-    WriteScreen()
 }

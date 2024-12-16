@@ -112,7 +112,7 @@ class MainActivity : ComponentActivity() {
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
-                        composable(RoomNav.Write.route) { WriteScreen() }
+                        composable(RoomNav.Write.route) { WriteScreen(navController) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                             MessageScreen(navController = navController, lastMessage = lastMessage)
@@ -188,7 +188,7 @@ fun MainActivityPreview() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(RoomNav.Home.route) { HomeScreen(navController) }
-                composable(RoomNav.Write.route) { WriteScreen() }
+                composable(RoomNav.Write.route) { WriteScreen(navController) }
                 composable(RoomNav.Message.route) { backStackEntry ->
                     val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                     MessageScreen(navController = navController, lastMessage = lastMessage)

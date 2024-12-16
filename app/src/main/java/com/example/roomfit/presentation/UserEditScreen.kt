@@ -356,4 +356,3 @@ fun LoginTextField(
         shape = RoundedCornerShape(16.dp)
     )
 }
-

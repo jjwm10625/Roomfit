@@ -65,28 +65,6 @@ fun UserInfo() {
     }
 }
 
-//@Composable
-//fun DetailItem(iconRes: Int, iconLabel: String, labelStyle: bodyWriting) {
-//    Column(
-//        modifier = Modifier
-//            .padding(8.dp)
-//            .fillMaxWidth(),
-//        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
-//    ) {
-//        // 아이콘
-//        Icon(
-//            painter = painterResource(id = iconRes),
-//            contentDescription = null,
-//            modifier = Modifier.size(24.dp)
-//        )
-//        // 아이콘 라벨
-//        Text(
-//            text = iconLabel,
-//            style = labelStyle
-//        )
-//    }
-//}
-
 @Composable
 fun DetailItem(
     iconRes: Int,

@@ -27,6 +27,9 @@ fun HomeScreen(
     navController: NavController,
 ) {
     NavController(LocalContext.current)
+
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -54,12 +57,19 @@ fun HomeScreen(
 
             MateFilter()
 
+
             Spacer(modifier = Modifier.height(32.dp))
 
             HomeMateCard(
                 navController = navController,
                 userName = "김채현",
                 postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+            )
+
+            HomeMateCard(
+                navController = navController,
+                userName = "조영서",
+                postTitle = "홍대입구역 5분거리 룸메이트 구합니다"
             )
         }
     }
