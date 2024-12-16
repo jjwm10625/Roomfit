@@ -31,6 +31,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.ui.theme.Black
 import com.example.roomfit.ui.theme.ComponentBeige
@@ -38,12 +39,11 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.bodyWriting
 
-@Preview
 @Composable
-fun PostText() {
+fun PostText(postViewModel: PostViewModel) {
     val context = LocalContext.current
-    var titleText by remember { mutableStateOf("") }
-    var contentText by remember { mutableStateOf("") }
+//    var postViewModel.postTitle.value by remember { mutableStateOf("") }
+//    var postViewModel.postContent.value by remember { mutableStateOf("") }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -62,12 +62,12 @@ fun PostText() {
                 )
         ) {
             BasicTextField(
-                value = titleText,
-                onValueChange = { titleText = it },
+                value = postViewModel.postTitle.value,
+                onValueChange = { postViewModel.postTitle.value = it },
                 textStyle = bodyDetail.copy(color = ComponentBeige),
                 modifier = Modifier.fillMaxSize()
             ) { innerTextField ->
-                if (titleText.isEmpty()) {
+                if (postViewModel.postTitle.value.isEmpty()) {
                     Text(
                         text = "제목을 작성해 주세요.",
                         style = bodyDetail,
@@ -92,12 +92,12 @@ fun PostText() {
                 )
         ) {
             BasicTextField(
-                value = contentText,
-                onValueChange = { contentText = it },
+                value = postViewModel.postContent.value,
+                onValueChange = { postViewModel.postContent.value = it },
                 textStyle = bodyWriting.copy(color = ComponentBeige),
                 modifier = Modifier.fillMaxSize()
             ) { innerTextField ->
-                if (contentText.isEmpty()) {
+                if (postViewModel.postContent.value.isEmpty()) {
                     Text(
                         text = "글을 작성해 주세요.",
                         style = bodyWriting,

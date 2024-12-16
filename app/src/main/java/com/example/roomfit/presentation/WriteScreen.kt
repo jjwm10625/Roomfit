@@ -37,9 +37,14 @@ import com.example.roomfit.ui.theme.ImageWhite
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.util.PreferencesManager
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.roomfit.PostViewModel
 
 @Composable
-fun WriteScreen(navController: NavController) {
+fun WriteScreen(
+    navController: NavController,
+    postViewModel: PostViewModel = viewModel()
+    ) {
     val context = LocalContext.current
     val prefs = remember { PreferencesManager(context) }
     val username = prefs.username ?: "Unknown"

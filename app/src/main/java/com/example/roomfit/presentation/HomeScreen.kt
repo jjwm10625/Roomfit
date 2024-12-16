@@ -1,11 +1,17 @@
 package com.example.roomfit.presentation
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -26,10 +32,6 @@ import com.example.roomfit.ui.theme.homeTitle
 fun HomeScreen(
     navController: NavController,
 ) {
-    NavController(LocalContext.current)
-
-
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -66,10 +68,20 @@ fun HomeScreen(
                 postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             HomeMateCard(
                 navController = navController,
                 userName = "조영서",
-                postTitle = "홍대입구역 5분거리 룸메이트 구합니다"
+                postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다"
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            HomeMateCard(
+                navController = navController,
+                userName = "김현서",
+                postTitle = "신촌역 룸 쉐어 구합니다"
             )
         }
     }

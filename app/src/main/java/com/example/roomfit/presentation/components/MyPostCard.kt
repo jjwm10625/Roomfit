@@ -15,6 +15,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.MateButton
 import com.example.roomfit.presentation.mate.UserInfo
@@ -23,7 +25,8 @@ import com.example.roomfit.ui.theme.*
 @Composable
 fun MyPostCard(
     modifier: Modifier = Modifier,
-    postTitle: String,
+    postViewModel: PostViewModel = viewModel(),
+    onDelete: () -> Unit
 ) {
     val context = LocalContext.current
 
@@ -47,7 +50,7 @@ fun MyPostCard(
 
         // Post Title
         Text(
-            text = postTitle,
+            text = postViewModel.postTitle.value,
             style = bodyDetail,
             color = ComponentBeige,
             modifier = Modifier
@@ -70,16 +73,20 @@ fun MyPostCard(
             text = "삭제하기",
             onClick = {
                 Toast.makeText(context, "삭제되었습니다!", Toast.LENGTH_SHORT).show()
+                onDelete()
             }
         )
     }
 }
 
-
 @Preview
 @Composable
 fun MyPostCardPreview() {
+    val postViewModel = PostViewModel().apply {
+        postTitle.value = "17평형 정문 근처 룸 쉐어 구합니다"
+    }
     MyPostCard(
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+        postViewModel = postViewModel,
+        onDelete = {}
     )
 }

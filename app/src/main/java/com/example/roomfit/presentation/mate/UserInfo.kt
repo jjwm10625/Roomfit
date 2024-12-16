@@ -21,7 +21,6 @@ import com.example.roomfit.R
 import com.example.roomfit.ui.theme.ComponentBeige
 import com.example.roomfit.ui.theme.UserInfo
 
-@Preview
 @Composable
 fun UserInfo() {
     Spacer(modifier = Modifier.height(8.dp)) // 텍스트와 아이콘 섹션 간 여백
