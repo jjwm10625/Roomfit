@@ -127,7 +127,7 @@ fun UserEditScreen(
                         modifier = Modifier
                             .size(100.dp)
                             .clip(CircleShape) // 이미지를 원형으로 자름
-                )
+                    )
                 }
             }
 
@@ -376,4 +376,3 @@ fun LoginTextField(
         shape = RoundedCornerShape(16.dp)
     )
 }
-
