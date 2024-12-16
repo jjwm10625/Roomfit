@@ -30,8 +30,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import com.example.roomfit.util.PreferencesManager
-
+import androidx.compose.ui.zIndex
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -43,8 +44,8 @@ fun UserInfoScreen(navController: NavController) {
     var durationOfStay by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
     var lifestyle by remember { mutableStateOf("") }
-    var smoking by remember { mutableStateOf("") } // 흡연 상태 추가
-    var showUniversityDialog by remember { mutableStateOf(false) } // 모달 상태 추가
+    var smoking by remember { mutableStateOf("") }
+    var showUniversityDialog by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
 
@@ -60,14 +61,16 @@ fun UserInfoScreen(navController: NavController) {
     ) {
         IconButton(
             onClick = { navController.navigate("sign_up") },
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier
+                .padding(16.dp)
+                .align(Alignment.TopStart)
+                .zIndex(1f) // zIndex를 설정하여 다른 요소 위에 위치하도록 함
         ) {
             Image(
                 painter = painterResource(id = R.drawable.backbutton),
                 contentDescription = "Back Button"
             )
         }
-
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -86,8 +89,8 @@ fun UserInfoScreen(navController: NavController) {
                 label = "나의 대학 찾기",
                 trailingIcon = {
                     IconButton(
-                        onClick = { showUniversityDialog = true }, // 버튼 클릭 시 모달 열림
-                        modifier = Modifier.padding(16.dp)
+                        onClick = { showUniversityDialog = true },
+                        modifier = Modifier.padding(15.dp)
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.school_search),
@@ -99,8 +102,8 @@ fun UserInfoScreen(navController: NavController) {
                         UniversitySearchDialog(
                             onDismiss = { showUniversityDialog = false },
                             onUniversitySelected = { selectedUniversity ->
-                                school = selectedUniversity // 선택한 대학 반영
-                                showUniversityDialog = false // 모달 닫기
+                                school = selectedUniversity
+                                showUniversityDialog = false
                             }
                         )
                     }
@@ -112,8 +115,9 @@ fun UserInfoScreen(navController: NavController) {
             Text(
                 "나의 생활습관은?", style = TextStyle(
                     fontSize = 16.sp,
-                    color = Color.Gray,
-                    textAlign = TextAlign.Center
+                    color = Black,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold
                 )
             )
 
@@ -143,12 +147,12 @@ fun UserInfoScreen(navController: NavController) {
                         modifier = Modifier
                             .weight(1f)
                             .clickable { lifestyle = "아침형" },
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = " / ",
                         color = if (lifestyle.isEmpty()) BtnBlack else Gray,
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = "저녁형",
@@ -156,7 +160,7 @@ fun UserInfoScreen(navController: NavController) {
                         modifier = Modifier
                             .weight(1f)
                             .clickable { lifestyle = "저녁형" },
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -187,12 +191,12 @@ fun UserInfoScreen(navController: NavController) {
                         modifier = Modifier
                             .weight(1f)
                             .clickable { smoking = "흡연" },
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = " / ",
                         color = if (smoking.isEmpty()) BtnBlack else Gray,
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                     Text(
                         text = "비흡연",
@@ -200,7 +204,7 @@ fun UserInfoScreen(navController: NavController) {
                         modifier = Modifier
                             .weight(1f)
                             .clickable { smoking = "비흡연" },
-                        textAlign = TextAlign.Center // 텍스트 중앙 정렬
+                        textAlign = TextAlign.Center
                     )
                 }
             }
@@ -267,15 +271,16 @@ fun UserInfoScreen(navController: NavController) {
                     navController.navigate("home")
                 },
                 buttonColor = BtnBlack,
-                textColor = Color.White
+                textColor = Color.White,
+                enabled = school.isNotEmpty() && budget.isNotEmpty() && houseType.isNotEmpty() &&
+                          numberOfResidents.isNotEmpty() && durationOfStay.isNotEmpty() &&
+                          gender.isNotEmpty() && lifestyle.isNotEmpty() && smoking.isNotEmpty()
             )
 
             Spacer(modifier = Modifier.height(30.dp))
-
         }
     }
 }
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomDropdownMenu(
