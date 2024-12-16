@@ -22,6 +22,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.mate.MateButton
 import com.example.roomfit.presentation.mate.MateOrRoomButton
 import com.example.roomfit.presentation.mate.PostText
@@ -35,7 +37,7 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
 
 @Composable
-fun WriteScreen() {
+fun WriteScreen(navController: NavController) {
     val context = LocalContext.current
 
     // Launcher to open gallery and get the selected image URI
@@ -114,7 +116,7 @@ fun WriteScreen() {
                     color = BtnBeige
                 )
 
-                PostText()
+                PostText(navController)
 
                 MateButton(
                     text = "작성 완료",
@@ -131,5 +133,5 @@ fun WriteScreen() {
 @Preview
 @Composable
 fun PreviewWriteScreen() {
-    WriteScreen()
+    WriteScreen(navController = rememberNavController())
 }

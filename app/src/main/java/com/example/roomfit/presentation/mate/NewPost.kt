@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.ui.theme.*
 
 @Composable
@@ -97,7 +98,7 @@ fun NewPostScreen() {
                     color = BtnBeige
                 )
 
-                PostText()
+                PostText(navController = rememberNavController())
 
                 MateButton(
                     text = "작성 완료",
