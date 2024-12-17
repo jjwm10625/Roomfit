@@ -1,12 +1,12 @@
 package com.example.roomfit.presentation.components
 
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -24,9 +25,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.mate.UserInfo
+import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.ComponentBeige
@@ -46,6 +49,7 @@ fun HomeMateCard(
             .clip(RoundedCornerShape(16.dp))
             .background(color = OffWhite)
             .padding(16.dp)
+            .wrapContentHeight()
     ) {
         Spacer(modifier = Modifier.height(6.dp))
 
@@ -100,7 +104,56 @@ fun HomeMateCard(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        UserInfo()
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            // 첫 번째 줄 (아침형, 비흡연자)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.sun,
+                        iconLabel = "아침형",
+                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                    )
+                }
+
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.smoking,
+                        iconLabel = "비흡연자",
+                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                    )
+                }
+            }
+
+            // 두 번째 줄 (2명, 1000만~3000만)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.people,
+                        iconLabel = "2명",
+                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                    )
+                }
+
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.budget,
+                        iconLabel = "1000~3000만",
+                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                    )
+                }
+            }
+        }
 
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -126,3 +179,12 @@ fun HomeMateCard(
     }
 }
 
+@Preview
+@Composable
+fun HomeMateCardPreview() {
+    HomeMateCard(
+        navController = rememberNavController(),
+        userName = "김채현",
+        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+    )
+}
