@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -31,6 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.Black
 import com.example.roomfit.ui.theme.BtnBeige
@@ -47,6 +50,7 @@ fun ScrapMateCard(
     modifier: Modifier = Modifier,
     userName: String,
     postTitle: String,
+    onCancel: () -> Unit
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
@@ -109,7 +113,43 @@ fun ScrapMateCard(
         )
 
         // User Info
-        UserInfo()
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 2.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            item {
+                DetailItem(
+                    iconRes = R.drawable.sun,
+                    iconLabel = "아침형",
+                    labelStyle = com.example.roomfit.ui.theme.UserInfo
+                )
+            }
+            item {
+                DetailItem(
+                    iconRes = R.drawable.smoking,
+                    iconLabel = "비흡연자",
+                    labelStyle = com.example.roomfit.ui.theme.UserInfo
+                )
+            }
+            item {
+                DetailItem(
+                    iconRes = R.drawable.people,
+                    iconLabel = "2명",
+                    labelStyle = com.example.roomfit.ui.theme.UserInfo
+                )
+            }
+            item {
+                DetailItem(
+                    iconRes = R.drawable.budget,
+                    iconLabel = "1000만~5000만",
+                    labelStyle = com.example.roomfit.ui.theme.UserInfo
+                )
+            }
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -166,6 +206,7 @@ fun ScrapMateCardPreview() {
     ScrapMateCard(
         navController = rememberNavController(),
         userName = "조영서",
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+        postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
+        onCancel = {}
     )
 }

@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -28,6 +30,8 @@ import com.gdg.kakaobank.presentation.navigator.RoomNav
 
 @Composable
 fun ScrapListScreen(navController: NavController) {
+    val showCard = remember { mutableStateOf(true) }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -69,10 +73,12 @@ fun ScrapListScreen(navController: NavController) {
                 navController = navController,
                 userName = "조영서",
                 postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
+                onCancel = { showCard.value = false }
             )
         }
     }
 }
+
 
 @Preview
 @Composable
