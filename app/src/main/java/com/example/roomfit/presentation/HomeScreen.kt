@@ -78,11 +78,6 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            HomeMateCard(
-                navController = navController,
-                userName = "김현서",
-                postTitle = "신촌역 룸 쉐어 구합니다"
-            )
         }
     }
 }
