@@ -111,7 +111,7 @@ class MainActivity : ComponentActivity() {
                         composable("home_mate") { DetailScreen(navController = navController) }
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }
-                        composable("map") { GoogleMapScreen() }
+                        composable("map") { GoogleMapScreen(navController = navController) }
 
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
                         composable(RoomNav.Write.route) { WriteScreen(navController) }
