@@ -110,6 +110,7 @@ class MainActivity : ComponentActivity() {
                         composable("chat") { ChatScreen(navController = navController) }
                         composable("home_mate") { DetailScreen(navController = navController) }
                         composable("home_mate2") { DetailScreen2(navController = navController) }
+                        composable("home_mate3") { DetailScreen3(navController = navController) }
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
