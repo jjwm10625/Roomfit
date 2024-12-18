@@ -41,7 +41,7 @@ import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.util.PreferencesManager
 
 @Composable
-fun WriteScreen(navController: NavController) {
+fun DetailPostScreen(navController: NavController) {
     val context = LocalContext.current
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -72,7 +72,7 @@ fun WriteScreen(navController: NavController) {
             .fillMaxSize()
             .background(BackgroundBeige)
             .padding(16.dp)
-            //.verticalScroll(rememberScrollState())
+        //.verticalScroll(rememberScrollState())
     ) {
         // 글 작성하기
         Text(
@@ -128,9 +128,3 @@ fun WriteScreen(navController: NavController) {
         )
     }
 }
-
-//@Preview
-//@Composable
-//fun PreviewWriteScreen() {
-//    WriteScreen()
-//}

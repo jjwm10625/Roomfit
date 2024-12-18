@@ -5,9 +5,12 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
@@ -23,7 +26,8 @@ import com.example.roomfit.ui.theme.*
 @Composable
 fun MyPostCard(
     modifier: Modifier = Modifier,
-    postTitle: String,
+    titleText: String,
+    contentText: String,
 ) {
     val context = LocalContext.current
 
@@ -41,19 +45,8 @@ fun MyPostCard(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)
-                .height(200.dp)
+                .height(250.dp)
                 .clip(RoundedCornerShape(16.dp))
-        )
-
-        // Post Title
-        Text(
-            text = postTitle,
-            style = bodyDetail,
-            color = ComponentBeige,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            textAlign = TextAlign.Center
         )
 
         HorizontalDivider(
@@ -62,16 +55,50 @@ fun MyPostCard(
             color = BtnBeige
         )
 
-        UserInfo()
+        // Post Title
+        Text(
+            text = titleText,
+            style = bodyDetail,
+            color = ComponentBeige,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        )
+
+        // Post Content
+        Text(
+            text = contentText,
+            style = bodyWriting,
+            color = ComponentBeige,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        )
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        MateButton(
-            text = "삭제하기",
-            onClick = {
-                Toast.makeText(context, "삭제되었습니다!", Toast.LENGTH_SHORT).show()
+        // 삭제하기 버튼
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Button(
+                onClick = {
+                    Toast.makeText(context, "삭제되었습니다!", Toast.LENGTH_SHORT).show()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+                    .height(48.dp),
+                shape = RoundedCornerShape(24.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
+            ) {
+                Text(
+                    text = "삭제하기",
+                    style = LoginButton.copy(fontFamily = mulishBold)
+                )
             }
-        )
+        }
     }
 }
 
@@ -80,6 +107,7 @@ fun MyPostCard(
 @Composable
 fun MyPostCardPreview() {
     MyPostCard(
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+        titleText = "17평형 정문 근처 룸 쉐어 구합니다",
+        contentText = "3월 1일 입주 가능합니다. 아래 번호로 연락 주세요."
     )
 }

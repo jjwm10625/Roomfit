@@ -66,7 +66,8 @@ fun MyPostScreen(navController: NavController) {
                 .padding(16.dp)
         ){
             MyPostCard(
-                postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+                titleText = "17평형 정문 근처 룸 쉐어 구합니다",
+                contentText = "3월 1일 입주 가능합니다. 아래 번호로 연락 주세요."
             )
         }
     }
