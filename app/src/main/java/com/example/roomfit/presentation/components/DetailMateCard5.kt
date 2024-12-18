@@ -23,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.ScrapItem
+import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
@@ -30,6 +32,7 @@ import com.example.roomfit.ui.theme.UserInfo
 @Composable
 fun DetailMateCard5(
     navController: NavController,
+    scrapViewModel: ScrapViewModel,
     modifier: Modifier = Modifier,
     userName: String,
     postTitle: String,
@@ -177,6 +180,13 @@ fun DetailMateCard5(
                     .height(55.dp)
                     .weight(1f),
                 onClick = {
+                    scrapViewModel.addScrap(
+                        ScrapItem(
+                            userName, postTitle, postContent,
+                            profileImageRes ?: R.drawable.dum_profile_5,
+                            routeKey = "detailmatecard5"
+                        )
+                    )
                     Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -217,6 +227,7 @@ fun DetailMateCard5(
 fun DetailMateCard5Preview() {
     DetailMateCard5(
         navController = rememberNavController(),
+        scrapViewModel = ScrapViewModel(),
         userName = "전도연",
         postTitle = "서울대입구역 도보 5분이내 방 구합니다",
         postContent = "기숙사 모집에 떨어져서 글 남깁니다. " +

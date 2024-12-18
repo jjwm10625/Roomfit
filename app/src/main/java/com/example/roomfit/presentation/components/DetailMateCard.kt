@@ -26,6 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.ScrapItem
+import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
@@ -33,6 +35,7 @@ import com.example.roomfit.ui.theme.UserInfo
 @Composable
 fun DetailMateCard(
     navController: NavController,
+    scrapViewModel: ScrapViewModel,
     modifier: Modifier = Modifier,
     userName: String,
     postTitle: String,
@@ -55,7 +58,7 @@ fun DetailMateCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = profileImageRes ?: R.drawable.user_profile), // Use default image if null
+                painter = painterResource(id = R.drawable.dum_profile_1), // Use default image if null
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -214,6 +217,13 @@ fun DetailMateCard(
                     .height(55.dp)
                     .weight(1f),
                 onClick = {
+                    scrapViewModel.addScrap(
+                        ScrapItem(
+                            userName, postTitle, postContent,
+                            profileImageRes ?: R.drawable.dum_profile_1,
+                            routeKey = "detailmatecard"
+                        )
+                    )
                     Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
                 },
                 colors = ButtonDefaults.buttonColors(
@@ -254,6 +264,7 @@ fun DetailMateCard(
 fun DetailMateCardPreview() {
     DetailMateCard(
         navController = rememberNavController(),
+        scrapViewModel = ScrapViewModel(),
         userName = "김채현",
         postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다",
         postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!",
