@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation
+package com.example.roomfit.presentation.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,7 +27,7 @@ import com.example.roomfit.ui.theme.UserTitle
 
 // 방을 구해요에서 이어지는 사진 없는 게시물 상세 화면
 @Composable
-fun DetailScreen5(navController: NavController) {
+fun DetailScreen4(navController: NavController) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -63,16 +63,17 @@ fun DetailScreen5(navController: NavController) {
         DetailMateCard(
             navController = navController,
             modifier = Modifier.padding(16.dp),
-            userName = "전도연",
-            postTitle = "서울대입구역 도보 5분이내 방 구합니다",
-            postContent = "기숙사 모집에 떨어져서 글 남깁니다. " +
-                    "\n3월 1일 입주 희망합니다. 계약 시기에 따라 일정은 조율 가능해요.",
+            userName = "김민지",
+            postTitle = "숙대입구역 근처 방 구합니다",
+            postContent = "안녕하세요! \n숙대입구역 근처 방을 구하고 있습니다. " +
+                    "깨끗한 방을 원하며, 제가 숙대생이라 같은 학교 학우분과 쉐어하면 좋겠습니다. " +
+                    "연락주세요 :)",
         )
     }
 }
 
 @Preview
 @Composable
-fun PreviewDetailScreen5() {
-    DetailScreen5(navController = rememberNavController())
+fun PreviewDetailScreen4() {
+    DetailScreen4(navController = rememberNavController())
 }

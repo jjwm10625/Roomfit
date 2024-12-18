@@ -29,7 +29,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.components.HomeMateCard4
 import com.example.roomfit.presentation.components.HomeMateCard5
-import com.example.roomfit.presentation.components.HomeMateCard6
 import com.example.roomfit.presentation.components.MateFilter
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black
@@ -139,13 +138,6 @@ fun HomeScreen2(
                 navController = navController,
                 userName = "전도연",
                 postTitle = "서울대입구역 도보 5분이내 방 구합니다"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-            HomeMateCard6(
-                navController = navController,
-                userName = "이지은",
-                postTitle = "경희대 근처 방 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
         }

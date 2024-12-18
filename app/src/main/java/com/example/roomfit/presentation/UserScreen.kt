@@ -1,7 +1,11 @@
 package com.example.roomfit.presentation
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,23 +14,31 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.UserCard
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -51,6 +63,11 @@ fun UserScreen(navController: NavController) {
     val lifestyle = prefs.lifestyle ?: "Unknown"
     val smoking = prefs.smoking ?: "Unknown"
 
+    val profileImageUri = remember { mutableStateOf<Uri?>(null) }
+    val galleryLauncher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        profileImageUri.value = uri
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -73,13 +90,45 @@ fun UserScreen(navController: NavController) {
 
         Spacer(modifier = Modifier.height(50.dp))
 
-        Image(
-            painter = painterResource(id = R.drawable.user_profile),
-            contentDescription = "Default Profile Image",
-            modifier = Modifier.size(100.dp)
-        )
+        Box(
+            modifier = Modifier
+                .size(100.dp)
+                .clickable { galleryLauncher.launch("image/*") },
+            contentAlignment = Alignment.Center
+        ) {
+            profileImageUri.value?.let { uri ->
+                Image(
+                    painter = rememberAsyncImagePainter(uri),
+                    contentDescription = "Profile Image",
+                    modifier = Modifier.size(100.dp)
+                        .clip(CircleShape) // 이미지를 원형으로 자름
+                )
+            } ?: run {
+                Image(
+                    painter = painterResource(id = R.drawable.user_profile),
+                    contentDescription = "Default Profile Image",
+                    modifier = Modifier
+                        .size(100.dp)
+                        .clip(CircleShape) // 이미지를 원형으로 자름
+                )
+            }
+        }
 
-        Spacer(modifier = Modifier.height(14.dp))
+        // 카메라 버튼
+        IconButton(
+            onClick = { galleryLauncher.launch("image/*") },
+            modifier = Modifier
+                .size(40.dp)
+                .background(Color.Transparent, shape = RoundedCornerShape(20.dp))
+                .offset(x = 32.dp, y = (-33).dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.camera),
+                contentDescription = "Camera Icon",
+                tint = Color.Unspecified, // 원본 색상 유지
+                modifier = Modifier.size(40.dp) // 아이콘 크기 조정
+            )
+        }
 
         Row(
             verticalAlignment = Alignment.CenterVertically,

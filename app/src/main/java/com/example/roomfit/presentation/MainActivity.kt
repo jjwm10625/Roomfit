@@ -18,7 +18,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -34,6 +33,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.roomfit.presentation.detail.DetailScreen
+import com.example.roomfit.presentation.detail.DetailScreen2
+import com.example.roomfit.presentation.detail.DetailScreen4
+import com.example.roomfit.presentation.detail.DetailScreen5
 import com.example.roomfit.presentation.login.FindPwScreen
 import com.example.roomfit.presentation.login.LoginScreen
 import com.example.roomfit.presentation.login.PwResultScreen
@@ -114,10 +117,8 @@ class MainActivity : ComponentActivity() {
 
                         composable("home_mate") { DetailScreen(navController = navController) }
                         composable("home_mate2") { DetailScreen2(navController = navController) }
-                        composable("home_mate3") { DetailScreen3(navController = navController) }
                         composable("home_mate4") { DetailScreen4(navController = navController) }
                         composable("home_mate5") { DetailScreen5(navController = navController) }
-                        composable("home_mate6") { DetailScreen6(navController = navController) }
 
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }

@@ -60,7 +60,7 @@ fun HomeMateCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile_image),
+                painter = painterResource(id = R.drawable.dum_profile_1),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -119,7 +119,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.sun,
-                        iconLabel = "아침형",
+                        iconLabel = "저녁형",
                         labelStyle = UserInfo
                     )
                 }
@@ -127,7 +127,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "비흡연자",
+                        iconLabel = "흡연자",
                         labelStyle = UserInfo
                     )
                 }

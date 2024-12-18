@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation
+package com.example.roomfit.presentation.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,21 +9,17 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.components.DetailMateCard
 import com.example.roomfit.presentation.components.DetailMateCard2
 import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -31,10 +27,10 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
 
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen2(navController: NavController) {
     val imageList = listOf(
-        R.drawable.roomimage,
-        R.drawable.roomimage,
+        R.drawable.roomimage2,
+        R.drawable.roomimage2,
     )
 
     Column(
@@ -74,15 +70,15 @@ fun DetailScreen(navController: NavController) {
         DetailMateCard2(
             navController = navController,
             modifier = Modifier.padding(16.dp),
-            userName = "김채현",
-            postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
-            postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!"
+            userName = "조영서",
+            postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다",
+            postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!"
         )
     }
 }
 
 @Preview
 @Composable
-fun PreviewDetailScreen() {
-    DetailScreen(navController = rememberNavController())
+fun PreviewDetailScreen2() {
+    DetailScreen2(navController = rememberNavController())
 }
