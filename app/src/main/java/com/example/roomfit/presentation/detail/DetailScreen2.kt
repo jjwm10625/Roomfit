@@ -47,7 +47,7 @@ fun DetailScreen2(navController: NavController, scrapViewModel: ScrapViewModel) 
                 .padding(vertical = 8.dp)
         ) {
             IconButton(
-                onClick = { navController.navigate("home") },
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 16.dp)
