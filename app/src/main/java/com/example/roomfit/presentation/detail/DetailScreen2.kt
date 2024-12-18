@@ -72,7 +72,8 @@ fun DetailScreen2(navController: NavController) {
             modifier = Modifier.padding(16.dp),
             userName = "조영서",
             postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다",
-            postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!"
+            postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!",
+            profileImageRes = R.drawable.dum_profile_2
         )
     }
 }

@@ -105,6 +105,7 @@ fun HomeMateCard(
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // User Info
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -186,6 +187,6 @@ fun HomeMateCardPreview() {
     HomeMateCard(
         navController = rememberNavController(),
         userName = "김채현",
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+        postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다"
     )
 }

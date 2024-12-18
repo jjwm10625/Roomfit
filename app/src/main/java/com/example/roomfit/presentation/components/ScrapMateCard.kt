@@ -124,25 +124,6 @@ fun ScrapMateCard(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = {
-                    Toast.makeText(context, "취소되었습니다!", Toast.LENGTH_SHORT).show()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = BtnBeige
-                ),
-                shape = RoundedCornerShape(50)
-            ) {
-                Text(
-                    text = "찜하기 취소",
-                    color = Black,
-                    style = customLoginButtonStyle
-                )
-            }
-
-            Button(
-                modifier = Modifier
-                    .height(55.dp)
-                    .weight(1f),
                 onClick = { navController.navigate("chat") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BtnBlack

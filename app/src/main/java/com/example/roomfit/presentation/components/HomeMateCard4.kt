@@ -60,7 +60,7 @@ fun HomeMateCard4(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dum_profile_3),
+                painter = painterResource(id = R.drawable.dum_profile_4),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
