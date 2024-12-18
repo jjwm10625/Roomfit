@@ -7,6 +7,7 @@ import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -33,6 +34,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.detail.DetailScreen
 import com.example.roomfit.presentation.detail.DetailScreen2
 import com.example.roomfit.presentation.detail.DetailScreen4
@@ -54,6 +56,8 @@ class MainActivity : ComponentActivity() {
         val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        val scrapViewModel: ScrapViewModel by viewModels()
 
         setContent {
             RoomfitTheme {
@@ -115,13 +119,13 @@ class MainActivity : ComponentActivity() {
                         }
                         composable("chat") { ChatScreen(navController = navController) }
 
-                        composable("home_mate") { DetailScreen(navController = navController) }
-                        composable("home_mate2") { DetailScreen2(navController = navController) }
-                        composable("home_mate4") { DetailScreen4(navController = navController) }
-                        composable("home_mate5") { DetailScreen5(navController = navController) }
+                        composable("home_mate") { DetailScreen(navController = navController, scrapViewModel = scrapViewModel) }
+                        composable("home_mate2") { DetailScreen2(navController = navController, scrapViewModel = scrapViewModel) }
+                        composable("home_mate4") { DetailScreen4(navController = navController, scrapViewModel = scrapViewModel) }
+                        composable("home_mate5") { DetailScreen5(navController = navController, scrapViewModel = scrapViewModel) }
 
                         composable("my_post") { MyPostScreen(navController = navController) }
-                        composable("scrap") { ScrapListScreen(navController = navController) }
+                        composable("scrap") { ScrapListScreen(navController = navController, scrapViewModel = scrapViewModel) }
                         composable("home2") { HomeScreen2(navController = navController) }
 
                         composable(RoomNav.Home.route) { HomeScreen(navController) }

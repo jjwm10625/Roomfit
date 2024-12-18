@@ -25,9 +25,10 @@ import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
+import com.example.roomfit.ScrapViewModel
 
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen(navController: NavController, scrapViewModel: ScrapViewModel) {
     val imageList = listOf(
         R.drawable.roomimage,
         R.drawable.roomimage,
@@ -73,7 +74,8 @@ fun DetailScreen(navController: NavController) {
             userName = "김채현",
             postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다",
             postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!",
-            profileImageRes = R.drawable.dum_profile_1
+            profileImageRes = R.drawable.dum_profile_1,
+            scrapViewModel = scrapViewModel
         )
     }
 }
@@ -81,5 +83,8 @@ fun DetailScreen(navController: NavController) {
 @Preview
 @Composable
 fun PreviewDetailScreen() {
-    DetailScreen(navController = rememberNavController())
+    DetailScreen(
+        navController = rememberNavController(),
+        scrapViewModel = ScrapViewModel()
+    )
 }

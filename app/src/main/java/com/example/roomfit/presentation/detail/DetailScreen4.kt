@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.components.DetailMateCard4
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
@@ -27,7 +28,7 @@ import com.example.roomfit.ui.theme.UserTitle
 
 // 방을 구해요에서 이어지는 사진 없는 게시물 상세 화면
 @Composable
-fun DetailScreen4(navController: NavController) {
+fun DetailScreen4(navController: NavController, scrapViewModel: ScrapViewModel) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -62,6 +63,7 @@ fun DetailScreen4(navController: NavController) {
 
         DetailMateCard4(
             navController = navController,
+            scrapViewModel = scrapViewModel,
             modifier = Modifier.padding(16.dp),
             userName = "김민지",
             postTitle = "숙대입구역 근처 방 구합니다",
@@ -76,5 +78,8 @@ fun DetailScreen4(navController: NavController) {
 @Preview
 @Composable
 fun PreviewDetailScreen4() {
-    DetailScreen4(navController = rememberNavController())
+    DetailScreen4(
+        navController = rememberNavController(),
+        scrapViewModel = ScrapViewModel()
+    )
 }

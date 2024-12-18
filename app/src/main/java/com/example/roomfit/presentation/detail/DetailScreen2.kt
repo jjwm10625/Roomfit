@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.components.DetailMateCard2
 import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -27,7 +28,7 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
 
 @Composable
-fun DetailScreen2(navController: NavController) {
+fun DetailScreen2(navController: NavController, scrapViewModel: ScrapViewModel) {
     val imageList = listOf(
         R.drawable.roomimage2,
         R.drawable.roomimage2,
@@ -69,6 +70,7 @@ fun DetailScreen2(navController: NavController) {
 
         DetailMateCard2(
             navController = navController,
+            scrapViewModel = scrapViewModel,
             modifier = Modifier.padding(16.dp),
             userName = "조영서",
             postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다",
@@ -81,5 +83,8 @@ fun DetailScreen2(navController: NavController) {
 @Preview
 @Composable
 fun PreviewDetailScreen2() {
-    DetailScreen2(navController = rememberNavController())
+    DetailScreen2(
+        navController = rememberNavController(),
+        scrapViewModel = ScrapViewModel()
+    )
 }
