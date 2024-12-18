@@ -27,9 +27,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.roomfit.presentation.components.HomeMateCard
-import com.example.roomfit.presentation.components.HomeMateCard2
-import com.example.roomfit.presentation.components.HomeMateCard3
+import com.example.roomfit.presentation.components.HomeMateCard4
+import com.example.roomfit.presentation.components.HomeMateCard5
+import com.example.roomfit.presentation.components.HomeMateCard6
 import com.example.roomfit.presentation.components.MateFilter
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black
@@ -40,11 +40,11 @@ import com.example.roomfit.ui.theme.White
 import com.example.roomfit.ui.theme.homeTitle
 
 @Composable
-fun HomeScreen(
+fun HomeScreen2(
     navController: NavController,
 ) {
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
-    var selectedButton by remember { mutableStateOf("사람을 구해요!") }
+    var selectedButton by remember { mutableStateOf("방을 구해요!") }
 
     Column(
         modifier = Modifier
@@ -98,7 +98,8 @@ fun HomeScreen(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
-                    onClick = { selectedButton = "방을 구해요!"
+                    onClick = {
+                        selectedButton = "방을 구해요!"
                         navController.navigate("home2") },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "방을 구해요!") BtnBlack else BtnBeige
@@ -127,24 +128,24 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
         ) {
-            HomeMateCard(
+            HomeMateCard4(
                 navController = navController,
-                userName = "김채현",
-                postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+                userName = "김민지",
+                postTitle = "숙대입구역 근처 방 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            HomeMateCard2(
+            HomeMateCard5(
                 navController = navController,
-                userName = "조영서",
-                postTitle = "홍대입구 5분 거리 룸 쉐어 구합니다"
+                userName = "전도연",
+                postTitle = "서울대입구역 도보 5분이내 방 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
 
-            HomeMateCard3(
+            HomeMateCard6(
                 navController = navController,
-                userName = "이혜인",
-                postTitle = "신촌역 룸 쉐어 구합니다"
+                userName = "이지은",
+                postTitle = "경희대 근처 방 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -152,11 +153,10 @@ fun HomeScreen(
 }
 
 
-
 @Preview
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen(
+fun HomeScreen2Preview() {
+    HomeScreen2(
         navController = rememberNavController()
     )
 }

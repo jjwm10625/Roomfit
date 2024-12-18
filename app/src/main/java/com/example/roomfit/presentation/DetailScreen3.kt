@@ -31,10 +31,10 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
 
 @Composable
-fun DetailScreen(navController: NavController) {
+fun DetailScreen3(navController: NavController) {
     val imageList = listOf(
-        R.drawable.roomimage,
-        R.drawable.roomimage,
+        R.drawable.roomimage3,
+        R.drawable.roomimage3,
     )
 
     Column(
@@ -74,15 +74,15 @@ fun DetailScreen(navController: NavController) {
         DetailMateCard2(
             navController = navController,
             modifier = Modifier.padding(16.dp),
-            userName = "김채현",
-            postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
-            postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!"
+            userName = "이혜인",
+            postTitle = "신촌역 룸 쉐어 구합니다",
+            postContent = "컴퓨터공학과 학생이면 좋겠어요! 제가 03년생이어서 01~04년생 우대합니다!"
         )
     }
 }
 
 @Preview
 @Composable
-fun PreviewDetailScreen() {
-    DetailScreen(navController = rememberNavController())
+fun PreviewDetailScreen3() {
+    DetailScreen3(navController = rememberNavController())
 }
