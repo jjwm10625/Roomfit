@@ -43,7 +43,8 @@ fun ImageGallery(imageList: List<Int>, modifier: Modifier = Modifier) {
 fun ImageGalleryPreview() {
     val imageList = listOf(
         R.drawable.roomimage,
-        R.drawable.roomimage,
+        R.drawable.roomimage2,
+        R.drawable.roomimage3,
     )
     ImageGallery(imageList = imageList)
 }

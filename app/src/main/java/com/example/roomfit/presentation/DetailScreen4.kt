@@ -41,7 +41,7 @@ fun DetailScreen4(navController: NavController) {
                 .padding(vertical = 8.dp)
         ) {
             IconButton(
-                onClick = { navController.navigate("home") },
+                onClick = { navController.navigate("home2") },
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 16.dp)
@@ -63,9 +63,11 @@ fun DetailScreen4(navController: NavController) {
         DetailMateCard(
             navController = navController,
             modifier = Modifier.padding(16.dp),
-            userName = "이희진",
+            userName = "김민지",
             postTitle = "숙대입구역 근처 방 구합니다",
-            postContent = "집주인 분이 숙대생이면 더 좋겠습니다."
+            postContent = "안녕하세요! \n숙대입구역 근처 방을 구하고 있습니다. " +
+                    "깨끗한 방을 원하며, 제가 숙대생이라 같은 학교 학우분과 쉐어하면 좋겠습니다. " +
+                    "연락주세요 :)",
         )
     }
 }

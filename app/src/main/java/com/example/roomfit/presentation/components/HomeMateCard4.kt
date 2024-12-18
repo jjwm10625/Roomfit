@@ -35,6 +35,7 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.ComponentBeige
 import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.OffWhite
+import com.example.roomfit.ui.theme.UserInfo
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.mulishBold
 
@@ -119,7 +120,7 @@ fun HomeMateCard4(
                     DetailItem(
                         iconRes = R.drawable.sun,
                         iconLabel = "아침형",
-                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                        labelStyle = UserInfo
                     )
                 }
 
@@ -127,7 +128,7 @@ fun HomeMateCard4(
                     DetailItem(
                         iconRes = R.drawable.smoking,
                         iconLabel = "비흡연자",
-                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                        labelStyle = UserInfo
                     )
                 }
             }
@@ -141,7 +142,7 @@ fun HomeMateCard4(
                     DetailItem(
                         iconRes = R.drawable.people,
                         iconLabel = "2명",
-                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                        labelStyle = UserInfo
                     )
                 }
 
@@ -149,7 +150,7 @@ fun HomeMateCard4(
                     DetailItem(
                         iconRes = R.drawable.budget,
                         iconLabel = "1000~3000만",
-                        labelStyle = com.example.roomfit.ui.theme.UserInfo
+                        labelStyle = UserInfo
                     )
                 }
             }
@@ -184,7 +185,7 @@ fun HomeMateCard4(
 fun HomeMateCard4Preview() {
     HomeMateCard4(
         navController = rememberNavController(),
-        userName = "이희진",
+        userName = "김민지",
         postTitle = "숙대입구역 근처 방 구합니다"
     )
 }

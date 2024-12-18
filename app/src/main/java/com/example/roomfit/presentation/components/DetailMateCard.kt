@@ -4,8 +4,6 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -27,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.*
+import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
 fun DetailMateCard(
@@ -88,41 +87,54 @@ fun DetailMateCard(
         )
 
         // User Info
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 2.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            item {
-                DetailItem(
-                    iconRes = R.drawable.sun,
-                    iconLabel = "아침형",
-                    labelStyle = UserInfo
-                )
+            // 첫 번째 줄 (아침형, 비흡연자)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.sun,
+                        iconLabel = "아침형",
+                        labelStyle = UserInfo
+                    )
+                }
+
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.smoking,
+                        iconLabel = "비흡연자",
+                        labelStyle = UserInfo
+                    )
+                }
             }
-            item {
-                DetailItem(
-                    iconRes = R.drawable.smoking,
-                    iconLabel = "비흡연자",
-                    labelStyle = UserInfo
-                )
-            }
-            item {
-                DetailItem(
-                    iconRes = R.drawable.people,
-                    iconLabel = "2명",
-                    labelStyle = UserInfo
-                )
-            }
-            item {
-                DetailItem(
-                    iconRes = R.drawable.budget,
-                    iconLabel = "1000만~5000만",
-                    labelStyle = UserInfo
-                )
+
+            // 두 번째 줄 (2명, 1000만~3000만)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.people,
+                        iconLabel = "2명",
+                        labelStyle = UserInfo
+                    )
+                }
+
+                Row(modifier = Modifier.weight(1f)) {
+                    DetailItem(
+                        iconRes = R.drawable.budget,
+                        iconLabel = "1000~3000만",
+                        labelStyle = UserInfo
+                    )
+                }
             }
         }
 
@@ -200,7 +212,6 @@ fun DetailMateCard(
 }
 
 
-
 @Preview
 @Composable
 fun DetailMateCardPreview() {
@@ -208,6 +219,6 @@ fun DetailMateCardPreview() {
         navController = rememberNavController(),
         userName = "김채현",
         postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
-        postContent = "저는 고양이를 키우고 있어서\n털 알러지 없는 분들로 받겠습니다!"
+        postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!"
     )
 }

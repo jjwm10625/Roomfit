@@ -65,7 +65,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info", "chat", "home_mate", "home_mate2", "my_post", "scrap")) {
+                        if (currentDestination?.route !in listOf(
+                                "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
+                                "home_mate", "home_mate2", "home_mate3", "home_mate4", "home_mate5", "home_mate6",
+                                "my_post", "scrap")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -113,6 +116,8 @@ class MainActivity : ComponentActivity() {
                         composable("home_mate2") { DetailScreen2(navController = navController) }
                         composable("home_mate3") { DetailScreen3(navController = navController) }
                         composable("home_mate4") { DetailScreen4(navController = navController) }
+                        composable("home_mate5") { DetailScreen5(navController = navController) }
+                        composable("home_mate6") { DetailScreen6(navController = navController) }
 
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }

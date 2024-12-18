@@ -24,6 +24,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.DetailMateCard
+import com.example.roomfit.presentation.components.DetailMateCard2
 import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
@@ -70,12 +71,12 @@ fun DetailScreen2(navController: NavController) {
 
         ImageGallery(imageList = imageList)
 
-        DetailMateCard(
+        DetailMateCard2(
             navController = navController,
             modifier = Modifier.padding(16.dp),
             userName = "조영서",
             postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다",
-            postContent = "투룸이라 1인실 사용 가능합니다."
+            postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!"
         )
     }
 }

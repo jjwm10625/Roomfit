@@ -35,12 +35,12 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.ComponentBeige
 import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.OffWhite
+import com.example.roomfit.ui.theme.UserInfo
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.mulishBold
-import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
-fun HomeMateCard(
+fun HomeMateCard5(
     navController: NavController,
     userName: String,
     postTitle: String,
@@ -163,7 +163,7 @@ fun HomeMateCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { navController.navigate("home_mate") },
+                onClick = { navController.navigate("home_mate5") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
@@ -182,10 +182,10 @@ fun HomeMateCard(
 
 @Preview
 @Composable
-fun HomeMateCardPreview() {
-    HomeMateCard(
+fun HomeMateCard5Preview() {
+    HomeMateCard5(
         navController = rememberNavController(),
-        userName = "김채현",
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+        userName = "전도연",
+        postTitle = "서울대입구역 도보 5분이내 방 구합니다"
     )
 }

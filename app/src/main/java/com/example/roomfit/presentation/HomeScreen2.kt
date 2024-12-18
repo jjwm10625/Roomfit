@@ -28,6 +28,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.components.HomeMateCard4
+import com.example.roomfit.presentation.components.HomeMateCard5
+import com.example.roomfit.presentation.components.HomeMateCard6
 import com.example.roomfit.presentation.components.MateFilter
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black
@@ -36,7 +38,6 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.White
 import com.example.roomfit.ui.theme.homeTitle
-import com.gdg.kakaobank.presentation.navigator.RoomNav
 
 @Composable
 fun HomeScreen2(
@@ -80,7 +81,7 @@ fun HomeScreen2(
                         .weight(1f),
                     onClick = {
                         selectedButton = "사람을 구해요!"
-                        navController.navigate(RoomNav.Home.route) },
+                        navController.navigate("home") },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -113,7 +114,6 @@ fun HomeScreen2(
                 }
             }
 
-
             Spacer(modifier = Modifier.height(8.dp))
 
             MateFilter()
@@ -121,6 +121,7 @@ fun HomeScreen2(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
+        // HomeMateCard 목록
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -129,15 +130,27 @@ fun HomeScreen2(
         ) {
             HomeMateCard4(
                 navController = navController,
-                userName = "이희진",
+                userName = "김민지",
                 postTitle = "숙대입구역 근처 방 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
 
+            HomeMateCard5(
+                navController = navController,
+                userName = "전도연",
+                postTitle = "서울대입구역 도보 5분이내 방 구합니다"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            HomeMateCard6(
+                navController = navController,
+                userName = "이지은",
+                postTitle = "경희대 근처 방 구합니다"
+            )
+            Spacer(modifier = Modifier.height(16.dp))
         }
     }
 }
-
 
 
 @Preview

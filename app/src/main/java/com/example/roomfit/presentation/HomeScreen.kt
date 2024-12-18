@@ -38,7 +38,6 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.White
 import com.example.roomfit.ui.theme.homeTitle
-import com.gdg.kakaobank.presentation.navigator.RoomNav
 
 @Composable
 fun HomeScreen(
@@ -82,7 +81,7 @@ fun HomeScreen(
                         .weight(1f),
                     onClick = {
                         selectedButton = "사람을 구해요!"
-                        navController.navigate(RoomNav.Home.route) },
+                        navController.navigate("home") },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -121,6 +120,7 @@ fun HomeScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
+        // HomeMateCard 목록
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -143,7 +143,7 @@ fun HomeScreen(
 
             HomeMateCard3(
                 navController = navController,
-                userName = "김현서",
+                userName = "이혜인",
                 postTitle = "신촌역 룸 쉐어 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
