@@ -70,7 +70,7 @@ class MainActivity : ComponentActivity() {
                     bottomBar = {
                         if (currentDestination?.route !in listOf(
                                 "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
-                                "home_mate", "home_mate2", "home_mate3", "home_mate4", "home_mate5", "home_mate6",
+                                "home_mate", "home_mate2", "home_mate4", "home_mate5",
                                 "my_post", "scrap")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }

@@ -1,11 +1,8 @@
 package com.example.roomfit.presentation.components
 
-import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -31,13 +28,13 @@ import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
-fun DetailMateCard(
+fun DetailMateCard5(
     navController: NavController,
     modifier: Modifier = Modifier,
     userName: String,
     postTitle: String,
     postContent: String,
-    profileImageRes: Int? = null
+    profileImageRes: Int? = null // Add this parameter
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
@@ -113,7 +110,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "흡연자",
+                        iconLabel = "비흡연자",
                         labelStyle = UserInfo
                     )
                 }
@@ -127,7 +124,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.people,
-                        iconLabel = "2명",
+                        iconLabel = "3명",
                         labelStyle = UserInfo
                     )
                 }
@@ -135,7 +132,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "3000~5000만",
                         labelStyle = UserInfo
                     )
                 }
@@ -167,40 +164,6 @@ fun DetailMateCard(
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
-        // Location
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
-                .background(OffWhite)
-                .clickable {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("geo:37.5445,126.9665?q=숙명여자대학교") // 숙대 출력
-                    }
-                    context.startActivity(intent)
-                }
-        ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.location),
-                    contentDescription = "Location Icon",
-                    modifier = Modifier.size(18.dp)
-                )
-
-                Spacer(modifier = Modifier.width(8.dp))
-
-                Text(
-                    text = "위치 보기",
-                    style = bodyWriting,
-                    color = Black
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.height(8.dp))
 
         // Bookmark Button
         Row(
@@ -251,12 +214,13 @@ fun DetailMateCard(
 
 @Preview
 @Composable
-fun DetailMateCardPreview() {
-    DetailMateCard(
+fun DetailMateCard5Preview() {
+    DetailMateCard5(
         navController = rememberNavController(),
-        userName = "김채현",
-        postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다",
-        postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!",
-        profileImageRes = R.drawable.dum_profile_1
+        userName = "전도연",
+        postTitle = "서울대입구역 도보 5분이내 방 구합니다",
+        postContent = "기숙사 모집에 떨어져서 글 남깁니다. " +
+                "\n3월 1일 입주 희망합니다. 계약 시기에 따라 일정은 조율 가능해요.",
+        profileImageRes = R.drawable.dum_profile_5
     )
 }

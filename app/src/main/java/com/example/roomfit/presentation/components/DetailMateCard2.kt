@@ -36,7 +36,8 @@ fun DetailMateCard2(
     modifier: Modifier = Modifier,
     userName: String,
     postTitle: String,
-    postContent: String
+    postContent: String,
+    profileImageRes: Int? = null
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
@@ -54,7 +55,7 @@ fun DetailMateCard2(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.profile_image),
+                painter = painterResource(id = profileImageRes ?: R.drawable.user_profile),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -175,7 +176,7 @@ fun DetailMateCard2(
                 .background(OffWhite)
                 .clickable {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("geo:0,0?q=seoul") // Example location query
+                        data = Uri.parse("geo:37.5561,126.9236?q=홍대입구역") // 홍대입구역 출력
                     }
                     context.startActivity(intent)
                 }
@@ -232,7 +233,7 @@ fun DetailMateCard2(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = { navController.navigate("chat") },
+                onClick = { /* 채팅 연결 */ },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BtnBlack
                 ),
@@ -248,14 +249,14 @@ fun DetailMateCard2(
     }
 }
 
-
 @Preview
 @Composable
 fun DetailMateCard2Preview() {
     DetailMateCard2(
         navController = rememberNavController(),
-        userName = "김채현",
-        postTitle = "17평형 정문 근처 룸 쉐어 구합니다",
-        postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!"
+        userName = "조영서",
+        postTitle = "홍대입구 5분 거리 룸 쉐어 구합니다",
+        postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!",
+        profileImageRes = R.drawable.dum_profile_2
     )
 }

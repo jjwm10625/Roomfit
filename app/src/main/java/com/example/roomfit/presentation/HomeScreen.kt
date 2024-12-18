@@ -129,7 +129,7 @@ fun HomeScreen(
             HomeMateCard(
                 navController = navController,
                 userName = "김채현",
-                postTitle = "17평형 정문 근처 룸 쉐어 구합니다"
+                postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다"
             )
             Spacer(modifier = Modifier.height(16.dp))
 

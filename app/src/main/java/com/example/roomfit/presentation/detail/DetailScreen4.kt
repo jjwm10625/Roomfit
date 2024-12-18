@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.components.DetailMateCard
+import com.example.roomfit.presentation.components.DetailMateCard4
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
@@ -60,7 +60,7 @@ fun DetailScreen4(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        DetailMateCard(
+        DetailMateCard4(
             navController = navController,
             modifier = Modifier.padding(16.dp),
             userName = "김민지",
@@ -68,6 +68,7 @@ fun DetailScreen4(navController: NavController) {
             postContent = "안녕하세요! \n숙대입구역 근처 방을 구하고 있습니다. " +
                     "깨끗한 방을 원하며, 제가 숙대생이라 같은 학교 학우분과 쉐어하면 좋겠습니다. " +
                     "연락주세요 :)",
+            profileImageRes = R.drawable.dum_profile_4
         )
     }
 }

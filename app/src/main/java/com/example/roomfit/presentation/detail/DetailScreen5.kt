@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.components.DetailMateCard
+import com.example.roomfit.presentation.components.DetailMateCard5
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
@@ -60,13 +60,14 @@ fun DetailScreen5(navController: NavController) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        DetailMateCard(
+        DetailMateCard5(
             navController = navController,
             modifier = Modifier.padding(16.dp),
             userName = "전도연",
             postTitle = "서울대입구역 도보 5분이내 방 구합니다",
             postContent = "기숙사 모집에 떨어져서 글 남깁니다. " +
                     "\n3월 1일 입주 희망합니다. 계약 시기에 따라 일정은 조율 가능해요.",
+            profileImageRes = R.drawable.dum_profile_5
         )
     }
 }
