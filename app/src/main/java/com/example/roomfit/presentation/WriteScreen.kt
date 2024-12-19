@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.roomfit.PostViewModel
+import com.example.roomfit.presentation.viewmodel.PostViewModel
 import com.example.roomfit.presentation.components.WriteCard
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black

@@ -1,5 +1,5 @@
-// ChatScreen.kt
-package com.example.roomfit.presentation
+// ChatScreen4.kt
+package com.example.roomfit.presentation.chatting
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -17,19 +17,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
+import com.example.roomfit.presentation.viewmodel.ChatViewModel4
 import com.example.roomfit.ui.theme.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = viewModel()) {
+fun ChatScreen4(navController: NavController, chatViewModel: ChatViewModel4 = viewModel()) {
     val currentDate = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) }
     var message by remember { mutableStateOf("") }
     val timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
@@ -165,11 +164,4 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChatScreenPreview() {
-    val navController = rememberNavController()
-    ChatScreen(navController = navController)
 }

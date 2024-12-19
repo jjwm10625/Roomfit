@@ -1,5 +1,5 @@
 // ChatViewModel.kt
-package com.example.roomfit.presentation
+package com.example.roomfit.presentation.viewmodel
 
 import android.app.Application
 import android.content.Context

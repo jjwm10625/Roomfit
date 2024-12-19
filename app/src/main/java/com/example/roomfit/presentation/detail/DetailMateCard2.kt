@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation.components
+package com.example.roomfit.presentation.detail
 
 import android.content.Intent
 import android.net.Uri
@@ -26,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.ScrapItem
-import com.example.roomfit.ScrapViewModel
+import com.example.roomfit.presentation.viewmodel.ScrapItem
+import com.example.roomfit.presentation.viewmodel.ScrapViewModel
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
@@ -243,7 +243,7 @@ fun DetailMateCard2(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = { /* 채팅 연결 */ },
+                onClick = { navController.navigate("chat2") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BtnBlack
                 ),
