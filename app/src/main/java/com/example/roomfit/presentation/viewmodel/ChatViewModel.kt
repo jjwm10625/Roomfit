@@ -17,15 +17,13 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
     val messages: StateFlow<List<Pair<String, Boolean>>> = _messages
 
     fun addMessage(message: String, isMine: Boolean) {
-        viewModelScope.launch {
-            val updatedMessages = _messages.value + Pair(message, isMine)
-            _messages.value = updatedMessages
-            saveMessages(updatedMessages)
-        }
+        val updatedMessages = _messages.value + Pair(message, isMine)
+        _messages.value = updatedMessages
+        saveMessages(updatedMessages)
     }
 
     private fun loadMessages(): List<Pair<String, Boolean>> {
-        val jsonString = sharedPreferences.getString("messages", "[]")
+        val jsonString = sharedPreferences.getString("messages_chat1", "[]")
         val jsonArray = JSONArray(jsonString)
         val messages = mutableListOf<Pair<String, Boolean>>()
         for (i in 0 until jsonArray.length()) {
@@ -45,6 +43,6 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             jsonObject.put("isMine", isMine)
             jsonArray.put(jsonObject)
         }
-        sharedPreferences.edit().putString("messages", jsonArray.toString()).apply()
+        sharedPreferences.edit().putString("messages_chat1", jsonArray.toString()).apply()
     }
 }

@@ -24,14 +24,14 @@ import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.bodyWriting
 
 @Composable
-fun ChatRow(navController: NavController, userName: String, userDepartment: String, modifier: Modifier = Modifier) {
+fun ChatRow2(navController: NavController, userName: String, userDepartment: String, modifier: Modifier = Modifier) {
     Box(
         modifier = modifier
             .fillMaxWidth(0.9f)
             .clip(RoundedCornerShape(16.dp))
             .background(color = OffWhite)
             .padding(16.dp)
-            .clickable { navController.navigate("chat") } // 클릭 이벤트 추가
+            .clickable { navController.navigate("chat2") } // 클릭 이벤트 추가
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -41,7 +41,7 @@ fun ChatRow(navController: NavController, userName: String, userDepartment: Stri
                 .padding(8.dp)
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dum_profile_1), // 프로필 이미지
+                painter = painterResource(id = R.drawable.dum_profile_2), // 프로필 이미지
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -77,11 +77,4 @@ fun ChatRow(navController: NavController, userName: String, userDepartment: Stri
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChatRowPreview() {
-    // 더미 데이터를 사용하여 프리뷰 표시
-    ChatRow(navController = NavController(LocalContext.current), userName = "김채현", userDepartment = "컴퓨터공학과 3학년")
 }

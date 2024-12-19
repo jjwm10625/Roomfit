@@ -53,7 +53,7 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
             ) {
                 IconButton(
                     onClick = {
-                        navController.navigate(RoomNav.Message.route)
+                        navController.popBackStack()
                     }, // 이전 화면으로 돌아가기
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
@@ -102,7 +102,7 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
                             Text(
                                 text = msg,
                                 style = Chat2,
-                                color = BtnBeige,
+                                color = White,
                                 modifier = Modifier
                                     .background(
                                         color = BtnBlack,
