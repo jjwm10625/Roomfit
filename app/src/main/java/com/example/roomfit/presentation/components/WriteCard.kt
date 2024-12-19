@@ -69,7 +69,7 @@ fun WriteCard(
     lifestyle: String,
     smoking: String,
     modifier: Modifier = Modifier,
-    onSave: (String, String, String) -> Unit,
+    onSave: (String, String, String, String) -> Unit,
     postViewModel: PostViewModel = viewModel()
 ) {
     val context = LocalContext.current
@@ -264,8 +264,8 @@ fun WriteCard(
             ) {
                 Button(
                     onClick = {
-                        postViewModel.savePost(titleText, contentText, locationText, null)
-                        onSave(titleText, contentText, locationText)
+                        postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
+                        onSave(selectedButton, titleText, contentText, locationText)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

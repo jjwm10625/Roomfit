@@ -27,6 +27,7 @@ import com.example.roomfit.ui.theme.*
 @Composable
 fun MyPostCard(
     modifier: Modifier = Modifier,
+    mateorroomText: String,
     titleText: String,
     contentText: String,
     imageUri: Uri?,
@@ -57,13 +58,22 @@ fun MyPostCard(
                     contentScale = ContentScale.Crop
                 )
             }
-
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 8.dp),
                 thickness = 1.dp,
                 color = BtnBeige
             )
         }
+
+        // MateOrRoom
+        Text(
+            text = mateorroomText,
+            style = bodyDetail,
+            color = BtnBlack,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+        )
 
         // Post Title
         Text(
@@ -148,7 +158,8 @@ fun MyPostCard(
 @Composable
 fun MyPostCardPreview() {
     MyPostCard(
-        imageUri = null,
+        imageUri = Uri.parse("https://via.placeholder.com/250"),
+        mateorroomText = "방을 구해요!",
         titleText = "제목",
         contentText = "내용",
         location = "서울"

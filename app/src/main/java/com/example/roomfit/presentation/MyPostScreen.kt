@@ -80,6 +80,7 @@ fun MyPostScreen(
         ) {
             posts.forEach { post: PostItem ->
                 MyPostCard(
+                    mateorroomText = post.mateorroom,
                     titleText = post.title,
                     contentText = post.content,
                     imageUri = post.imageUri,

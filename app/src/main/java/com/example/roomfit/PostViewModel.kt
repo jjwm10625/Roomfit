@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import android.net.Uri
 
 data class PostItem(
+    val mateorroom: String,
     val title: String,
     val content: String,
     val location: String,
@@ -15,6 +16,7 @@ data class PostItem(
 )
 
 class PostViewModel : ViewModel() {
+    var mateorroom by mutableStateOf("")
     var title by mutableStateOf("")
     var content by mutableStateOf("")
     var location by mutableStateOf("")
@@ -22,17 +24,19 @@ class PostViewModel : ViewModel() {
     var posts = mutableStateListOf<PostItem>()
 
     fun savePost(
+        newMateOrRoom: String,
         newTitle: String,
         newContent: String,
         newLocation: String,
         newImageUri: Uri?
     ) {
+        mateorroom = newMateOrRoom
         title = newTitle
         content = newContent
         location = newLocation
         imageUri = newImageUri
         posts.add(
-            PostItem(newTitle, newContent, newLocation, newImageUri))
+            PostItem(newMateOrRoom, newTitle, newContent, newLocation, newImageUri))
     }
 
     fun deletePost(post: PostItem) {
