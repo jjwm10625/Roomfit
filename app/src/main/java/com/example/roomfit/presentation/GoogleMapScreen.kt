@@ -1,32 +1,33 @@
 package com.example.roomfit.presentation
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.viewmodel.PostViewModel
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.textfield2
-import com.gdg.kakaobank.presentation.navigator.RoomNav
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
+import android.location.Geocoder
+import androidx.compose.ui.platform.LocalContext
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.util.Locale
 
 @Composable
 fun GoogleMapScreen(
@@ -34,6 +35,7 @@ fun GoogleMapScreen(
     postViewModel: PostViewModel = viewModel(),
     initialLocationString: String? = null
 ) {
+    val context = LocalContext.current
     val initialLatLng = if (!initialLocationString.isNullOrEmpty()) {
         val coords = initialLocationString
             .replace("위치:", "")
@@ -58,11 +60,22 @@ fun GoogleMapScreen(
 
     var markerPosition by remember { mutableStateOf<LatLng?>(null) }
     var locationText by remember { mutableStateOf("") }
+    var addressText by remember { mutableStateOf("") }
+    var updatedClickedLatLng by remember { mutableStateOf<LatLng?>(null) }
 
     LaunchedEffect(initialLocationString) {
         if (initialLocationString != null) {
             markerPosition = initialLatLng
             locationText = "위치: (${initialLatLng.latitude}, ${initialLatLng.longitude})"
+            addressText = getAddressFromLatLng(context, initialLatLng.latitude, initialLatLng.longitude)
+            postViewModel.location = addressText // 초기 주소 저장
+        }
+    }
+
+    LaunchedEffect(updatedClickedLatLng) {
+        updatedClickedLatLng?.let {
+            addressText = getAddressFromLatLng(context, it.latitude, it.longitude)
+            postViewModel.location = addressText // 주소 업데이트
         }
     }
 
@@ -74,6 +87,7 @@ fun GoogleMapScreen(
                 if (initialLocationString == null) {
                     markerPosition = clickedLatLng
                     locationText = "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
+                    updatedClickedLatLng = clickedLatLng
                 }
             }
         ) {
@@ -81,12 +95,11 @@ fun GoogleMapScreen(
                 Marker(
                     state = com.google.maps.android.compose.MarkerState(position = it),
                     title = "선택된 위치",
-                    snippet = "(${it.latitude}, ${it.longitude})"
+                    snippet = addressText.ifEmpty { "주소를 가져오는 중..." }
                 )
             }
         }
 
-        // 위치 정보 상단 표시 로직
         if (locationText.isNotEmpty()) {
             Column(
                 modifier = Modifier
@@ -103,7 +116,7 @@ fun GoogleMapScreen(
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = locationText,
+                        text = "$locationText\n$addressText",
                         style = textfield2,
                         textAlign = TextAlign.Center
                     )
@@ -111,7 +124,6 @@ fun GoogleMapScreen(
 
                 Spacer(modifier = Modifier.height(8.dp))
 
-                // initialLocationString이 null일 때만 OK 버튼 표시(새 위치 선택 모드)
                 if (initialLocationString == null) {
                     Button(
                         onClick = {
@@ -130,6 +142,22 @@ fun GoogleMapScreen(
                     }
                 }
             }
+        }
+    }
+}
+
+suspend fun getAddressFromLatLng(context: Context, latitude: Double, longitude: Double): String {
+    return withContext(Dispatchers.IO) {
+        try {
+            val geocoder = Geocoder(context, Locale.getDefault())
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+            if (addresses?.isNotEmpty() == true) {
+                addresses[0]?.getAddressLine(0) ?: "주소를 가져올 수 없습니다"
+            } else {
+                "주소를 가져올 수 없습니다"
+            }
+        } catch (e: Exception) {
+            "주소를 가져오는 중 오류 발생"
         }
     }
 }
