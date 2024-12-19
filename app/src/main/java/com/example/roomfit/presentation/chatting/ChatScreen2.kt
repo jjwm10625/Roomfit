@@ -53,8 +53,10 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
             ) {
                 IconButton(
                     onClick = {
-                        navController.navigate(RoomNav.Message.route)
-                    }, // 이전 화면으로 돌아가기
+                        // 마지막 메시지를 가져와 MessageScreen에 전달
+                        val lastMessage = messages.lastOrNull()?.first ?: "No messages"
+                        navController.navigate(RoomNav.Message.route + "?lastMessage=$lastMessage")
+                    },
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
                     Image(
@@ -83,8 +85,8 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
             // 채팅 메시지 표시
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
+                    .weight(1f)
+                    .padding(8.dp, 8.dp, 8.dp, 80.dp), // 하단 패딩 추가
                 reverseLayout = false
             ) {
                 items(messages) { messagePair ->
@@ -108,7 +110,7 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
                                         color = BtnBlack,
                                         shape = RoundedCornerShape(22.dp)
                                     )
-                                    .padding(horizontal = 25.dp, vertical = 15.dp) // 좌우 패딩 추가
+                                    .padding(horizontal = 25.dp, vertical = 15.dp)
                             )
                             Text(
                                 text = currentTime,
@@ -140,20 +142,20 @@ fun ChatScreen2(navController: NavController, chatViewModel: ChatViewModel2 = vi
                         .weight(1f)
                         .background(Color.Transparent),
                     shape = RoundedCornerShape(30.dp),
-                    textStyle = Chat3, // 텍스트 스타일 설정
-                    placeholder = { Text("메시지를 입력하세요.", style = Chat2, color = Gray) }, // 플레이스홀더 설정
+                    textStyle = Chat3,
+                    placeholder = { Text("메시지를 입력하세요.", style = Chat2, color = Gray) },
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.White,
                         focusedTextColor = Color.Black,
                         unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Transparent, // 밑줄 제거
-                        unfocusedIndicatorColor = Color.Transparent // 밑줄 제거
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
                     )
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(onClick = {
                     if (message.isNotBlank()) {
-                        chatViewModel.addMessage(message, true) // 내가 보낸 메시지 추가
+                        chatViewModel.addMessage(message, true)
                         message = ""
                     }
                 }) {

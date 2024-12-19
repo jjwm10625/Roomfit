@@ -83,8 +83,8 @@ fun ChatScreen4(navController: NavController, chatViewModel: ChatViewModel4 = vi
             // 채팅 메시지 표시
             LazyColumn(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(8.dp),
+                    .weight(1f)
+                    .padding(8.dp, 8.dp, 8.dp, 80.dp), // 하단 패딩 추가
                 reverseLayout = false
             ) {
                 items(messages) { messagePair ->

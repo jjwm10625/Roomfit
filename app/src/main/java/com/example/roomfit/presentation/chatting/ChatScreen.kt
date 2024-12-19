@@ -28,10 +28,15 @@ import com.example.roomfit.ui.theme.*
 import com.gdg.kakaobank.presentation.navigator.RoomNav
 import java.text.SimpleDateFormat
 import java.util.*
+import androidx.compose.runtime.remember
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = viewModel()) {
+fun ChatScreen(
+    navController: NavController,
+    chatViewModel: ChatViewModel = viewModel()
+) {
     val currentDate = remember { SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date()) }
     var message by remember { mutableStateOf("") }
     val timeFormat = SimpleDateFormat("hh:mm a", Locale.US)
@@ -55,8 +60,10 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
             ) {
                 IconButton(
                     onClick = {
-                        navController.navigate(RoomNav.Message.route)
-              }, // 이전 화면으로 돌아가기
+                        // 마지막 메시지를 가져와 MessageScreen에 전달
+                        val lastMessage = messages.lastOrNull()?.first ?: "No messages"
+                        navController.navigate(RoomNav.Message.route + "?lastMessage=$lastMessage")
+                    },
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
                     Image(
@@ -110,7 +117,7 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
                                         color = BtnBlack,
                                         shape = RoundedCornerShape(22.dp)
                                     )
-                                    .padding(horizontal = 25.dp, vertical = 15.dp) // 좌우 패딩 추가
+                                    .padding(horizontal = 25.dp, vertical = 15.dp)
                             )
                             Text(
                                 text = currentTime,
@@ -142,20 +149,20 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
                         .weight(1f)
                         .background(Color.Transparent),
                     shape = RoundedCornerShape(30.dp),
-                    textStyle = Chat3, // 텍스트 스타일 설정
-                    placeholder = { Text("메시지를 입력하세요.", style = Chat2, color = Gray) }, // 플레이스홀더 설정
+                    textStyle = Chat3,
+                    placeholder = { Text("메시지를 입력하세요.", style = Chat2, color = Gray) },
                     colors = TextFieldDefaults.textFieldColors(
                         containerColor = Color.White,
                         focusedTextColor = Color.Black,
                         unfocusedTextColor = Color.Black,
-                        focusedIndicatorColor = Color.Transparent, // 밑줄 제거
-                        unfocusedIndicatorColor = Color.Transparent // 밑줄 제거
+                        focusedIndicatorColor = Color.Transparent,
+                        unfocusedIndicatorColor = Color.Transparent
                     )
                 )
                 Spacer(modifier = Modifier.width(8.dp))
                 IconButton(onClick = {
                     if (message.isNotBlank()) {
-                        chatViewModel.addMessage(message, true) // 내가 보낸 메시지 추가
+                        chatViewModel.addMessage(message, true)
                         message = ""
                     }
                 }) {
@@ -167,11 +174,4 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ChatScreenPreview() {
-    val navController = rememberNavController()
-    ChatScreen(navController = navController)
 }
