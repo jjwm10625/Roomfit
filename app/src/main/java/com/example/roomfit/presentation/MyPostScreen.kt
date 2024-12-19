@@ -12,13 +12,17 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.roomfit.PostItem
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.MyPostCard
 import com.example.roomfit.ui.theme.BackgroundBeige
@@ -27,7 +31,12 @@ import com.example.roomfit.ui.theme.UserTitle
 import com.gdg.kakaobank.presentation.navigator.RoomNav
 
 @Composable
-fun MyPostScreen(navController: NavController) {
+fun MyPostScreen(
+    navController: NavController,
+    postViewModel: PostViewModel = viewModel()
+) {
+    val posts = remember { postViewModel.posts }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -59,16 +68,20 @@ fun MyPostScreen(navController: NavController) {
         }
         Spacer(modifier = Modifier.height(8.dp))
 
-        Column (
+        // 내 게시글 목록
+        Column(
             modifier = Modifier
                 .fillMaxSize()
                 .background(BackgroundBeige)
                 .padding(16.dp)
-        ){
-            MyPostCard(
-                titleText = "17평형 정문 근처 룸 쉐어 구합니다",
-                contentText = "3월 1일 입주 가능합니다. 아래 번호로 연락 주세요."
-            )
+        ) {
+            posts.forEach { post: PostItem ->
+                MyPostCard(
+                    titleText = post.title,
+                    contentText = post.content
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }

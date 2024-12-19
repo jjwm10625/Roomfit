@@ -41,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.presentation.mate.MateButton
@@ -70,11 +71,14 @@ fun WriteCard(
     durationOfStay: String,
     lifestyle: String,
     smoking: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onSave: (String, String, String) -> Unit,
+    postViewModel: PostViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
     var selectedButton by remember { mutableStateOf("사람을 구해요!") }
+
     var titleText by remember { mutableStateOf("") }
     var contentText by remember { mutableStateOf("") }
 
@@ -265,7 +269,10 @@ fun WriteCard(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button(
-                    onClick = { Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show() },
+                    onClick = {
+                        postViewModel.savePost(titleText, contentText, "위치 정보", null)
+                        onSave(titleText, contentText, "위치 정보")
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(8.dp)

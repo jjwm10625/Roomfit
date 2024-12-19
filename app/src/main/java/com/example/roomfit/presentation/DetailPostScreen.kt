@@ -114,17 +114,17 @@ fun DetailPostScreen(navController: NavController) {
         Spacer(modifier = Modifier.height(16.dp))
 
         // 글 작성 카드
-        WriteCard(
-            navController = navController,
-            username = username,
-            gender = gender,
-            school = school,
-            budget = budget,
-            houseType = houseType,
-            numberOfResidents = numberOfResidents,
-            durationOfStay = durationOfStay,
-            lifestyle = lifestyle,
-            smoking = smoking
-        )
+//        WriteCard(
+//            navController = navController,
+//            username = username,
+//            gender = gender,
+//            school = school,
+//            budget = budget,
+//            houseType = houseType,
+//            numberOfResidents = numberOfResidents,
+//            durationOfStay = durationOfStay,
+//            lifestyle = lifestyle,
+//            smoking = smoking
+//        )
     }
 }

@@ -30,8 +30,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.presentation.components.WriteCard
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black
@@ -41,7 +43,10 @@ import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.util.PreferencesManager
 
 @Composable
-fun WriteScreen(navController: NavController) {
+fun WriteScreen(
+    navController: NavController,
+    postViewModel: PostViewModel = viewModel()
+) {
     val context = LocalContext.current
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -124,13 +129,12 @@ fun WriteScreen(navController: NavController) {
             numberOfResidents = numberOfResidents,
             durationOfStay = durationOfStay,
             lifestyle = lifestyle,
-            smoking = smoking
+            smoking = smoking,
+            modifier = Modifier,
+            onSave = { title, content, location ->
+                postViewModel.savePost(title, content, location, selectedImageUri)
+                Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
+            }
         )
     }
 }
-
-//@Preview
-//@Composable
-//fun PreviewWriteScreen() {
-//    WriteScreen()
-//}

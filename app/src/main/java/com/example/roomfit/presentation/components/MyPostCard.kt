@@ -19,8 +19,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.roomfit.R
-import com.example.roomfit.presentation.mate.MateButton
-import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.*
 
 @Composable
@@ -28,6 +26,7 @@ fun MyPostCard(
     modifier: Modifier = Modifier,
     titleText: String,
     contentText: String,
+    onDeleteClick: () -> Unit = {}
 ) {
     val context = LocalContext.current
 
@@ -84,6 +83,7 @@ fun MyPostCard(
         ) {
             Button(
                 onClick = {
+                    onDeleteClick()
                     Toast.makeText(context, "삭제되었습니다!", Toast.LENGTH_SHORT).show()
                 },
                 modifier = Modifier
@@ -100,14 +100,4 @@ fun MyPostCard(
             }
         }
     }
-}
-
-
-@Preview
-@Composable
-fun MyPostCardPreview() {
-    MyPostCard(
-        titleText = "17평형 정문 근처 룸 쉐어 구합니다",
-        contentText = "3월 1일 입주 가능합니다. 아래 번호로 연락 주세요."
-    )
 }
