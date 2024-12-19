@@ -149,7 +149,7 @@ fun HomeMateCard5(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "3000~5000만",
+                        iconLabel = "3000만원~5000만원",
                         labelStyle = UserInfo
                     )
                 }

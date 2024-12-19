@@ -4,8 +4,10 @@ import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -55,7 +57,7 @@ fun DetailMateCard5(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = profileImageRes ?: R.drawable.user_profile), // Use default image if null
+                painter = painterResource(id = profileImageRes ?: R.drawable.user_profile),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -135,7 +137,7 @@ fun DetailMateCard5(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "3000~5000만",
+                        iconLabel = "3000만원~5000만원",
                         labelStyle = UserInfo
                     )
                 }
@@ -148,75 +150,79 @@ fun DetailMateCard5(
             color = BtnBeige
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Post Title
-        Text(
-            text = postTitle,
-            style = bodyDetail,
-            color = ComponentBeige
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Post Content
-        Text(
-            text = postContent,
-            style = bodyWriting.copy(color = ComponentBeige),
-            color = ComponentBeige
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Bookmark Button
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                .padding(8.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            Button(
-                modifier = Modifier
-                    .height(55.dp)
-                    .weight(1f),
-                onClick = {
-                    scrapViewModel.addScrap(
-                        ScrapItem(
-                            userName, postTitle, postContent,
-                            profileImageRes ?: R.drawable.dum_profile_5,
-                            routeKey = "detailmatecard5"
-                        )
-                    )
-                    Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = BtnBeige
-                ),
-                shape = RoundedCornerShape(50)
-            ) {
-                Text(
-                    text = "찜하기",
-                    color = Black,
-                    style = customLoginButtonStyle
-                )
-            }
+            // Post Title
+            Text(
+                text = postTitle,
+                style = bodyDetail,
+                color = ComponentBeige
+            )
 
-            // Chat Button
-            Button(
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Post Content
+            Text(
+                text = postContent,
+                style = bodyWriting.copy(color = ComponentBeige),
+                color = ComponentBeige
+            )
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            // Bookmark Button
+            Row(
                 modifier = Modifier
-                    .height(55.dp)
-                    .weight(1f),
-                onClick = { navController.navigate("chat5") },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = BtnBlack
-                ),
-                shape = RoundedCornerShape(50)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(
-                    text = "채팅하기",
-                    color = White,
-                    style = customLoginButtonStyle
-                )
+                Button(
+                    modifier = Modifier
+                        .height(55.dp)
+                        .weight(1f),
+                    onClick = {
+                        scrapViewModel.addScrap(
+                            ScrapItem(
+                                userName, postTitle, postContent,
+                                profileImageRes ?: R.drawable.dum_profile_5,
+                                routeKey = "detailmatecard5"
+                            )
+                        )
+                        Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = BtnBeige
+                    ),
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        text = "찜하기",
+                        color = Black,
+                        style = customLoginButtonStyle
+                    )
+                }
+
+                // Chat Button
+                Button(
+                    modifier = Modifier
+                        .height(55.dp)
+                        .weight(1f),
+                    onClick = { navController.navigate("chat5") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = BtnBlack
+                    ),
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        text = "채팅하기",
+                        color = White,
+                        style = customLoginButtonStyle
+                    )
+                }
             }
         }
     }

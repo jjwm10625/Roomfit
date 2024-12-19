@@ -45,6 +45,11 @@ fun HomeScreen2(
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
     var selectedButton by remember { mutableStateOf("방을 구해요!") }
 
+    var selectedHouseType by remember { mutableStateOf("집 유형") }
+    var selectedBudget by remember { mutableStateOf("예산") }
+    var selectedPeople by remember { mutableStateOf("인원") }
+    var selectedDuration by remember { mutableStateOf("기간") }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -89,7 +94,8 @@ fun HomeScreen2(
                     Text(
                         text = "사람을 구해요!",
                         color = if (selectedButton == "사람을 구해요!") White else Black,
-                        style = customLoginButtonStyle)
+                        style = customLoginButtonStyle
+                    )
                 }
 
                 // Right Button: 방을 구해요
@@ -115,7 +121,16 @@ fun HomeScreen2(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            MateFilter()
+            MateFilter(
+                selectedHouseType = selectedHouseType,
+                onSelectedHouseTypeChange = { selectedHouseType = it },
+                selectedBudget = selectedBudget,
+                onSelectedBudgetChange = { selectedBudget = it },
+                selectedPeople = selectedPeople,
+                onSelectedPeopleChange = { selectedPeople = it },
+                selectedDuration = selectedDuration,
+                onSelectedDurationChange = { selectedDuration = it }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -127,19 +142,28 @@ fun HomeScreen2(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
         ) {
-            HomeMateCard4(
-                navController = navController,
-                userName = "김민지",
-                postTitle = "숙대입구역 근처 방 구합니다"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            // 필터 조건에 따라 노출
+            if ((selectedPeople == "인원" || selectedPeople == "4명 이상") &&
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
+            ) {
+                HomeMateCard4(
+                    navController = navController,
+                    userName = "김민지",
+                    postTitle = "숙대입구역 근처 방 구합니다"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
-            HomeMateCard5(
-                navController = navController,
-                userName = "전도연",
-                postTitle = "서울대입구역 도보 5분이내 방 구합니다"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            if ((selectedPeople == "인원" || selectedPeople == "3명") &&
+                (selectedBudget == "예산" || selectedBudget == "3000만원~5000만원")
+            ) {
+                HomeMateCard5(
+                    navController = navController,
+                    userName = "전도연",
+                    postTitle = "서울대입구역 도보 5분이내 방 구합니다"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
 }

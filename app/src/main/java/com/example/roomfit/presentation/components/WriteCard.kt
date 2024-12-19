@@ -32,6 +32,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -74,7 +75,7 @@ fun WriteCard(
     selectedImageUri: Uri?
 ) {
     val context = LocalContext.current
-    val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
+    val customLoginButtonStyle = LoginButton.copy(fontSize = 13.sp)
 
     Box(
         modifier = Modifier
@@ -334,4 +335,3 @@ fun UserInfo3(
         }
     }
 }
-

@@ -22,11 +22,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.components.HomeMateCard
 import com.example.roomfit.presentation.components.HomeMateCard2
 import com.example.roomfit.presentation.components.MateFilter
@@ -42,8 +40,13 @@ import com.example.roomfit.ui.theme.homeTitle
 fun HomeScreen(
     navController: NavController,
 ) {
-    val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
+    val customLoginButtonStyle = LoginButton.copy(fontSize = 14.sp)
     var selectedButton by remember { mutableStateOf("사람을 구해요!") }
+
+    var selectedHouseType by remember { mutableStateOf("집 유형") }
+    var selectedBudget by remember { mutableStateOf("예산") }
+    var selectedPeople by remember { mutableStateOf("인원") }
+    var selectedDuration by remember { mutableStateOf("기간") }
 
     Column(
         modifier = Modifier
@@ -89,7 +92,8 @@ fun HomeScreen(
                     Text(
                         text = "사람을 구해요!",
                         color = if (selectedButton == "사람을 구해요!") White else Black,
-                        style = customLoginButtonStyle)
+                        style = customLoginButtonStyle
+                    )
                 }
 
                 // Right Button: 방을 구해요
@@ -114,7 +118,16 @@ fun HomeScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            MateFilter()
+            MateFilter(
+                selectedHouseType = selectedHouseType,
+                onSelectedHouseTypeChange = { selectedHouseType = it },
+                selectedBudget = selectedBudget,
+                onSelectedBudgetChange = { selectedBudget = it },
+                selectedPeople = selectedPeople,
+                onSelectedPeopleChange = { selectedPeople = it },
+                selectedDuration = selectedDuration,
+                onSelectedDurationChange = { selectedDuration = it }
+            )
 
             Spacer(modifier = Modifier.height(16.dp))
         }
@@ -126,29 +139,28 @@ fun HomeScreen(
                 .verticalScroll(rememberScrollState())
                 .padding(horizontal = 16.dp)
         ) {
-            HomeMateCard(
-                navController = navController,
-                userName = "김채현",
-                postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다"
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+            // 필터 조건에 따라 노출
+            if ((selectedPeople == "인원" || selectedPeople == "2명") &&
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
+            ) {
+                HomeMateCard(
+                    navController = navController,
+                    userName = "김채현",
+                    postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다"
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+            }
 
-            HomeMateCard2(
-                navController = navController,
-                userName = "조영서",
-                postTitle = "홍대입구 5분 거리 룸 쉐어 구합니다"
-            )
+            if ((selectedPeople == "인원" || selectedPeople == "2명") &&
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
+            ) {
+                HomeMateCard2(
+                    navController = navController,
+                    userName = "조영서",
+                    postTitle = "홍대입구 5분 거리 룸 쉐어 구합니다"
+                )
             Spacer(modifier = Modifier.height(16.dp))
+            }
         }
     }
-}
-
-
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    HomeScreen(
-        navController = rememberNavController()
-    )
 }

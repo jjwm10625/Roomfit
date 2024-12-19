@@ -38,7 +38,6 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserInfo
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.mulishBold
-import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
 fun HomeMateCard2(
@@ -150,7 +149,7 @@ fun HomeMateCard2(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "1000만원~3000만원",
                         labelStyle = UserInfo
                     )
                 }

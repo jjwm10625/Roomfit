@@ -7,8 +7,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -58,7 +60,7 @@ fun DetailMateCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dum_profile_1), // Use default image if null
+                painter = painterResource(id = R.drawable.dum_profile_1),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -116,7 +118,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "흡연자",
+                        iconLabel = "비흡연자",
                         labelStyle = UserInfo
                     )
                 }
@@ -138,7 +140,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "1000만원~3000만원",
                         labelStyle = UserInfo
                     )
                 }
@@ -151,8 +153,12 @@ fun DetailMateCard(
             color = BtnBeige
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
         // Post Title
         Text(
             text = postTitle,
@@ -177,12 +183,8 @@ fun DetailMateCard(
                 .fillMaxWidth()
                 .wrapContentHeight()
                 .background(OffWhite)
-                .clickable {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("geo:37.5445,126.9665?q=숙명여자대학교") // 숙대 출력
-                    }
-                    context.startActivity(intent)
-                }
+                .clickable { navController.navigate("map?location=37.5445,126.9665") } // 숙명여대
+
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically
@@ -203,13 +205,12 @@ fun DetailMateCard(
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         // Bookmark Button
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Button(
@@ -257,6 +258,7 @@ fun DetailMateCard(
             }
         }
     }
+}
 }
 
 @Preview
