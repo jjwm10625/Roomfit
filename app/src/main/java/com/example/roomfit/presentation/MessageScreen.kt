@@ -29,7 +29,12 @@ import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.UserTitle
 
 @Composable
-fun MessageScreen(navController: NavController, lastMessage: String, chatViewModel: ChatViewModel = viewModel(),chatViewModel2: ChatViewModel2 = viewModel(),chatViewModel4: ChatViewModel4 = viewModel(), chatViewModel5: ChatViewModel5 = viewModel()) {
+fun MessageScreen(navController: NavController,
+                  lastMessage: String,
+                  chatViewModel: ChatViewModel = viewModel(),
+                  chatViewModel2: ChatViewModel2 = viewModel(),
+                  chatViewModel4: ChatViewModel4 = viewModel(),
+                  chatViewModel5: ChatViewModel5 = viewModel()) {
     val messages by chatViewModel.messages.collectAsState()
     val messages2 by chatViewModel2.messages.collectAsState()
     val messages4 by chatViewModel4.messages.collectAsState()

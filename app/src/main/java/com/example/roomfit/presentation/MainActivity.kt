@@ -151,7 +151,7 @@ class MainActivity : ComponentActivity() {
                         composable(RoomNav.Write.route) { WriteScreen(navController, postViewModel) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
-                            MessageScreen(navController = navController, lastMessage = lastMessage)
+                            MessageScreen(navController, lastMessage, chatViewModel, chatViewModel2, chatViewModel4, chatViewModel5)
                         }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }
