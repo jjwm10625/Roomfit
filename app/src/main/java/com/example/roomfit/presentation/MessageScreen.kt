@@ -46,8 +46,9 @@ fun MessageScreen(navController: NavController,
         modifier = Modifier
             .background(BackgroundBeige)
         .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        .verticalScroll(rememberScrollState()),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.spacedBy(15.dp) // 항목 사이에 15.dp 간격 추가
     ) {
         // 상단 제목 및 뒤로가기 버튼
         Box(
@@ -63,7 +64,7 @@ fun MessageScreen(navController: NavController,
             )
         }
 
-        Spacer(modifier = Modifier.height(50.dp))
+        Spacer(modifier = Modifier.height(30.dp))
 
         // 마지막 메시지의 이름만 표시
         if (messages.isNotEmpty()) {
@@ -76,7 +77,6 @@ fun MessageScreen(navController: NavController,
             Text(text = lastMessage)
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
 
         // 마지막 메시지의 이름만 표시
         if (messages2.isNotEmpty()) {
@@ -89,7 +89,6 @@ fun MessageScreen(navController: NavController,
             Text(text = lastMessage)
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
 
         if (messages4.isNotEmpty()) {
             ChatRow4(
@@ -101,7 +100,6 @@ fun MessageScreen(navController: NavController,
             Text(text = lastMessage)
         }
 
-        Spacer(modifier = Modifier.height(15.dp))
 
         if (messages5.isNotEmpty()) {
             ChatRow5(
