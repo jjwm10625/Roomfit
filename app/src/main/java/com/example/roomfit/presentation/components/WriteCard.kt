@@ -78,6 +78,7 @@ fun WriteCard(
 
     var titleText by remember { mutableStateOf("") }
     var contentText by remember { mutableStateOf("") }
+    var locationText by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -113,7 +114,8 @@ fun WriteCard(
                     Text(
                         text = "사람을 구해요!",
                         color = if (selectedButton == "사람을 구해요!") White else Black,
-                        style = customLoginButtonStyle)
+                        style = customLoginButtonStyle
+                    )
                 }
 
                 // Right Button: 방을 구해요
@@ -225,7 +227,7 @@ fun WriteCard(
                         .fillMaxWidth()
                         .wrapContentHeight()
                         .background(OffWhite)
-                        .clip(RoundedCornerShape(8.dp)) // Optional: rounded corners
+                        .clip(RoundedCornerShape(8.dp))
                         .padding(
                             top = 16.dp,
                             start = 16.dp,
@@ -262,8 +264,8 @@ fun WriteCard(
             ) {
                 Button(
                     onClick = {
-                        postViewModel.savePost(titleText, contentText, "위치 정보", null)
-                        onSave(titleText, contentText, "위치 정보")
+                        postViewModel.savePost(titleText, contentText, locationText, null)
+                        onSave(titleText, contentText, locationText)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -329,9 +331,3 @@ fun UserInfo3(
         }
     }
 }
-
-//@Preview
-//@Composable
-//fun WriteCardPreview() {
-//    WriteCard()
-//}
