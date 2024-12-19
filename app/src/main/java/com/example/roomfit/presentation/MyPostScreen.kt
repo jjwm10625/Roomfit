@@ -82,7 +82,8 @@ fun MyPostScreen(
                 MyPostCard(
                     titleText = post.title,
                     contentText = post.content,
-                    imageUri = post.imageUri
+                    imageUri = post.imageUri,
+                    onDelete = { postViewModel.deletePost(post) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }

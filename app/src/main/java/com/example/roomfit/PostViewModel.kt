@@ -32,9 +32,10 @@ class PostViewModel : ViewModel() {
         location = newLocation
         imageUri = newImageUri
         posts.add(
-            PostItem(
-                newTitle, newContent, newLocation, newImageUri
-            )
-        )
+            PostItem(newTitle, newContent, newLocation, newImageUri))
+    }
+
+    fun deletePost(post: PostItem) {
+        posts.remove(post)
     }
 }
