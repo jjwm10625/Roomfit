@@ -1,5 +1,6 @@
 package com.example.roomfit.presentation.components
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -40,6 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.DetailItem
@@ -174,7 +176,7 @@ fun WriteCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
+                        .height(40.dp)
                         .background(OffWhite)
                         .padding(
                             top = 16.dp,
@@ -203,7 +205,7 @@ fun WriteCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(80.dp)
+                        .height(60.dp)
                         .background(OffWhite)
                         .padding(
                             top = 16.dp,
@@ -269,6 +271,8 @@ fun WriteCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                val isButtonEnabled = titleText.isNotEmpty() && contentText.isNotEmpty()
+
                 Button(
                     onClick = {
                         postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
@@ -279,7 +283,8 @@ fun WriteCard(
                         .padding(8.dp)
                         .height(48.dp),
                     shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
+                    colors = ButtonDefaults.buttonColors(containerColor = BtnBlack),
+                    enabled = isButtonEnabled
                 ) {
                     Text(
                         text = "작성 완료",
@@ -338,3 +343,4 @@ fun UserInfo3(
         }
     }
 }
+
