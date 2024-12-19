@@ -88,7 +88,11 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         if (currentDestination?.route !in listOf(
-                                "login", "find_pw", "result_pw", "sign_up", "user_info", "chat", "home_mate", "home_mate2", "home_mate4", "home_mate5", "my_post", "scrap", "map?location={location}")) {
+
+                                "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
+                                "home_mate", "home_mate2", "home_mate4", "home_mate5",
+                                "my_post", "scrap","chat","chat2","chat4","chat5")) {
+
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -154,7 +158,7 @@ class MainActivity : ComponentActivity() {
                         composable(RoomNav.Write.route) { WriteScreen(navController = navController, postViewModel = postViewModel) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
-                            MessageScreen(navController = navController, lastMessage = lastMessage)
+                            MessageScreen(navController, lastMessage, chatViewModel, chatViewModel2, chatViewModel4, chatViewModel5)
                         }
                         composable(RoomNav.User.route) { UserScreen(navController = navController) }
                     }

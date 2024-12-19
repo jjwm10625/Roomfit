@@ -102,7 +102,7 @@ fun ChatScreen4(navController: NavController, chatViewModel: ChatViewModel4 = vi
                             Text(
                                 text = msg,
                                 style = Chat2,
-                                color = BtnBeige,
+                                color = White,
                                 modifier = Modifier
                                     .background(
                                         color = BtnBlack,
