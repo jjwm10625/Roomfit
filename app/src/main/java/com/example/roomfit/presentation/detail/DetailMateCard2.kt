@@ -1,14 +1,14 @@
 package com.example.roomfit.presentation.detail
 
-import android.content.Intent
-import android.net.Uri
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
@@ -138,7 +138,7 @@ fun DetailMateCard2(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "1000만원~3000만원",
                         labelStyle = UserInfo
                     )
                 }
@@ -151,109 +151,108 @@ fun DetailMateCard2(
             color = BtnBeige
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Post Title
-        Text(
-            text = postTitle,
-            style = bodyDetail,
-            color = ComponentBeige
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Post Content
-        Text(
-            text = postContent,
-            style = bodyWriting.copy(color = ComponentBeige),
-            color = ComponentBeige
-        )
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // Location
-        Box(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight()
-                .background(OffWhite)
-                .clickable {
-                    val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("geo:37.5561,126.9236?q=홍대입구역") // 홍대입구역 출력
-                    }
-                    context.startActivity(intent)
-                }
+                .padding(8.dp)
+                .verticalScroll(rememberScrollState())
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.location),
-                    contentDescription = "Location Icon",
-                    modifier = Modifier.size(18.dp)
-                )
+            // Post Title
+            Text(
+                text = postTitle,
+                style = bodyDetail,
+                color = ComponentBeige
+            )
 
-                Spacer(modifier = Modifier.width(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-                Text(
-                    text = "위치 보기",
-                    style = bodyWriting,
-                    color = Black
-                )
-            }
-        }
+            // Post Content
+            Text(
+                text = postContent,
+                style = bodyWriting.copy(color = ComponentBeige),
+                color = ComponentBeige
+            )
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-        // Bookmark Button
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
-        ) {
-            Button(
+            // Location
+            Box(
                 modifier = Modifier
-                    .height(55.dp)
-                    .weight(1f),
-                onClick = {
-                    scrapViewModel.addScrap(
-                        ScrapItem(
-                            userName, postTitle, postContent,
-                            profileImageRes ?: R.drawable.dum_profile_2,
-                            routeKey = "detailmatecard2"
-                        )
+                    .fillMaxWidth()
+                    .wrapContentHeight()
+                    .background(OffWhite)
+                    .clickable { navController.navigate("map?location=37.5561,126.9236") } // 홍대입구역
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.location),
+                        contentDescription = "Location Icon",
+                        modifier = Modifier.size(18.dp)
                     )
-                    Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = BtnBeige
-                ),
-                shape = RoundedCornerShape(50)
-            ) {
-                Text(
-                    text = "찜하기",
-                    color = Black,
-                    style = customLoginButtonStyle
-                )
+
+                    Spacer(modifier = Modifier.width(8.dp))
+
+                    Text(
+                        text = "위치 보기",
+                        style = bodyWriting,
+                        color = Black
+                    )
+                }
             }
 
-            // Chat Button
-            Button(
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Bookmark Button
+            Row(
                 modifier = Modifier
-                    .height(55.dp)
-                    .weight(1f),
-                onClick = { navController.navigate("chat2") },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = BtnBlack
-                ),
-                shape = RoundedCornerShape(50)
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                Text(
-                    text = "채팅하기",
-                    color = White,
-                    style = customLoginButtonStyle
-                )
+                Button(
+                    modifier = Modifier
+                        .height(55.dp)
+                        .weight(1f),
+                    onClick = {
+                        scrapViewModel.addScrap(
+                            ScrapItem(
+                                userName, postTitle, postContent,
+                                profileImageRes ?: R.drawable.dum_profile_2,
+                                routeKey = "detailmatecard2"
+                            )
+                        )
+                        Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = BtnBeige
+                    ),
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        text = "찜하기",
+                        color = Black,
+                        style = customLoginButtonStyle
+                    )
+                }
+
+                // Chat Button
+                Button(
+                    modifier = Modifier
+                        .height(55.dp)
+                        .weight(1f),
+                    onClick = { navController.navigate("chat2") },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = BtnBlack
+                    ),
+                    shape = RoundedCornerShape(50)
+                ) {
+                    Text(
+                        text = "채팅하기",
+                        color = White,
+                        style = customLoginButtonStyle
+                    )
+                }
             }
         }
     }

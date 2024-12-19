@@ -128,7 +128,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "흡연자",
+                        iconLabel = "비흡연자",
                         labelStyle = UserInfo
                     )
                 }
@@ -150,7 +150,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "1000만원~3000만원",
                         labelStyle = UserInfo
                     )
                 }

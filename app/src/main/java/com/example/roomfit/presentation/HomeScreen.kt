@@ -25,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.presentation.components.HomeMateCard
 import com.example.roomfit.presentation.components.HomeMateCard2
 import com.example.roomfit.presentation.components.MateFilter
@@ -141,7 +140,7 @@ fun HomeScreen(
         ) {
             // 필터 조건에 따라 노출
             if ((selectedPeople == "인원" || selectedPeople == "2명") &&
-                (selectedBudget == "예산" || selectedBudget == "1000~3000만")
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
             ) {
                 HomeMateCard(
                     navController = navController,
@@ -152,7 +151,7 @@ fun HomeScreen(
             }
 
             if ((selectedPeople == "인원" || selectedPeople == "2명") &&
-                (selectedBudget == "예산" || selectedBudget == "1000~3000만")
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
             ) {
                 HomeMateCard2(
                     navController = navController,

@@ -40,7 +40,7 @@ fun MateFilter(
 ) {
     // Options for dropdowns
     val houseTypes = listOf("원룸", "빌라", "아파트")
-    val budget = listOf("1000~3000만", "3000~5000만", "5000~1억", "1억 이상")
+    val budget = listOf("1000만원~3000만원", "3000만원~5000만원", "5000만원~1억원", "1억원 이상")
     val residentNumbers = listOf("2명", "3명", "4명 이상")
     val stayDurations = listOf("3개월~6개월", "6개월~12개월", "1년 이상")
 

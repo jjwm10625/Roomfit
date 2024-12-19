@@ -143,7 +143,7 @@ fun HomeScreen2(
         ) {
             // 필터 조건에 따라 노출
             if ((selectedPeople == "인원" || selectedPeople == "4명 이상") &&
-                (selectedBudget == "예산" || selectedBudget == "1000~3000만")
+                (selectedBudget == "예산" || selectedBudget == "1000만원~3000만원")
             ) {
                 HomeMateCard4(
                     navController = navController,
@@ -154,7 +154,7 @@ fun HomeScreen2(
             }
 
             if ((selectedPeople == "인원" || selectedPeople == "3명") &&
-                (selectedBudget == "예산" || selectedBudget == "3000~5000만")
+                (selectedBudget == "예산" || selectedBudget == "3000만원~5000만원")
             ) {
                 HomeMateCard5(
                     navController = navController,
