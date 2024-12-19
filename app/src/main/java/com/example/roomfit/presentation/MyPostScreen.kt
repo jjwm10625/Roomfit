@@ -92,9 +92,3 @@ fun MyPostScreen(
         }
     }
 }
-
-@Preview
-@Composable
-fun MyPostScreenPreview() {
-    MyPostScreen(navController = rememberNavController())
-}

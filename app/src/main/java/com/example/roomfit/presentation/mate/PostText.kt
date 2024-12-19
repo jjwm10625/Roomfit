@@ -137,7 +137,6 @@ fun PostText(navController: NavController) {
                     style = bodyWriting,
                     color = Black
                 )
-
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

@@ -141,7 +141,6 @@ fun WriteScreen(
             smoking = smoking,
             postViewModel = postViewModel,
             onSave = { mateOrRoom, title, content, location ->
-                // 게시글 저장
                 postViewModel.savePost(mateOrRoom, title, content, location, selectedImageUri)
                 Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
 
