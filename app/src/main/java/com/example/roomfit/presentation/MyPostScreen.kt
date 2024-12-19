@@ -22,8 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.roomfit.PostItem
-import com.example.roomfit.PostViewModel
+import com.example.roomfit.presentation.viewmodel.PostItem
+import com.example.roomfit.presentation.viewmodel.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.MyPostCard
 import com.example.roomfit.ui.theme.BackgroundBeige

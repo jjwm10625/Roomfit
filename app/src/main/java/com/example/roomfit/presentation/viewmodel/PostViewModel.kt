@@ -1,4 +1,4 @@
-package com.example.roomfit
+package com.example.roomfit.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.compose.runtime.mutableStateListOf
@@ -36,7 +36,8 @@ class PostViewModel : ViewModel() {
         location = newLocation
         imageUri = newImageUri
         posts.add(
-            PostItem(newMateOrRoom, newTitle, newContent, newLocation, newImageUri))
+            PostItem(newMateOrRoom, newTitle, newContent, newLocation, newImageUri)
+        )
     }
 
     fun deletePost(post: PostItem) {

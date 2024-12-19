@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation.components
+package com.example.roomfit.presentation.detail
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
@@ -23,14 +23,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.ScrapItem
-import com.example.roomfit.ScrapViewModel
+import com.example.roomfit.presentation.viewmodel.ScrapItem
+import com.example.roomfit.presentation.viewmodel.ScrapViewModel
 import com.example.roomfit.presentation.mate.DetailItem
 import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
-fun DetailMateCard4(
+fun DetailMateCard5(
     navController: NavController,
     scrapViewModel: ScrapViewModel,
     modifier: Modifier = Modifier,
@@ -105,7 +105,7 @@ fun DetailMateCard4(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.sun,
-                        iconLabel = "아침형",
+                        iconLabel = "저녁형",
                         labelStyle = UserInfo
                     )
                 }
@@ -113,7 +113,7 @@ fun DetailMateCard4(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "흡연자",
+                        iconLabel = "비흡연자",
                         labelStyle = UserInfo
                     )
                 }
@@ -127,7 +127,7 @@ fun DetailMateCard4(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.people,
-                        iconLabel = "4명 이상",
+                        iconLabel = "3명",
                         labelStyle = UserInfo
                     )
                 }
@@ -135,7 +135,7 @@ fun DetailMateCard4(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.budget,
-                        iconLabel = "1000~3000만",
+                        iconLabel = "3000~5000만",
                         labelStyle = UserInfo
                     )
                 }
@@ -183,8 +183,8 @@ fun DetailMateCard4(
                     scrapViewModel.addScrap(
                         ScrapItem(
                             userName, postTitle, postContent,
-                            profileImageRes ?: R.drawable.dum_profile_4,
-                            routeKey = "detailmatecard4"
+                            profileImageRes ?: R.drawable.dum_profile_5,
+                            routeKey = "detailmatecard5"
                         )
                     )
                     Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
@@ -206,7 +206,7 @@ fun DetailMateCard4(
                 modifier = Modifier
                     .height(55.dp)
                     .weight(1f),
-                onClick = { /* 채팅 연결 */ },
+                onClick = { navController.navigate("chat5") },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = BtnBlack
                 ),
@@ -224,15 +224,14 @@ fun DetailMateCard4(
 
 @Preview
 @Composable
-fun DetailMateCard4Preview() {
-    DetailMateCard4(
+fun DetailMateCard5Preview() {
+    DetailMateCard5(
         navController = rememberNavController(),
         scrapViewModel = ScrapViewModel(),
-        userName = "김민지",
-        postTitle = "숙대입구역 근처 방 구합니다",
-        postContent = "안녕하세요! \n숙대입구역 근처 방을 구하고 있습니다. " +
-                "깨끗한 방을 원하며, 제가 숙대생이라 같은 학교 학우분과 쉐어하면 좋겠습니다. " +
-                "연락주세요 :)",
-        profileImageRes = R.drawable.dum_profile_4
+        userName = "전도연",
+        postTitle = "서울대입구역 도보 5분이내 방 구합니다",
+        postContent = "기숙사 모집에 떨어져서 글 남깁니다. " +
+                "\n3월 1일 입주 희망합니다. 계약 시기에 따라 일정은 조율 가능해요.",
+        profileImageRes = R.drawable.dum_profile_5
     )
 }

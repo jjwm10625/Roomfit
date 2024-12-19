@@ -20,12 +20,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
-import com.example.roomfit.presentation.components.DetailMateCard
 import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
-import com.example.roomfit.ScrapViewModel
+import com.example.roomfit.presentation.viewmodel.ScrapViewModel
 
 @Composable
 fun DetailScreen(navController: NavController, scrapViewModel: ScrapViewModel) {

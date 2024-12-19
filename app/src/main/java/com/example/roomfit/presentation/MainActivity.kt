@@ -35,8 +35,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.roomfit.PostViewModel
-import com.example.roomfit.ScrapViewModel
+import com.example.roomfit.presentation.viewmodel.PostViewModel
+import com.example.roomfit.presentation.viewmodel.ScrapViewModel
+import com.example.roomfit.presentation.viewmodel.ChatViewModel
+import com.example.roomfit.presentation.chatting.ChatScreen
+import com.example.roomfit.presentation.chatting.ChatScreen2
+import com.example.roomfit.presentation.chatting.ChatScreen4
+import com.example.roomfit.presentation.chatting.ChatScreen5
 import com.example.roomfit.presentation.detail.DetailScreen
 import com.example.roomfit.presentation.detail.DetailScreen2
 import com.example.roomfit.presentation.detail.DetailScreen4
@@ -52,6 +57,10 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.RoomfitTheme
 import com.example.roomfit.util.PreferencesManager
+import com.example.roomfit.presentation.viewmodel.ChatViewModel2
+import com.example.roomfit.presentation.viewmodel.ChatViewModel4
+import com.example.roomfit.presentation.viewmodel.ChatViewModel5
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,6 +70,10 @@ class MainActivity : ComponentActivity() {
 
         val scrapViewModel: ScrapViewModel by viewModels()
         val postViewModel: PostViewModel by viewModels()
+        val chatViewModel: ChatViewModel by viewModels() // chatViewModel 선언 및 초기화
+        val chatViewModel2: ChatViewModel2 by viewModels() // chatViewModel2 선언 및 초기화
+        val chatViewModel4: ChatViewModel4 by viewModels() // chatViewModel2 선언 및 초기화
+        val chatViewModel5: ChatViewModel5 by viewModels() // chatViewModel2 선언 및 초기화
 
         setContent {
             RoomfitTheme {
@@ -120,7 +133,10 @@ class MainActivity : ComponentActivity() {
                                 smoking = backStackEntry.arguments?.getString("smoking") ?: ""
                             )
                         }
-                        composable("chat") { ChatScreen(navController = navController) }
+                        composable("chat") { ChatScreen(navController = navController, chatViewModel = chatViewModel) }
+                        composable("chat2") { ChatScreen2(navController = navController, chatViewModel = chatViewModel2) }
+                        composable("chat4") { ChatScreen4(navController = navController, chatViewModel = chatViewModel4) }
+                        composable("chat5") { ChatScreen5(navController = navController, chatViewModel = chatViewModel5) }
 
                         composable("home_mate") { DetailScreen(navController = navController, scrapViewModel = scrapViewModel) }
                         composable("home_mate2") { DetailScreen2(navController = navController, scrapViewModel = scrapViewModel) }

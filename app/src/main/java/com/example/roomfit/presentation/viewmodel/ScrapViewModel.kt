@@ -1,4 +1,4 @@
-package com.example.roomfit
+package com.example.roomfit.presentation.viewmodel
 
 import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
