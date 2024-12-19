@@ -35,12 +35,12 @@ import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.ComponentBeige
 import com.example.roomfit.ui.theme.LoginButton
 import com.example.roomfit.ui.theme.OffWhite
+import com.example.roomfit.ui.theme.UserInfo
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.mulishBold
-import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
-fun HomeMateCard(
+fun HomeMateCard4(
     navController: NavController,
     userName: String,
     postTitle: String,
@@ -60,7 +60,7 @@ fun HomeMateCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dum_profile_1),
+                painter = painterResource(id = R.drawable.dum_profile_4),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -105,7 +105,6 @@ fun HomeMateCard(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // User Info
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -120,7 +119,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.sun,
-                        iconLabel = "저녁형",
+                        iconLabel = "아침형",
                         labelStyle = UserInfo
                     )
                 }
@@ -142,7 +141,7 @@ fun HomeMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.people,
-                        iconLabel = "2명",
+                        iconLabel = "4명 이상",
                         labelStyle = UserInfo
                     )
                 }
@@ -164,7 +163,7 @@ fun HomeMateCard(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Button(
-                onClick = { navController.navigate("home_mate") },
+                onClick = { navController.navigate("home_mate4") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp)
@@ -183,10 +182,10 @@ fun HomeMateCard(
 
 @Preview
 @Composable
-fun HomeMateCardPreview() {
-    HomeMateCard(
+fun HomeMateCard4Preview() {
+    HomeMateCard4(
         navController = rememberNavController(),
-        userName = "김채현",
-        postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다"
+        userName = "김민지",
+        postTitle = "숙대입구역 근처 방 구합니다"
     )
 }

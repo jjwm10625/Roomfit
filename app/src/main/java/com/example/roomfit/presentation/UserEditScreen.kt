@@ -8,12 +8,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -27,6 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.roomfit.R
 import com.example.roomfit.presentation.components.LoginButton
+import com.example.roomfit.presentation.login.UnivList
 import com.example.roomfit.ui.theme.*
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,6 +55,7 @@ fun UserEditScreen(
     var lifestyleState by remember { mutableStateOf(lifestyle) }
     var smokingState by remember { mutableStateOf(smoking) }
     var profileImageUri by remember { mutableStateOf<Uri?>(null) }
+    var showUniversityDialog by remember { mutableStateOf(false) }
 
     val houseTypes = listOf("아파트", "빌라", "원룸")
     val residentNumbers = listOf("2명", "3명", "4명 이상")
@@ -114,12 +118,15 @@ fun UserEditScreen(
                         painter = rememberAsyncImagePainter(it),
                         contentDescription = "Profile Image",
                         modifier = Modifier.size(100.dp)
+                            .clip(CircleShape) // 이미지를 원형으로 자름
                     )
                 } ?: run {
                     Image(
                         painter = painterResource(id = R.drawable.user_profile),
                         contentDescription = "Default Profile Image",
-                        modifier = Modifier.size(100.dp)
+                        modifier = Modifier
+                            .size(100.dp)
+                            .clip(CircleShape) // 이미지를 원형으로 자름
                     )
                 }
             }
@@ -147,14 +154,27 @@ fun UserEditScreen(
                 onValueChange = { schoolState = it },
                 label = "나의 대학 찾기",
                 trailingIcon = {
-                    IconButton(onClick = { /* 아이콘 클릭 시 동작 */ }) {
-                        Icon(
+                    IconButton(
+                        onClick = { showUniversityDialog = true },
+                        modifier = Modifier.padding(15.dp)
+                    ) {
+                        Image(
                             painter = painterResource(id = R.drawable.school_search),
                             contentDescription = "Search School"
                         )
                     }
+
+                    if (showUniversityDialog) {
+                        UnivList(
+                            onDismiss = { showUniversityDialog = false },
+                            onUniversitySelected = { selectedUniversity ->
+                                schoolState = selectedUniversity
+                                showUniversityDialog = false
+                            }
+                        )
+                    }
                 }
-            )
+            ) // 여기 닫는 괄호 추가
 
             Spacer(modifier = Modifier.height(50.dp))
 
@@ -356,4 +376,3 @@ fun LoginTextField(
         shape = RoundedCornerShape(16.dp)
     )
 }
-

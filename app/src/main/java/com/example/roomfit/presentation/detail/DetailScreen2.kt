@@ -1,4 +1,4 @@
-package com.example.roomfit.presentation
+package com.example.roomfit.presentation.detail
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -23,14 +21,19 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
 import com.example.roomfit.ScrapViewModel
-import com.example.roomfit.presentation.components.ScrapMateCard
+import com.example.roomfit.presentation.components.DetailMateCard2
+import com.example.roomfit.presentation.components.ImageGallery
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.UserTitle
-import com.gdg.kakaobank.presentation.navigator.RoomNav
 
 @Composable
-fun ScrapListScreen(navController: NavController, scrapViewModel: ScrapViewModel) {
+fun DetailScreen2(navController: NavController, scrapViewModel: ScrapViewModel) {
+    val imageList = listOf(
+        R.drawable.roomimage2,
+        R.drawable.roomimage2,
+    )
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -44,7 +47,7 @@ fun ScrapListScreen(navController: NavController, scrapViewModel: ScrapViewModel
                 .padding(vertical = 8.dp)
         ) {
             IconButton(
-                onClick = { navController.navigate(RoomNav.User.route) },
+                onClick = { navController.popBackStack() },
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(start = 16.dp)
@@ -55,51 +58,32 @@ fun ScrapListScreen(navController: NavController, scrapViewModel: ScrapViewModel
                 )
             }
             Text(
-                text = "찜 목록",
+                text = "게시물",
                 style = UserTitle,
                 modifier = Modifier.align(Alignment.Center)
             )
         }
-        Spacer(modifier = Modifier.height(8.dp))
 
+        Spacer(modifier = Modifier.height(16.dp))
 
-        // 찜한 게시물 목록
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(BackgroundBeige)
-                .verticalScroll(rememberScrollState())
-                .padding(16.dp)
-        ) {
-            for (item in scrapViewModel.scrapList) {
-                ScrapMateCard(
-                    navController = navController,
-                    userName = item.userName,
-                    postTitle = item.postTitle,
-                    postContent = item.postContent,
-                    profileImageRes = item.profileImageRes,
-                    onDetailClick = {
-                        // 여기서 상황에 따라 각기 다른 화면으로 네비게이션
-                        when (item.routeKey) {
-                            "detailmatecard" -> navController.navigate("home_mate")
-                            "detailmatecard2" -> navController.navigate("home_mate2")
-                            "detailmatecard4" -> navController.navigate("home_mate4")
-                            "detailmatecard5" -> navController.navigate("home_mate5")
-                            else -> {}
-                        }
-                    }
-                )
+        ImageGallery(imageList = imageList)
 
-                Spacer(modifier = Modifier.height(16.dp))
-            }
-        }
+        DetailMateCard2(
+            navController = navController,
+            scrapViewModel = scrapViewModel,
+            modifier = Modifier.padding(16.dp),
+            userName = "조영서",
+            postTitle = "홍대입구역 5분거리 룸 쉐어 구합니다",
+            postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!",
+            profileImageRes = R.drawable.dum_profile_2
+        )
     }
 }
 
 @Preview
 @Composable
-fun ScrapScreenPreview() {
-    ScrapListScreen(
+fun PreviewDetailScreen2() {
+    DetailScreen2(
         navController = rememberNavController(),
         scrapViewModel = ScrapViewModel()
     )

@@ -65,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
-                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info", "chat", "home_mate", "my_post", "scrap", "map")) {
+                        if (currentDestination?.route !in listOf("login", "find_pw", "result_pw", "sign_up", "user_info", "chat", "home_mate", "my_post", "scrap")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -111,10 +111,8 @@ class MainActivity : ComponentActivity() {
                         composable("home_mate") { DetailScreen(navController = navController) }
                         composable("my_post") { MyPostScreen(navController = navController) }
                         composable("scrap") { ScrapListScreen(navController = navController) }
-                        composable("map") { GoogleMapScreen(navController = navController) }
-
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
-                        composable(RoomNav.Write.route) { WriteScreen(navController) }
+                        composable(RoomNav.Write.route) { WriteScreen() }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                             MessageScreen(navController = navController, lastMessage = lastMessage)
@@ -190,7 +188,7 @@ fun MainActivityPreview() {
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(RoomNav.Home.route) { HomeScreen(navController) }
-                composable(RoomNav.Write.route) { WriteScreen(navController) }
+                composable(RoomNav.Write.route) { WriteScreen() }
                 composable(RoomNav.Message.route) { backStackEntry ->
                     val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                     MessageScreen(navController = navController, lastMessage = lastMessage)

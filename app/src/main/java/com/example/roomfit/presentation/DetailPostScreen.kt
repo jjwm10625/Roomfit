@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -26,11 +28,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
-import com.example.roomfit.PostViewModel
 import com.example.roomfit.presentation.components.WriteCard
 import com.example.roomfit.ui.theme.BackgroundBeige
 import com.example.roomfit.ui.theme.Black
@@ -40,10 +41,7 @@ import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.util.PreferencesManager
 
 @Composable
-fun WriteScreen(
-    navController: NavController,
-    postViewModel: PostViewModel = viewModel()
-) {
+fun DetailPostScreen(navController: NavController) {
     val context = LocalContext.current
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
 
@@ -74,6 +72,7 @@ fun WriteScreen(
             .fillMaxSize()
             .background(BackgroundBeige)
             .padding(16.dp)
+        //.verticalScroll(rememberScrollState())
     ) {
         // 글 작성하기
         Text(
@@ -115,22 +114,17 @@ fun WriteScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         // 글 작성 카드
-        WriteCard(
-            navController = navController,
-            username = username,
-            gender = gender,
-            school = school,
-            budget = budget,
-            houseType = houseType,
-            numberOfResidents = numberOfResidents,
-            durationOfStay = durationOfStay,
-            lifestyle = lifestyle,
-            smoking = smoking,
-            modifier = Modifier,
-            onSave = { mateOrRoom, title, content, location ->
-                postViewModel.savePost(mateOrRoom, title, content, location, selectedImageUri)
-                Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
-            }
-        )
+//        WriteCard(
+//            navController = navController,
+//            username = username,
+//            gender = gender,
+//            school = school,
+//            budget = budget,
+//            houseType = houseType,
+//            numberOfResidents = numberOfResidents,
+//            durationOfStay = durationOfStay,
+//            lifestyle = lifestyle,
+//            smoking = smoking
+//        )
     }
 }

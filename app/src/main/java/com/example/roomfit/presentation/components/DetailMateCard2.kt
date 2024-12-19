@@ -33,7 +33,7 @@ import com.example.roomfit.ui.theme.*
 import com.example.roomfit.ui.theme.UserInfo
 
 @Composable
-fun DetailMateCard(
+fun DetailMateCard2(
     navController: NavController,
     scrapViewModel: ScrapViewModel,
     modifier: Modifier = Modifier,
@@ -58,7 +58,7 @@ fun DetailMateCard(
             modifier = Modifier
         ) {
             Image(
-                painter = painterResource(id = R.drawable.dum_profile_1), // Use default image if null
+                painter = painterResource(id = profileImageRes ?: R.drawable.user_profile),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(48.dp)
@@ -108,7 +108,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.sun,
-                        iconLabel = "저녁형",
+                        iconLabel = "아침형",
                         labelStyle = UserInfo
                     )
                 }
@@ -116,7 +116,7 @@ fun DetailMateCard(
                 Row(modifier = Modifier.weight(1f)) {
                     DetailItem(
                         iconRes = R.drawable.smoking,
-                        iconLabel = "흡연자",
+                        iconLabel = "비흡연자",
                         labelStyle = UserInfo
                     )
                 }
@@ -179,7 +179,7 @@ fun DetailMateCard(
                 .background(OffWhite)
                 .clickable {
                     val intent = Intent(Intent.ACTION_VIEW).apply {
-                        data = Uri.parse("geo:37.5445,126.9665?q=숙명여자대학교") // 숙대 출력
+                        data = Uri.parse("geo:37.5561,126.9236?q=홍대입구역") // 홍대입구역 출력
                     }
                     context.startActivity(intent)
                 }
@@ -220,8 +220,8 @@ fun DetailMateCard(
                     scrapViewModel.addScrap(
                         ScrapItem(
                             userName, postTitle, postContent,
-                            profileImageRes ?: R.drawable.dum_profile_1,
-                            routeKey = "detailmatecard"
+                            profileImageRes ?: R.drawable.dum_profile_2,
+                            routeKey = "detailmatecard2"
                         )
                     )
                     Toast.makeText(context, "찜 되었습니다!", Toast.LENGTH_SHORT).show()
@@ -261,13 +261,13 @@ fun DetailMateCard(
 
 @Preview
 @Composable
-fun DetailMateCardPreview() {
-    DetailMateCard(
+fun DetailMateCard2Preview() {
+    DetailMateCard2(
         navController = rememberNavController(),
         scrapViewModel = ScrapViewModel(),
-        userName = "김채현",
-        postTitle = "17평형 숙대 정문 근처 룸 쉐어 구합니다",
-        postContent = "저는 고양이를 키우고 있어서 털 알러지 없는 분들로 받겠습니다!",
-        profileImageRes = R.drawable.dum_profile_1
+        userName = "조영서",
+        postTitle = "홍대입구 5분 거리 룸 쉐어 구합니다",
+        postContent = "투룸이라 1인실 사용 가능합니다. \n연락 주세요!",
+        profileImageRes = R.drawable.dum_profile_2
     )
 }

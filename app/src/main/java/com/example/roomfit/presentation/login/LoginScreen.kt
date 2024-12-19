@@ -29,6 +29,7 @@ import com.example.roomfit.util.PreferencesManager
 fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var errorMessage by remember { mutableStateOf("") }
     val context = LocalContext.current
     val prefs = remember { PreferencesManager(context) }
 
@@ -70,16 +71,31 @@ fun LoginScreen(navController: NavController) {
                 visualTransformation = PasswordVisualTransformation()
             )
 
-            Spacer(modifier = Modifier.height(25.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+
+            if (errorMessage.isNotEmpty()) {
+                Text(
+                    text = errorMessage,
+                    color = ErrorText,
+                    style = error,
+                    modifier = Modifier.padding(start = 8.dp) // 왼쪽 간격 추가
+                )
+                Spacer(modifier = Modifier.height(8.dp)) // 에러 메시지와 버튼 사이의 간격 추가
+            } else {
+                Spacer(modifier = Modifier.height(16.dp)) // 에러 메시지가 없을 때의 고정 간격
+            }
 
             LoginButton(
                 text = "LOG IN",
                 onClick = {
                     // 로그인 로직 추가
                     if (username.isNotEmpty() && password.isNotEmpty()) {
-                        prefs.username = username
-                        prefs.isLoggedIn = true
-                        navController.navigate("home")
+                        if (prefs.username == username && prefs.password == password) {
+                            prefs.isLoggedIn = true
+                            navController.navigate("home")
+                        } else {
+                            errorMessage = "등록되지 않은 계정입니다."
+                        }
                     }
                 },
                 buttonColor = BtnBlack,
