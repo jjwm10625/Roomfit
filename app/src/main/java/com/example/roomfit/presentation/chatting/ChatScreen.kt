@@ -25,6 +25,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.R
 import com.example.roomfit.presentation.viewmodel.ChatViewModel
 import com.example.roomfit.ui.theme.*
+import com.gdg.kakaobank.presentation.navigator.RoomNav
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -54,8 +55,8 @@ fun ChatScreen(navController: NavController, chatViewModel: ChatViewModel = view
             ) {
                 IconButton(
                     onClick = {
-                        navController.popBackStack()
-                    }, // 이전 화면으로 돌아가기
+                        navController.navigate(RoomNav.Message.route)
+              }, // 이전 화면으로 돌아가기
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
                     Image(
