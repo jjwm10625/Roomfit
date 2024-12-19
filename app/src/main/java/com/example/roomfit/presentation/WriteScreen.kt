@@ -7,20 +7,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,8 +36,6 @@ fun WriteScreen(
     postViewModel: PostViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
-
     val prefs = remember { PreferencesManager(context) }
     val username = prefs.username ?: "Unknown"
     val gender = prefs.gender ?: "Unknown"
@@ -58,7 +47,23 @@ fun WriteScreen(
     val lifestyle = prefs.lifestyle ?: "Unknown"
     val smoking = prefs.smoking ?: "Unknown"
 
-    // Launcher to open gallery and get the selected image URI
+    // 화면 진입 시 location값 초기화
+    LaunchedEffect(Unit) {
+        navController.currentBackStackEntry?.savedStateHandle?.remove<String>("location")
+    }
+
+    var selectedButton by rememberSaveable { mutableStateOf("사람을 구해요!") }
+    var titleText by rememberSaveable { mutableStateOf("") }
+    var contentText by rememberSaveable { mutableStateOf("") }
+    var locationText by rememberSaveable { mutableStateOf("") }
+    var selectedImageUri by rememberSaveable { mutableStateOf<Uri?>(null) }
+
+    val boxBaseModifier = Modifier
+        .fillMaxWidth()
+        .height(250.dp)
+        .clip(RoundedCornerShape(16.dp))
+        .background(ImageWhite)
+
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
@@ -69,13 +74,27 @@ fun WriteScreen(
         }
     )
 
+    // selectedButton을 기준으로 이미지 영역 클릭 가능 여부 결정
+    val boxModifier = if (selectedButton == "방을 구해요!") {
+        boxBaseModifier
+    } else {
+        boxBaseModifier.clickable {
+            galleryLauncher.launch("image/*")
+        }
+    }
+
+    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+    savedStateHandle?.getLiveData<String>("location")?.observe(navController.currentBackStackEntry!!) { location ->
+        locationText = location
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundBeige)
             .padding(16.dp)
     ) {
-        // 글 작성하기
+        // 상단 타이틀
         Text(
             text = "글 작성하기",
             style = bodyDetail,
@@ -87,34 +106,28 @@ fun WriteScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // 사진 들어갈 곳
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(ImageWhite)
-                .clickable { galleryLauncher.launch("image/*") } // Open gallery on click
-        ) {
-            Text(
-                text = "사진을 추가해 주세요",
-                color = Gray,
-                style = bodyDetail,
-                modifier = Modifier.align(Alignment.Center)
-            )
-            if (selectedImageUri != null) {
-                Image(
-                    painter = rememberAsyncImagePainter(model = selectedImageUri),
-                    contentDescription = "Selected Image",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+        // "방을 구해요!"가 아닐 때만 이미지 박스 표시
+        if (selectedButton != "방을 구해요!") {
+            Box(modifier = boxModifier) {
+                Text(
+                    text = "사진을 추가해 주세요",
+                    color = Gray,
+                    style = bodyDetail,
+                    modifier = Modifier.align(Alignment.Center)
                 )
+                if (selectedImageUri != null) {
+                    Image(
+                        painter = rememberAsyncImagePainter(model = selectedImageUri),
+                        contentDescription = "Selected Image",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        // 글 작성 카드
         WriteCard(
             navController = navController,
             username = username,
@@ -126,11 +139,30 @@ fun WriteScreen(
             durationOfStay = durationOfStay,
             lifestyle = lifestyle,
             smoking = smoking,
-            modifier = Modifier,
+            postViewModel = postViewModel,
             onSave = { mateOrRoom, title, content, location ->
+                // 게시글 저장
                 postViewModel.savePost(mateOrRoom, title, content, location, selectedImageUri)
                 Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
-            }
+
+                // 저장 후 상태 초기화
+                selectedButton = "사람을 구해요!"
+                titleText = ""
+                contentText = ""
+                locationText = ""
+                selectedImageUri = null
+            },
+            selectedButton = selectedButton,
+            onSelectButton = { newSelected ->
+                selectedButton = newSelected
+                postViewModel.mateorroom = newSelected
+            },
+            titleText = titleText,
+            onTitleChange = { titleText = it },
+            contentText = contentText,
+            onContentChange = { contentText = it },
+            locationText = locationText,
+            selectedImageUri = selectedImageUri
         )
     }
 }
