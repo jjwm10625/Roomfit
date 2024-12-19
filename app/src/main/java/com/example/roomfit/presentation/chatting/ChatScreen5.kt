@@ -53,7 +53,7 @@ fun ChatScreen5(navController: NavController, chatViewModel: ChatViewModel5 = vi
             ) {
                 IconButton(
                     onClick = {
-                        navController.navigate(RoomNav.Message.route)
+                        navController.popBackStack()
                     }, // 이전 화면으로 돌아가기
                     modifier = Modifier.align(Alignment.CenterStart).padding(start = 16.dp)
                 ) {
