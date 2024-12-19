@@ -7,27 +7,15 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -48,6 +36,7 @@ fun WriteScreen(
 ) {
     val context = LocalContext.current
     var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
+    val mateorroom = postViewModel.mateorroom
 
     val prefs = remember { PreferencesManager(context) }
     val username = prefs.username ?: "Unknown"
@@ -65,7 +54,13 @@ fun WriteScreen(
         navController.currentBackStackEntry?.savedStateHandle?.remove<String>("location")
     }
 
-    // Launcher to open gallery and get the selected image URI
+    val boxBaseModifier = Modifier
+        .fillMaxWidth()
+        .height(250.dp)
+        .clip(RoundedCornerShape(16.dp))
+        .background(ImageWhite)
+
+    // 갤러리 오픈 런처
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
@@ -76,13 +71,24 @@ fun WriteScreen(
         }
     )
 
+    // mateorroom에 따라 clickable 여부 결정
+    val boxModifier = if (mateorroom == "방을 구해요!") {
+        // 클릭 불가능 (갤러리 열리지 않음)
+        boxBaseModifier
+    } else {
+        // "사람을 구해요!"일 때는 클릭 가능 -> 갤러리 오픈
+        boxBaseModifier.clickable {
+            galleryLauncher.launch("image/*")
+        }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(BackgroundBeige)
             .padding(16.dp)
     ) {
-        // 글 작성하기
+        // 글 작성하기 타이틀
         Text(
             text = "글 작성하기",
             style = bodyDetail,
@@ -94,32 +100,27 @@ fun WriteScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // 사진 들어갈 곳
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(250.dp)
-                .clip(RoundedCornerShape(16.dp))
-                .background(ImageWhite)
-                .clickable { galleryLauncher.launch("image/*") } // Open gallery on click
-        ) {
-            Text(
-                text = "사진을 추가해 주세요",
-                color = Gray,
-                style = bodyDetail,
-                modifier = Modifier.align(Alignment.Center)
-            )
-            if (selectedImageUri != null) {
-                Image(
-                    painter = rememberAsyncImagePainter(model = selectedImageUri),
-                    contentDescription = "Selected Image",
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+        // 사진 영역 (조건부 렌더링)
+        if (mateorroom != "방을 구해요!") {
+            Box(modifier = boxModifier) {
+                Text(
+                    text = "사진을 추가해 주세요",
+                    color = Gray,
+                    style = bodyDetail,
+                    modifier = Modifier.align(Alignment.Center)
                 )
+                if (selectedImageUri != null) {
+                    Image(
+                        painter = rememberAsyncImagePainter(model = selectedImageUri),
+                        contentDescription = "Selected Image",
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
-        }
 
-        Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+        }
 
         // 글 작성 카드
         WriteCard(
@@ -137,7 +138,8 @@ fun WriteScreen(
             onSave = { mateOrRoom, title, content, location ->
                 postViewModel.savePost(mateOrRoom, title, content, location, selectedImageUri)
                 Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
-            }
+            },
+            postViewModel = postViewModel
         )
     }
 }

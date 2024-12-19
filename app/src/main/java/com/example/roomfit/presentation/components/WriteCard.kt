@@ -74,7 +74,7 @@ fun WriteCard(
     smoking: String,
     modifier: Modifier = Modifier,
     onSave: (String, String, String, String) -> Unit,
-    postViewModel: PostViewModel = viewModel()
+    postViewModel: PostViewModel
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
@@ -114,7 +114,10 @@ fun WriteCard(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
-                    onClick = { selectedButton = "사람을 구해요!" },
+                    onClick = {
+                        selectedButton = "사람을 구해요!"
+                        postViewModel.mateorroom = selectedButton
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -132,7 +135,10 @@ fun WriteCard(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
-                    onClick = { selectedButton = "방을 구해요!" },
+                    onClick = {
+                        selectedButton = "방을 구해요!"
+                        postViewModel.mateorroom = selectedButton
+                  },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "방을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -275,7 +281,7 @@ fun WriteCard(
 
                 Button(
                     onClick = {
-                        postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
+                        //postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
                         onSave(selectedButton, titleText, contentText, locationText)
                     },
                     modifier = Modifier

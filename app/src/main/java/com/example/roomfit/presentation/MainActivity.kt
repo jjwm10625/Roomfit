@@ -75,9 +75,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     bottomBar = {
                         if (currentDestination?.route !in listOf(
-                                "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
-                                "home_mate", "home_mate2", "home_mate4", "home_mate5",
-                                "my_post", "scrap", "map?location={location}")) {
+                                "login", "find_pw", "result_pw", "sign_up", "user_info", "chat", "home_mate", "home_mate2", "home_mate4", "home_mate5", "my_post", "scrap", "map?location={location}")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -136,8 +134,8 @@ class MainActivity : ComponentActivity() {
 
                         composable("home2") { HomeScreen2(navController = navController) }
 
-                        composable(RoomNav.Home.route) { HomeScreen(navController) }
-                        composable(RoomNav.Write.route) { WriteScreen(navController, postViewModel = postViewModel) }
+                        composable(RoomNav.Home.route) { HomeScreen(navController = navController) }
+                        composable(RoomNav.Write.route) { WriteScreen(navController = navController, postViewModel = postViewModel) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                             MessageScreen(navController = navController, lastMessage = lastMessage)
@@ -212,8 +210,8 @@ fun MainActivityPreview() {
                 startDestination = RoomNav.Home.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable(RoomNav.Home.route) { HomeScreen(navController) }
-                composable(RoomNav.Write.route) { WriteScreen(navController) }
+                composable(RoomNav.Home.route) { HomeScreen(navController = navController) }
+                composable(RoomNav.Write.route) { WriteScreen(navController = navController) }
                 composable(RoomNav.Message.route) { backStackEntry ->
                     val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                     MessageScreen(navController = navController, lastMessage = lastMessage)
