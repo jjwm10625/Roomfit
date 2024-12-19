@@ -26,7 +26,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -78,7 +77,7 @@ class MainActivity : ComponentActivity() {
                         if (currentDestination?.route !in listOf(
                                 "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
                                 "home_mate", "home_mate2", "home_mate4", "home_mate5",
-                                "my_post", "scrap")) {
+                                "my_post", "scrap", "map")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -129,11 +128,18 @@ class MainActivity : ComponentActivity() {
 
                         composable("my_post") { MyPostScreen(navController = navController, postViewModel = postViewModel) }
                         composable("scrap") { ScrapListScreen(navController = navController, scrapViewModel = scrapViewModel) }
-                        composable("map") { GoogleMapScreen(navController = navController) }
+                        composable("map") { GoogleMapScreen(navController = navController, postViewModel = postViewModel) }
+//                        composable("map?location={location}",
+//                            arguments = listOf(navArgument("location") { defaultValue = "" })
+//                        ) { backStackEntry ->
+//                            val location = backStackEntry.arguments?.getString("location")
+//                            GoogleMapScreen(navController, location = location)
+//                        }
+
                         composable("home2") { HomeScreen2(navController = navController) }
 
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
-                        composable(RoomNav.Write.route) { WriteScreen(navController, postViewModel) }
+                        composable(RoomNav.Write.route) { WriteScreen(navController, postViewModel = postViewModel) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                             MessageScreen(navController = navController, lastMessage = lastMessage)

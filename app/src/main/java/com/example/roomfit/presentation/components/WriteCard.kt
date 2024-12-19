@@ -24,9 +24,11 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -79,6 +81,11 @@ fun WriteCard(
     var titleText by remember { mutableStateOf("") }
     var contentText by remember { mutableStateOf("") }
     var locationText by remember { mutableStateOf("") }
+
+    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+    savedStateHandle?.getLiveData<String>("location")?.observe(navController.currentBackStackEntry!!) { location ->
+        locationText = location
+    }
 
     Box(
         modifier = Modifier
@@ -233,7 +240,7 @@ fun WriteCard(
                             start = 16.dp,
                             end = 16.dp
                         )
-                        .clickable { navController.navigate("map") }
+                        .clickable { navController.navigate("map")}
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -247,7 +254,7 @@ fun WriteCard(
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = "위치 입력하기",
+                            text = if (locationText.isEmpty()) "위치 입력하기" else "위치 입력 완료",
                             style = bodyWriting,
                             color = Black
                         )

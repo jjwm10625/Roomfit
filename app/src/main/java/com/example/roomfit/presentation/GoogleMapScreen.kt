@@ -14,8 +14,10 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.textfield2
@@ -27,15 +29,17 @@ import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 
 @Composable
-fun GoogleMapScreen(navController: NavController) {
-    // 초기 카메라 위치 (학교)
+fun GoogleMapScreen(
+    navController: NavController,
+    postViewModel: PostViewModel = viewModel()
+) {
     val initialLocation = LatLng(37.5469, 126.9646)
     val cameraPositionState = rememberCameraPositionState {
         position = CameraPosition.fromLatLngZoom(initialLocation, 15f)
     }
 
     var markerPosition by remember { mutableStateOf<LatLng?>(null) }
-    var clickedLocationInfo by remember { mutableStateOf("") }
+    var locationText by remember { mutableStateOf("") }
 
     Box(modifier = Modifier.fillMaxSize()) {
         GoogleMap(
@@ -43,8 +47,7 @@ fun GoogleMapScreen(navController: NavController) {
             cameraPositionState = cameraPositionState,
             onMapClick = { clickedLatLng ->
                 markerPosition = clickedLatLng
-                clickedLocationInfo =
-                    "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
+                locationText = "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
             }
         ) {
             markerPosition?.let {
@@ -56,7 +59,7 @@ fun GoogleMapScreen(navController: NavController) {
             }
         }
 
-        if (clickedLocationInfo.isNotEmpty()) {
+        if (locationText.isNotEmpty()) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -72,7 +75,7 @@ fun GoogleMapScreen(navController: NavController) {
                         .fillMaxWidth()
                 ) {
                     Text(
-                        text = clickedLocationInfo,
+                        text = locationText,
                         style = textfield2,
                         textAlign = TextAlign.Center
                     )
@@ -80,7 +83,11 @@ fun GoogleMapScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
-                    onClick = { navController.navigate(RoomNav.Write.route) },
+                    onClick = {
+                        postViewModel.location = locationText
+                        navController.previousBackStackEntry?.savedStateHandle?.set("location", locationText)
+                        navController.popBackStack()
+                    },
                     modifier = Modifier.wrapContentSize(),
                     shape = RoundedCornerShape(24.dp),
                     colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
@@ -93,10 +100,4 @@ fun GoogleMapScreen(navController: NavController) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PreviewGoogleMapScreen() {
-    GoogleMapScreen(navController = rememberNavController())
 }

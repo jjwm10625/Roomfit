@@ -79,11 +79,12 @@ fun MyPostScreen(
         ) {
             posts.forEach { post: PostItem ->
                 MyPostCard(
+                    navController = navController,
                     mateorroomText = post.mateorroom,
+                    imageUri = post.imageUri,
                     titleText = post.title,
                     contentText = post.content,
-                    imageUri = post.imageUri,
-                    location = post.location,
+                    locationText = post.location,
                     onDelete = { postViewModel.deletePost(post) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))

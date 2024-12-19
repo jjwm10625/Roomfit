@@ -20,6 +20,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import coil.compose.rememberAsyncImagePainter
 import com.example.roomfit.R
 import com.example.roomfit.ui.theme.*
@@ -27,11 +29,12 @@ import com.example.roomfit.ui.theme.*
 @Composable
 fun MyPostCard(
     modifier: Modifier = Modifier,
+    navController: NavController,
     mateorroomText: String,
     titleText: String,
     contentText: String,
     imageUri: Uri?,
-    location: String?,
+    locationText: String?,
     onDelete: () -> Unit = {}
 ) {
     val context = LocalContext.current
@@ -98,7 +101,7 @@ fun MyPostCard(
         Spacer(modifier = Modifier.height(16.dp))
 
         // 위치 보기 버튼
-        if (!location.isNullOrEmpty()) {
+        if (!locationText.isNullOrEmpty()) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -106,7 +109,9 @@ fun MyPostCard(
                     .background(OffWhite)
                     .clip(RoundedCornerShape(8.dp))
                     .padding(16.dp)
-                    .clickable { /* navController.navigate(저장된 위치) */ }
+                    .clickable {
+                        navController.navigate("map?location=${locationText}")
+                    }
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -158,10 +163,11 @@ fun MyPostCard(
 @Composable
 fun MyPostCardPreview() {
     MyPostCard(
+        navController = rememberNavController(),
         imageUri = Uri.parse("https://via.placeholder.com/250"),
         mateorroomText = "방을 구해요!",
         titleText = "제목",
         contentText = "내용",
-        location = "서울"
+        locationText = "서울"
     )
 }
