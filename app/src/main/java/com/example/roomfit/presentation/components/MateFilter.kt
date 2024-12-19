@@ -1,15 +1,14 @@
 package com.example.roomfit.presentation.components
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.DropdownMenu
-import androidx.compose.material.Icon
-import androidx.compose.material.Text
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -22,7 +21,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.roomfit.R
@@ -30,13 +28,16 @@ import com.example.roomfit.ui.theme.Gray
 import com.example.roomfit.ui.theme.OffWhite
 
 @Composable
-fun MateFilter() {
-    // State variables for dropdown menus
-    val (selectedHouseType, setSelectedHouseType) = remember { mutableStateOf("집 유형") }
-    val (selectedBudget, setSelectedBudget) = remember { mutableStateOf("예산") }
-    val (selectedPeople, setSelectedPeople) = remember { mutableStateOf("인원") }
-    val (selectedDuration, setSelectedDuration) = remember { mutableStateOf("기간") }
-
+fun MateFilter(
+    selectedHouseType: String,
+    onSelectedHouseTypeChange: (String) -> Unit,
+    selectedBudget: String,
+    onSelectedBudgetChange: (String) -> Unit,
+    selectedPeople: String,
+    onSelectedPeopleChange: (String) -> Unit,
+    selectedDuration: String,
+    onSelectedDurationChange: (String) -> Unit
+) {
     // Options for dropdowns
     val houseTypes = listOf("원룸", "빌라", "아파트")
     val budget = listOf("1000~3000만", "3000~5000만", "5000~1억", "1억 이상")
@@ -52,26 +53,26 @@ fun MateFilter() {
         MateFilterDropdown(
             label = selectedHouseType,
             options = houseTypes,
-            onOptionSelected = setSelectedHouseType,
-            onReset = { setSelectedHouseType("집 유형") }
+            onOptionSelected = onSelectedHouseTypeChange,
+            onReset = { onSelectedHouseTypeChange("집 유형") }
         )
         MateFilterDropdown(
             label = selectedBudget,
             options = budget,
-            onOptionSelected = setSelectedBudget,
-            onReset = { setSelectedBudget("예산") }
+            onOptionSelected = onSelectedBudgetChange,
+            onReset = { onSelectedBudgetChange("예산") }
         )
         MateFilterDropdown(
             label = selectedPeople,
             options = residentNumbers,
-            onOptionSelected = setSelectedPeople,
-            onReset = { setSelectedPeople("인원") }
+            onOptionSelected = onSelectedPeopleChange,
+            onReset = { onSelectedPeopleChange("인원") }
         )
         MateFilterDropdown(
             label = selectedDuration,
             options = stayDurations,
-            onOptionSelected = setSelectedDuration,
-            onReset = { setSelectedDuration("기간") }
+            onOptionSelected = onSelectedDurationChange,
+            onReset = { onSelectedDurationChange("기간") }
         )
     }
 }
@@ -136,12 +137,4 @@ fun MateFilterDropdown(
             )
         }
     }
-}
-
-
-
-@Preview
-@Composable
-fun MateFilterPreview() {
-    MateFilter()
 }
