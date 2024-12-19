@@ -167,7 +167,7 @@ fun WriteCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp) // Adjust height for the title field
+                        .height(50.dp)
                         .background(OffWhite)
                         .padding(
                             top = 16.dp,
@@ -233,7 +233,7 @@ fun WriteCard(
                             start = 16.dp,
                             end = 16.dp
                         )
-                        .clickable { /* navController.navigate("map") */ }
+                        .clickable { navController.navigate("map") }
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
