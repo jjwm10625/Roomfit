@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavType
@@ -34,6 +35,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.roomfit.PostViewModel
 import com.example.roomfit.ScrapViewModel
 import com.example.roomfit.presentation.detail.DetailScreen
 import com.example.roomfit.presentation.detail.DetailScreen2
@@ -58,6 +60,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         val scrapViewModel: ScrapViewModel by viewModels()
+        val postViewModel: PostViewModel by viewModels()
 
         setContent {
             RoomfitTheme {
@@ -124,12 +127,12 @@ class MainActivity : ComponentActivity() {
                         composable("home_mate4") { DetailScreen4(navController = navController, scrapViewModel = scrapViewModel) }
                         composable("home_mate5") { DetailScreen5(navController = navController, scrapViewModel = scrapViewModel) }
 
-                        composable("my_post") { MyPostScreen(navController = navController) }
+                        composable("my_post") { MyPostScreen(navController = navController, postViewModel = postViewModel) }
                         composable("scrap") { ScrapListScreen(navController = navController, scrapViewModel = scrapViewModel) }
                         composable("home2") { HomeScreen2(navController = navController) }
 
                         composable(RoomNav.Home.route) { HomeScreen(navController) }
-                        composable(RoomNav.Write.route) { WriteScreen(navController) }
+                        composable(RoomNav.Write.route) { WriteScreen(navController, postViewModel) }
                         composable(RoomNav.Message.route) { backStackEntry ->
                             val lastMessage = backStackEntry.arguments?.getString("lastMessage") ?: ""
                             MessageScreen(navController = navController, lastMessage = lastMessage)

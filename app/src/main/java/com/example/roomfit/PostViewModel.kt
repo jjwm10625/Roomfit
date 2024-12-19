@@ -7,7 +7,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import android.net.Uri
 
-data class PostItem(val title: String, val content: String)
+data class PostItem(
+    val title: String,
+    val content: String,
+    val location: String,
+    val imageUri: Uri?
+)
 
 class PostViewModel : ViewModel() {
     var title by mutableStateOf("")
@@ -26,6 +31,10 @@ class PostViewModel : ViewModel() {
         content = newContent
         location = newLocation
         imageUri = newImageUri
-        posts.add(PostItem(newTitle, newContent))
+        posts.add(
+            PostItem(
+                newTitle, newContent, newLocation, newImageUri
+            )
+        )
     }
 }

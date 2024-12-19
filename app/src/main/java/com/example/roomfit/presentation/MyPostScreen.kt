@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +37,7 @@ fun MyPostScreen(
     navController: NavController,
     postViewModel: PostViewModel = viewModel()
 ) {
-    val posts = remember { postViewModel.posts }
+    val posts = postViewModel.posts
 
     Column(
         modifier = Modifier
@@ -74,11 +76,13 @@ fun MyPostScreen(
                 .fillMaxSize()
                 .background(BackgroundBeige)
                 .padding(16.dp)
+                .verticalScroll(rememberScrollState())
         ) {
             posts.forEach { post: PostItem ->
                 MyPostCard(
                     titleText = post.title,
-                    contentText = post.content
+                    contentText = post.content,
+                    imageUri = post.imageUri
                 )
                 Spacer(modifier = Modifier.height(16.dp))
             }
