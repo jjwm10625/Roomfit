@@ -83,6 +83,7 @@ fun MyPostScreen(
                     titleText = post.title,
                     contentText = post.content,
                     imageUri = post.imageUri,
+                    location = post.location,
                     onDelete = { postViewModel.deletePost(post) }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
