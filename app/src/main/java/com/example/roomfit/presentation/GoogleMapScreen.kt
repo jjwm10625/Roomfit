@@ -31,23 +31,50 @@ import com.google.android.gms.maps.model.LatLng
 @Composable
 fun GoogleMapScreen(
     navController: NavController,
-    postViewModel: PostViewModel = viewModel()
+    postViewModel: PostViewModel = viewModel(),
+    initialLocationString: String? = null
 ) {
-    val initialLocation = LatLng(37.5469, 126.9646)
+    val initialLatLng = if (!initialLocationString.isNullOrEmpty()) {
+        val coords = initialLocationString
+            .replace("위치:", "")
+            .replace("(", "")
+            .replace(")", "")
+            .split(",")
+            .map { it.trim() }
+        if (coords.size == 2) {
+            val lat = coords[0].toDoubleOrNull() ?: 37.5469
+            val lng = coords[1].toDoubleOrNull() ?: 126.9646
+            LatLng(lat, lng)
+        } else {
+            LatLng(37.5469, 126.9646)
+        }
+    } else {
+        LatLng(37.5469, 126.9646)
+    }
+
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(initialLocation, 15f)
+        position = CameraPosition.fromLatLngZoom(initialLatLng, 15f)
     }
 
     var markerPosition by remember { mutableStateOf<LatLng?>(null) }
     var locationText by remember { mutableStateOf("") }
+
+    LaunchedEffect(initialLocationString) {
+        if (initialLocationString != null) {
+            markerPosition = initialLatLng
+            locationText = "위치: (${initialLatLng.latitude}, ${initialLatLng.longitude})"
+        }
+    }
 
     Box(modifier = Modifier.fillMaxSize()) {
         GoogleMap(
             modifier = Modifier.fillMaxSize(),
             cameraPositionState = cameraPositionState,
             onMapClick = { clickedLatLng ->
-                markerPosition = clickedLatLng
-                locationText = "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
+                if (initialLocationString == null) {
+                    markerPosition = clickedLatLng
+                    locationText = "위치: (${clickedLatLng.latitude}, ${clickedLatLng.longitude})"
+                }
             }
         ) {
             markerPosition?.let {
@@ -59,6 +86,7 @@ fun GoogleMapScreen(
             }
         }
 
+        // 위치 정보 상단 표시 로직
         if (locationText.isNotEmpty()) {
             Column(
                 modifier = Modifier
@@ -80,22 +108,26 @@ fun GoogleMapScreen(
                         textAlign = TextAlign.Center
                     )
                 }
+
                 Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    onClick = {
-                        postViewModel.location = locationText
-                        navController.previousBackStackEntry?.savedStateHandle?.set("location", locationText)
-                        navController.popBackStack()
-                    },
-                    modifier = Modifier.wrapContentSize(),
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
-                ) {
-                    Text(
-                        text = "OK",
-                        style = textfield2
-                    )
+                // initialLocationString이 null일 때만 OK 버튼 표시(새 위치 선택 모드)
+                if (initialLocationString == null) {
+                    Button(
+                        onClick = {
+                            postViewModel.location = locationText
+                            navController.previousBackStackEntry?.savedStateHandle?.set("location", locationText)
+                            navController.popBackStack()
+                        },
+                        modifier = Modifier.wrapContentSize(),
+                        shape = RoundedCornerShape(24.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
+                    ) {
+                        Text(
+                            text = "OK",
+                            style = textfield2
+                        )
+                    }
                 }
             }
         }

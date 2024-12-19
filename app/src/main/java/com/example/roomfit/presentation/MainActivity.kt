@@ -77,7 +77,7 @@ class MainActivity : ComponentActivity() {
                         if (currentDestination?.route !in listOf(
                                 "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
                                 "home_mate", "home_mate2", "home_mate4", "home_mate5",
-                                "my_post", "scrap", "map")) {
+                                "my_post", "scrap", "map?location={location}")) {
                             BottomNavigationBar(navController = navController, screens = screens)
                         }
                     }
@@ -128,13 +128,11 @@ class MainActivity : ComponentActivity() {
 
                         composable("my_post") { MyPostScreen(navController = navController, postViewModel = postViewModel) }
                         composable("scrap") { ScrapListScreen(navController = navController, scrapViewModel = scrapViewModel) }
-                        composable("map") { GoogleMapScreen(navController = navController, postViewModel = postViewModel) }
-//                        composable("map?location={location}",
-//                            arguments = listOf(navArgument("location") { defaultValue = "" })
-//                        ) { backStackEntry ->
-//                            val location = backStackEntry.arguments?.getString("location")
-//                            GoogleMapScreen(navController, location = location)
-//                        }
+                        composable("map?location={location}", arguments = listOf(navArgument("location") {
+                                nullable = true
+                                defaultValue = null })) { backStackEntry ->
+                            val locationString = backStackEntry.arguments?.getString("location")
+                            GoogleMapScreen( navController = navController, postViewModel = postViewModel, initialLocationString = locationString) }
 
                         composable("home2") { HomeScreen2(navController = navController) }
 

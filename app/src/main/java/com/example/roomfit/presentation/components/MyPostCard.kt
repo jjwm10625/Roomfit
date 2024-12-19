@@ -109,9 +109,7 @@ fun MyPostCard(
                     .background(OffWhite)
                     .clip(RoundedCornerShape(8.dp))
                     .padding(16.dp)
-                    .clickable {
-                        navController.navigate("map?location=${locationText}")
-                    }
+                    .clickable { navController.navigate("map?location=$locationText") }
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically
