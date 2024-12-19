@@ -1,8 +1,5 @@
 package com.example.roomfit.presentation.components
 
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -234,20 +231,15 @@ fun WriteCard(
                             start = 16.dp,
                             end = 16.dp
                         )
-                        .clickable {
-                            val intent = Intent(Intent.ACTION_VIEW).apply {
-                                data = Uri.parse("geo:0,0?q=seoul") // Example location query
-                            }
-                            context.startActivity(intent)
-                        }
+                        .clickable { /* navController.navigate("map") */ }
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.location), // Replace with your actual location.png
+                            painter = painterResource(id = R.drawable.location),
                             contentDescription = "Location Icon",
-                            modifier = Modifier.size(18.dp) // Adjust the size of the icon
+                            modifier = Modifier.size(18.dp)
                         )
 
                         Spacer(modifier = Modifier.width(8.dp))
