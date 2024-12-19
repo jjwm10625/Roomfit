@@ -17,16 +17,16 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.roomfit.PostViewModel
+import com.example.roomfit.presentation.viewmodel.PostViewModel
 import com.example.roomfit.ui.theme.BtnBlack
 import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.textfield2
 import com.gdg.kakaobank.presentation.navigator.RoomNav
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
 
 @Composable
 fun GoogleMapScreen(

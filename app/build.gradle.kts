@@ -56,8 +56,8 @@ dependencies {
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("io.coil-kt:coil-compose:2.1.0")
 
-    implementation("com.google.android.gms:play-services-maps:19.0.0")
-    implementation("com.google.maps.android:maps-compose:2.14.1")
+    implementation("com.google.android.gms:play-services-maps:18.0.2")
+    implementation("com.google.maps.android:maps-compose:2.0.0")
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
