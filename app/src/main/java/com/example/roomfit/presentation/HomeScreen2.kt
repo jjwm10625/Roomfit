@@ -42,7 +42,7 @@ import com.example.roomfit.ui.theme.homeTitle
 fun HomeScreen2(
     navController: NavController,
 ) {
-    val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
+    val customLoginButtonStyle = LoginButton.copy(fontSize = 15.sp)
     var selectedButton by remember { mutableStateOf("방을 구해요!") }
 
     var selectedHouseType by remember { mutableStateOf("집 유형") }
