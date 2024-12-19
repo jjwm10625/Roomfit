@@ -1,5 +1,7 @@
 package com.example.roomfit.presentation.mate
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -29,7 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.roomfit.R
 import com.example.roomfit.ui.theme.Black
 import com.example.roomfit.ui.theme.ComponentBeige
@@ -37,8 +38,10 @@ import com.example.roomfit.ui.theme.OffWhite
 import com.example.roomfit.ui.theme.bodyDetail
 import com.example.roomfit.ui.theme.bodyWriting
 
+@Preview
 @Composable
-fun PostText(navController: NavController) {
+fun PostText() {
+    val context = LocalContext.current
     var titleText by remember { mutableStateOf("") }
     var contentText by remember { mutableStateOf("") }
 
@@ -118,7 +121,10 @@ fun PostText(navController: NavController) {
                     end = 16.dp
                 )
                 .clickable {
-                    navController.navigate("map")
+                    val intent = Intent(Intent.ACTION_VIEW).apply {
+                        data = Uri.parse("geo:0,0?q=seoul") // Example location query
+                    }
+                    context.startActivity(intent)
                 }
         ) {
             Row(
@@ -142,10 +148,4 @@ fun PostText(navController: NavController) {
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun PostTextPreview() {
-    PostText(navController = NavController(LocalContext.current))
 }
