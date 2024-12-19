@@ -1,6 +1,6 @@
 package com.example.roomfit.presentation.components
 
-import android.widget.Toast
+import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,37 +18,26 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.roomfit.PostViewModel
 import com.example.roomfit.R
 import com.example.roomfit.presentation.mate.DetailItem
-import com.example.roomfit.presentation.mate.MateButton
-import com.example.roomfit.presentation.mate.MateOrRoomButton
-import com.example.roomfit.presentation.mate.PostText
-import com.example.roomfit.presentation.mate.UserInfo
 import com.example.roomfit.ui.theme.Black
 import com.example.roomfit.ui.theme.BtnBeige
 import com.example.roomfit.ui.theme.BtnBlack
@@ -74,20 +63,18 @@ fun WriteCard(
     smoking: String,
     modifier: Modifier = Modifier,
     onSave: (String, String, String, String) -> Unit,
-    postViewModel: PostViewModel
+    postViewModel: PostViewModel,
+    selectedButton: String,
+    onSelectButton: (String) -> Unit,
+    titleText: String,
+    onTitleChange: (String) -> Unit,
+    contentText: String,
+    onContentChange: (String) -> Unit,
+    locationText: String,
+    selectedImageUri: Uri?
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
-    var selectedButton by remember { mutableStateOf("사람을 구해요!") }
-
-    var titleText by remember { mutableStateOf("") }
-    var contentText by remember { mutableStateOf("") }
-    var locationText by remember { mutableStateOf("") }
-
-    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
-    savedStateHandle?.getLiveData<String>("location")?.observe(navController.currentBackStackEntry!!) { location ->
-        locationText = location
-    }
 
     Box(
         modifier = Modifier
@@ -109,14 +96,13 @@ fun WriteCard(
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Left Button: 사람을 구해요
+                // Left Button: 사람을 구해요!
                 Button(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
                     onClick = {
-                        selectedButton = "사람을 구해요!"
-                        postViewModel.mateorroom = selectedButton
+                        onSelectButton("사람을 구해요!")
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
@@ -130,15 +116,14 @@ fun WriteCard(
                     )
                 }
 
-                // Right Button: 방을 구해요
+                // Right Button: 방을 구해요!
                 Button(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
                     onClick = {
-                        selectedButton = "방을 구해요!"
-                        postViewModel.mateorroom = selectedButton
-                  },
+                        onSelectButton("방을 구해요!")
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "방을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -174,15 +159,17 @@ fun WriteCard(
                 color = BtnBeige
             )
 
-            // Post Text
+            // Post
             Column(
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(rememberScrollState())
             ) {
                 // Title Field
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(40.dp)
+                        .wrapContentHeight()
                         .background(OffWhite)
                         .padding(
                             top = 16.dp,
@@ -192,7 +179,7 @@ fun WriteCard(
                 ) {
                     BasicTextField(
                         value = titleText,
-                        onValueChange = { titleText = it },
+                        onValueChange = { onTitleChange(it) },
                         textStyle = bodyDetail.copy(color = ComponentBeige),
                         modifier = Modifier.fillMaxSize()
                     ) { innerTextField ->
@@ -211,17 +198,13 @@ fun WriteCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(60.dp)
+                        .wrapContentHeight()
                         .background(OffWhite)
-                        .padding(
-                            top = 16.dp,
-                            start = 16.dp,
-                            end = 16.dp
-                        )
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
                 ) {
                     BasicTextField(
                         value = contentText,
-                        onValueChange = { contentText = it },
+                        onValueChange = { onContentChange(it) },
                         textStyle = bodyWriting.copy(color = ComponentBeige),
                         modifier = Modifier.fillMaxSize()
                     ) { innerTextField ->
@@ -236,6 +219,8 @@ fun WriteCard(
                     }
                 }
 
+                Spacer(modifier = Modifier.height(16.dp))
+
                 // Location Field
                 Box(
                     modifier = Modifier
@@ -243,12 +228,8 @@ fun WriteCard(
                         .wrapContentHeight()
                         .background(OffWhite)
                         .clip(RoundedCornerShape(8.dp))
-                        .padding(
-                            top = 16.dp,
-                            start = 16.dp,
-                            end = 16.dp
-                        )
-                        .clickable { navController.navigate("map")}
+                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        .clickable { navController.navigate("map") }
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -268,39 +249,43 @@ fun WriteCard(
                         )
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(8.dp))
 
-            // 작성 완료 버튼
-            Column(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val isButtonEnabled = titleText.isNotEmpty() && contentText.isNotEmpty()
-
-                Button(
-                    onClick = {
-                        //postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
-                        onSave(selectedButton, titleText, contentText, locationText)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(8.dp)
-                        .height(48.dp),
-                    shape = RoundedCornerShape(24.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = BtnBlack),
-                    enabled = isButtonEnabled
+                // 작성 완료 버튼
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text(
-                        text = "작성 완료",
-                        style = LoginButton.copy(fontFamily = mulishBold)
-                    )
+                    val isButtonEnabled = if (selectedButton == "사람을 구해요!") {
+                        titleText.isNotEmpty() && contentText.isNotEmpty() && selectedImageUri != null
+                    } else {
+                        titleText.isNotEmpty() && contentText.isNotEmpty()
+                    }
+
+                    Button(
+                        onClick = {
+                            onSave(selectedButton, titleText, contentText, locationText)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
+                            .height(48.dp),
+                        shape = RoundedCornerShape(24.dp),
+                        colors = ButtonDefaults.buttonColors(containerColor = BtnBlack),
+                        enabled = isButtonEnabled
+                    ) {
+                        Text(
+                            text = "작성 완료",
+                            style = LoginButton.copy(fontFamily = mulishBold)
+                        )
+                    }
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun UserInfo3(

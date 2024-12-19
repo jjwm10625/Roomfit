@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,9 +36,6 @@ fun WriteScreen(
     postViewModel: PostViewModel = viewModel()
 ) {
     val context = LocalContext.current
-    var selectedImageUri by remember { mutableStateOf<Uri?>(null) }
-    val mateorroom = postViewModel.mateorroom
-
     val prefs = remember { PreferencesManager(context) }
     val username = prefs.username ?: "Unknown"
     val gender = prefs.gender ?: "Unknown"
@@ -49,10 +47,16 @@ fun WriteScreen(
     val lifestyle = prefs.lifestyle ?: "Unknown"
     val smoking = prefs.smoking ?: "Unknown"
 
-    // WriteScreen에 진입할 때마다 location값 초기화
+    // 화면 진입 시 location값 초기화
     LaunchedEffect(Unit) {
         navController.currentBackStackEntry?.savedStateHandle?.remove<String>("location")
     }
+
+    var selectedButton by rememberSaveable { mutableStateOf("사람을 구해요!") }
+    var titleText by rememberSaveable { mutableStateOf("") }
+    var contentText by rememberSaveable { mutableStateOf("") }
+    var locationText by rememberSaveable { mutableStateOf("") }
+    var selectedImageUri by rememberSaveable { mutableStateOf<Uri?>(null) }
 
     val boxBaseModifier = Modifier
         .fillMaxWidth()
@@ -60,7 +64,6 @@ fun WriteScreen(
         .clip(RoundedCornerShape(16.dp))
         .background(ImageWhite)
 
-    // 갤러리 오픈 런처
     val galleryLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.GetContent(),
         onResult = { uri ->
@@ -71,15 +74,18 @@ fun WriteScreen(
         }
     )
 
-    // mateorroom에 따라 clickable 여부 결정
-    val boxModifier = if (mateorroom == "방을 구해요!") {
-        // 클릭 불가능 (갤러리 열리지 않음)
+    // selectedButton을 기준으로 이미지 영역 클릭 가능 여부 결정
+    val boxModifier = if (selectedButton == "방을 구해요!") {
         boxBaseModifier
     } else {
-        // "사람을 구해요!"일 때는 클릭 가능 -> 갤러리 오픈
         boxBaseModifier.clickable {
             galleryLauncher.launch("image/*")
         }
+    }
+
+    val savedStateHandle = navController.currentBackStackEntry?.savedStateHandle
+    savedStateHandle?.getLiveData<String>("location")?.observe(navController.currentBackStackEntry!!) { location ->
+        locationText = location
     }
 
     Column(
@@ -88,7 +94,7 @@ fun WriteScreen(
             .background(BackgroundBeige)
             .padding(16.dp)
     ) {
-        // 글 작성하기 타이틀
+        // 상단 타이틀
         Text(
             text = "글 작성하기",
             style = bodyDetail,
@@ -100,8 +106,8 @@ fun WriteScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // 사진 영역 (조건부 렌더링)
-        if (mateorroom != "방을 구해요!") {
+        // "방을 구해요!"가 아닐 때만 이미지 박스 표시
+        if (selectedButton != "방을 구해요!") {
             Box(modifier = boxModifier) {
                 Text(
                     text = "사진을 추가해 주세요",
@@ -122,7 +128,6 @@ fun WriteScreen(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // 글 작성 카드
         WriteCard(
             navController = navController,
             username = username,
@@ -134,12 +139,30 @@ fun WriteScreen(
             durationOfStay = durationOfStay,
             lifestyle = lifestyle,
             smoking = smoking,
-            modifier = Modifier,
+            postViewModel = postViewModel,
             onSave = { mateOrRoom, title, content, location ->
+                // 게시글 저장
                 postViewModel.savePost(mateOrRoom, title, content, location, selectedImageUri)
                 Toast.makeText(context, "저장되었습니다!", Toast.LENGTH_SHORT).show()
+
+                // 저장 후 상태 초기화
+                selectedButton = "사람을 구해요!"
+                titleText = ""
+                contentText = ""
+                locationText = ""
+                selectedImageUri = null
             },
-            postViewModel = postViewModel
+            selectedButton = selectedButton,
+            onSelectButton = { newSelected ->
+                selectedButton = newSelected
+                postViewModel.mateorroom = newSelected
+            },
+            titleText = titleText,
+            onTitleChange = { titleText = it },
+            contentText = contentText,
+            onContentChange = { contentText = it },
+            locationText = locationText,
+            selectedImageUri = selectedImageUri
         )
     }
 }

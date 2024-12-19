@@ -61,6 +61,8 @@ fun MyPostCard(
                     contentScale = ContentScale.Crop
                 )
             }
+            Spacer(modifier = Modifier.height(8.dp))
+
             HorizontalDivider(
                 modifier = Modifier.padding(vertical = 8.dp),
                 thickness = 1.dp,
@@ -75,7 +77,7 @@ fun MyPostCard(
             color = BtnBlack,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
         )
 
         // Post Title
@@ -85,7 +87,7 @@ fun MyPostCard(
             color = ComponentBeige,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
         )
 
         // Post Content
@@ -95,10 +97,8 @@ fun MyPostCard(
             color = ComponentBeige,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
         )
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         // 위치 보기 버튼
         if (!locationText.isNullOrEmpty()) {
@@ -155,17 +155,4 @@ fun MyPostCard(
             }
         }
     }
-}
-
-@Preview
-@Composable
-fun MyPostCardPreview() {
-    MyPostCard(
-        navController = rememberNavController(),
-        imageUri = Uri.parse("https://via.placeholder.com/250"),
-        mateorroomText = "방을 구해요!",
-        titleText = "제목",
-        contentText = "내용",
-        locationText = "서울"
-    )
 }

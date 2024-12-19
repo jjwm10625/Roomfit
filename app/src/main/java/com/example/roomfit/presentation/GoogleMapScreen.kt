@@ -99,7 +99,7 @@ fun GoogleMapScreen(
                     modifier = Modifier
                         .background(OffWhite, shape = RoundedCornerShape(24.dp))
                         .padding(8.dp)
-                        .height(36.dp)
+                        .wrapContentSize()
                         .fillMaxWidth()
                 ) {
                     Text(
