@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
                                 "login", "find_pw", "result_pw", "sign_up", "user_info", "chat",
                                 "home_mate", "home_mate2", "home_mate4", "home_mate5",
                                 "my_post", "scrap", "chat", "chat2", "chat4", "chat5",
-                                "map?location=37.5445,126.9665", "map?location=37.5561,126.9236")) {
+                                "map?location={location}", "map?location=37.5445,126.9665", "map?location=37.5561,126.9236")) {
 
                             BottomNavigationBar(navController = navController, screens = screens)
                         }

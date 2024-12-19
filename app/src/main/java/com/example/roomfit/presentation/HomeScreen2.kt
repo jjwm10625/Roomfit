@@ -94,7 +94,8 @@ fun HomeScreen2(
                     Text(
                         text = "사람을 구해요!",
                         color = if (selectedButton == "사람을 구해요!") White else Black,
-                        style = customLoginButtonStyle)
+                        style = customLoginButtonStyle
+                    )
                 }
 
                 // Right Button: 방을 구해요

@@ -75,7 +75,7 @@ fun WriteCard(
     selectedImageUri: Uri?
 ) {
     val context = LocalContext.current
-    val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
+    val customLoginButtonStyle = LoginButton.copy(fontSize = 13.sp)
 
     Box(
         modifier = Modifier
