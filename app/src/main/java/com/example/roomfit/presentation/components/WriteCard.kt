@@ -1,6 +1,5 @@
 package com.example.roomfit.presentation.components
 
-import android.net.Uri
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,15 +17,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +35,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.roomfit.presentation.viewmodel.PostViewModel
 import com.example.roomfit.R
@@ -63,18 +65,15 @@ fun WriteCard(
     smoking: String,
     modifier: Modifier = Modifier,
     onSave: (String, String, String, String) -> Unit,
-    postViewModel: PostViewModel,
-    selectedButton: String,
-    onSelectButton: (String) -> Unit,
-    titleText: String,
-    onTitleChange: (String) -> Unit,
-    contentText: String,
-    onContentChange: (String) -> Unit,
-    locationText: String,
-    selectedImageUri: Uri?
+    postViewModel: PostViewModel = viewModel()
 ) {
     val context = LocalContext.current
     val customLoginButtonStyle = LoginButton.copy(fontSize = 16.sp)
+    var selectedButton by remember { mutableStateOf("사람을 구해요!") }
+
+    var titleText by remember { mutableStateOf("") }
+    var contentText by remember { mutableStateOf("") }
+    var locationText by remember { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -96,14 +95,12 @@ fun WriteCard(
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Left Button: 사람을 구해요!
+                // Left Button: 사람을 구해요
                 Button(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
-                    onClick = {
-                        onSelectButton("사람을 구해요!")
-                    },
+                    onClick = { selectedButton = "사람을 구해요!" },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "사람을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -116,14 +113,12 @@ fun WriteCard(
                     )
                 }
 
-                // Right Button: 방을 구해요!
+                // Right Button: 방을 구해요
                 Button(
                     modifier = Modifier
                         .height(55.dp)
                         .weight(1f),
-                    onClick = {
-                        onSelectButton("방을 구해요!")
-                    },
+                    onClick = { selectedButton = "방을 구해요!" },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = if (selectedButton == "방을 구해요!") BtnBlack else BtnBeige
                     ),
@@ -159,17 +154,15 @@ fun WriteCard(
                 color = BtnBeige
             )
 
-            // Post
+            // Post Text
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .verticalScroll(rememberScrollState())
+                modifier = Modifier.fillMaxWidth()
             ) {
                 // Title Field
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .height(50.dp) // Adjust height for the title field
                         .background(OffWhite)
                         .padding(
                             top = 16.dp,
@@ -179,7 +172,7 @@ fun WriteCard(
                 ) {
                     BasicTextField(
                         value = titleText,
-                        onValueChange = { onTitleChange(it) },
+                        onValueChange = { titleText = it },
                         textStyle = bodyDetail.copy(color = ComponentBeige),
                         modifier = Modifier.fillMaxSize()
                     ) { innerTextField ->
@@ -198,13 +191,17 @@ fun WriteCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .height(80.dp)
                         .background(OffWhite)
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+                        .padding(
+                            top = 16.dp,
+                            start = 16.dp,
+                            end = 16.dp
+                        )
                 ) {
                     BasicTextField(
                         value = contentText,
-                        onValueChange = { onContentChange(it) },
+                        onValueChange = { contentText = it },
                         textStyle = bodyWriting.copy(color = ComponentBeige),
                         modifier = Modifier.fillMaxSize()
                     ) { innerTextField ->
@@ -219,8 +216,6 @@ fun WriteCard(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(16.dp))
-
                 // Location Field
                 Box(
                     modifier = Modifier
@@ -228,8 +223,12 @@ fun WriteCard(
                         .wrapContentHeight()
                         .background(OffWhite)
                         .clip(RoundedCornerShape(8.dp))
-                        .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-                        .clickable { navController.navigate("map") }
+                        .padding(
+                            top = 16.dp,
+                            start = 16.dp,
+                            end = 16.dp
+                        )
+                        .clickable { /* navController.navigate("map") */ }
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically
@@ -243,49 +242,42 @@ fun WriteCard(
                         Spacer(modifier = Modifier.width(8.dp))
 
                         Text(
-                            text = if (locationText.isEmpty()) "위치 입력하기" else "위치 입력 완료",
+                            text = "위치 입력하기",
                             style = bodyWriting,
                             color = Black
                         )
                     }
                 }
+            }
 
-                Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
 
-                // 작성 완료 버튼
-                Column(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally
+            // 작성 완료 버튼
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button(
+                    onClick = {
+                        postViewModel.savePost(selectedButton, titleText, contentText, locationText, null)
+                        onSave(selectedButton, titleText, contentText, locationText)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
+                        .height(48.dp),
+                    shape = RoundedCornerShape(24.dp),
+                    colors = ButtonDefaults.buttonColors(containerColor = BtnBlack)
                 ) {
-                    val isButtonEnabled = if (selectedButton == "사람을 구해요!") {
-                        titleText.isNotEmpty() && contentText.isNotEmpty() && selectedImageUri != null
-                    } else {
-                        titleText.isNotEmpty() && contentText.isNotEmpty()
-                    }
-
-                    Button(
-                        onClick = {
-                            onSave(selectedButton, titleText, contentText, locationText)
-                        },
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(8.dp)
-                            .height(48.dp),
-                        shape = RoundedCornerShape(24.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = BtnBlack),
-                        enabled = isButtonEnabled
-                    ) {
-                        Text(
-                            text = "작성 완료",
-                            style = LoginButton.copy(fontFamily = mulishBold)
-                        )
-                    }
+                    Text(
+                        text = "작성 완료",
+                        style = LoginButton.copy(fontFamily = mulishBold)
+                    )
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun UserInfo3(
@@ -334,4 +326,3 @@ fun UserInfo3(
         }
     }
 }
-
