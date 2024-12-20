@@ -4,8 +4,8 @@
 
 ---
 
-## 🌟 프로젝트 로고  
-<img src="./app/src/main/res/drawable/logo.png" alt="RoomFit 로고" width="200px">
+## 🌟 프로젝트 포스터  
+<img src="./app/src/main/res/drawable/roomfit_poster.gif" alt="RoomFit 로고" width="500px">
 
 ---
 
@@ -35,9 +35,16 @@ RoomFit은 다음과 같은 문제를 해결하기 위해 만들어졌습니다:
   <tbody>
     <tr>
       <td align="center">
+        <a href="https://github.com/chaehyeon03">
+          <img src="./app/src/main/res/drawable/user2.PNG" width="100px;" alt="chaehyeon03 프로필 사진"/>
+          <br /><sub><b>김채현</b></sub>
+        </a>
+        <br />Android 개발
+      </td>
+            <td align="center">
         <a href="https://github.com/jjwm10625">
-          <img src="https://avatars.githubusercontent.com/u/12345678?v=4" width="100px;" alt="jjwm10625 프로필 사진"/>
-          <br /><sub><b>jjwm10625</b></sub>
+          <img src="./app/src/main/res/drawable/user1.PNG" width="100px;" alt="jjwm10625 프로필 사진"/>
+          <br /><sub><b>조영서</b></sub>
         </a>
         <br />Android 개발
       </td>
