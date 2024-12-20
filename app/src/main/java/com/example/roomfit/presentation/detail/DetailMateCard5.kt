@@ -50,6 +50,7 @@ fun DetailMateCard5(
             .clip(RoundedCornerShape(16.dp))
             .background(OffWhite)
             .padding(16.dp)
+            .verticalScroll(rememberScrollState())
     ) {
         // User Profile
         Row(
@@ -154,7 +155,6 @@ fun DetailMateCard5(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp)
-                .verticalScroll(rememberScrollState())
         ) {
             // Post Title
             Text(
